@@ -79,9 +79,14 @@ echoHeadWithTitle('Manage Users - Jensen Offline');
     </div>
   </div>
 
+
+
+
+
   <!-- Table -->
   <table class="table table-striped table-condensed user-table">
     <tr>
+      <th></th>
       <th>Namn</th>
       <th class="hide-mobile">Email</th>
       <th class="hide-mobile">Telefon</th>
@@ -89,7 +94,56 @@ echoHeadWithTitle('Manage Users - Jensen Offline');
       <th class="hide-mobile">Program </th>
       <th class="hide-mobile">Behörighet</th>
     </tr>
+
+
+    <?php
+if(isset($_GET["showArchived"])&&($_GET["showArchived"]==1)){
+  $showArchived=1;
+}else{
+  $showArchived=0;
+}
+
+
+
+    $sql=("SELECT
+tbl_user.user_id,
+tbl_user.user_firstname,
+tbl_user.user_lastname,
+tbl_user.user_email,
+tbl_user.user_phonenumber
+FROM
+tbl_user
+WHERE
+tbl_user.user_archived = ?
+OR tbl_user.user_archived IS NULL;");
+    if($stmt = $mysqli->prepare($sql)){
+      $stmt->bind_param("s",$showArchived);
+      $stmt->execute();
+      $stmt->bind_result($id,$firstname,$lastname,$email,$phone);
+      while($data = $stmt->fetch()){
+        ?>
     <tr>
+      <td>
+        <input type="checkbox" name="userCheckbox<?=$id?>" id="userCheckbox<?=$id?>">
+      </td>
+      <td><a href="#"><?=$firstname." ".$lastname?></a></td>
+      <td class="hide-mobile"><?=$email?></td>
+      <td class="hide-mobile"><?=$phone?></td>
+      <td class="hide-mobile">1A</td>
+      <td class="hide-mobile">sdf</td>
+      <td class="hide-mobile">Student</td>
+    </tr>
+        <?php
+      }
+      $stmt->free_result();
+      $stmt->close();
+    }else{
+      echo $mysqli->error;
+    }
+
+
+    
+    /*<tr>
       <td><a href="http://google.com">Andreas Smedjebacka</a></td>
       <td class="hide-mobile">d@f.com</td>
       <td class="hide-mobile">45465165</td>
@@ -128,6 +182,7 @@ echoHeadWithTitle('Manage Users - Jensen Offline');
       <td class="hide-mobile">Rymdforskare</td>
       <td class="hide-mobile">Lärare</td>
     </tr>
+    */?>
   </table>
 
   <ul class="pagination">
