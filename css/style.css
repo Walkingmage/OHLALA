@@ -1,0 +1,17 @@
+/*
+ *	SITE-WIDE STYLES  
+ */
+
+.pagination {
+	display: block;
+	margin: 0 auto 0 auto;
+	width:238px;
+}
+
+ /*
+  *	MANAGE USERS  
+  */
+
+.manage-user-controls {
+	margin-bottom:20px;
+}
