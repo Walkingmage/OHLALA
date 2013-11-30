@@ -2,6 +2,25 @@
  *	SITE-WIDE STYLES  
  */
 
+/* Clearfix */
+.cf:after, .cf:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+header {
+	margin-bottom: 60px;
+}
+
+footer {
+	margin-top: 40px;
+	border-top: 1px solid #999;
+	padding-top: 20px;
+	background: #eee;
+	min-height: 200px;
+}
+
 .pagination {
 	display: block;
 	margin: 0 auto 0 auto;
@@ -16,10 +35,9 @@ header {
   *	MANAGE USERS  
   */
 
-.manage-user-controls {
+.table-controls {
 	margin-bottom:20px;
 }
-
 
 body {
   background-color: #eee;
@@ -62,3 +80,27 @@ body {
 }
 
 /* Bootstrap login END */
+
+.add-entry-controls button {
+	margin-top: 5px;
+	margin-right: 10px;
+	margin-bottom: 10px;
+}
+
+.filter-controls {
+	margin-top: 5px;
+}
+
+.filter-controls .form-group {
+	margin-bottom: 10px;
+}
+
+.user-table {
+	margin-bottom: 40px;
+}
+
+@media screen and (max-width: 768px) {
+	.hide-mobile {
+		display: none;
+	}
+}
