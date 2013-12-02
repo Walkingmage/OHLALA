@@ -8,7 +8,15 @@
   display: table;
   clear: both;
 }
-
+.glyphicon-inbox{
+  color:#FF9640;
+}
+.glyphicon-minus{
+  color:#FF4040;
+}
+.glyphicon-plus{
+  color:#38DF64;
+}
 header {
 	margin-bottom: 60px;
 }
@@ -20,6 +28,10 @@ footer {
 	background: #eee;
 	min-height: 200px;
 }
+/*
+.user-table .table-striped tr td {
+  background-color: #FFF;
+}*/
 
 .pagination {
 	display: block;
@@ -35,6 +47,7 @@ header {
   *	MANAGE USERS  
   */
 
+
 .table-controls {
 	margin-bottom:20px;
 }
@@ -45,6 +58,32 @@ body {
 /*td, td a{
   color:black;
 }*/
+
+
+.add-entry-controls button {
+	margin-top: 5px;
+	margin-right: 10px;
+	margin-bottom: 10px;
+}
+
+.filter-controls {
+	margin-top: 5px;
+}
+
+.filter-controls .form-group {
+	margin-bottom: 10px;
+}
+
+.user-table {
+	margin-bottom: 40px;
+}
+
+@media screen and (max-width: 768px) {
+	.hide-mobile {
+		display: none;
+	}
+}
+
 /* Bootstrap login styles */
 .form-signin {
   max-width: 330px;
@@ -82,27 +121,3 @@ body {
 }
 
 /* Bootstrap login END */
-
-.add-entry-controls button {
-	margin-top: 5px;
-	margin-right: 10px;
-	margin-bottom: 10px;
-}
-
-.filter-controls {
-	margin-top: 5px;
-}
-
-.filter-controls .form-group {
-	margin-bottom: 10px;
-}
-
-.user-table {
-	margin-bottom: 40px;
-}
-
-@media screen and (max-width: 768px) {
-	.hide-mobile {
-		display: none;
-	}
-}

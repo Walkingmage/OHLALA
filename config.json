@@ -19,7 +19,9 @@
     "@navbar-inverse-link-hover-color": "#FFFFFF",
     "@navbar-inverse-brand-color": "#FFFFFF",
     "@navbar-inverse-brand-hover-color": "#FFFFFF",
-    "@table-bg-accent": "#8BA8DD"
+    "@table-bg-accent": "#8BA8DD",
+    "@dropdown-bg": "#FFFFFF",
+    "@dropdown-link-color": "#FFFFFF"
   },
   "css": [
     "print.less",
