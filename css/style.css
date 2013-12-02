@@ -42,7 +42,9 @@ header {
 body {
   background-color: #eee;
 }
-
+/*td, td a{
+  color:black;
+}*/
 /* Bootstrap login styles */
 .form-signin {
   max-width: 330px;
