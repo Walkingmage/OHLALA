@@ -2,7 +2,7 @@
  *	SITE-WIDE STYLES  
  */
 
-/* Clearfix */
+  /* Clearfix */
 .cf:after, .cf:after {
   content: "";
   display: table;
@@ -18,7 +18,11 @@
   color:#38DF64;
 }
 header {
-	margin-bottom: 60px;
+	margin-bottom: 80px;
+}
+
+.red-brand {
+  color:#FF4040;
 }
 
 footer {
@@ -26,8 +30,14 @@ footer {
 	border-top: 1px solid #999;
 	padding-top: 20px;
 	background: #eee;
-	min-height: 200px;
+	min-height: 80px;
+  background-color: #8BA8DD;
 }
+
+footer p {
+  text-align: center;
+}
+
 /*
 .user-table .table-striped tr td {
   background-color: #FFF;
@@ -55,10 +65,6 @@ header {
 body {
   background-color: #eee;
 }
-/*td, td a{
-  color:black;
-}*/
-
 
 .add-entry-controls button {
 	margin-top: 5px;
@@ -84,7 +90,9 @@ body {
 	}
 }
 
-/* Bootstrap login styles */
+/*
+ * Login page
+ */
 .form-signin {
   max-width: 330px;
   padding: 15px;
@@ -120,4 +128,3 @@ body {
   border-top-right-radius: 0;
 }
 
-/* Bootstrap login END */
