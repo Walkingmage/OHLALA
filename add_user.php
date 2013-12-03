@@ -1,4 +1,49 @@
-<!DOCTYPE html>
+<?php
+include("dbconnect.php");
+
+
+function addUserToList($firstname,$lastname,$email,$num){
+  echo('  <div class="row add-user-row">
+    <div class="col-sm-6">
+      <h3>Användare</h3>
+      <div class="form-group">
+        <label for="inputFname'.$num.'" class="control-label">Förnamn</label>
+        <div class="">
+          <input type="text" class="form-control" id="inputFname'.$num.'" placeholder="Inklusive mellannamn" value="'.$firstname.$num.'">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="inputEname'.$num.'" class="control-label">Efternamn</label>
+        <div class="">
+          <input type="text" class="form-control" id="inputEname'.$num.'" placeholder="" value="'.$lastname.$num.'">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="inputEmail'.$num.'" class="control-label">Privat&nbsp;email</label>
+        <div class="">
+          <input type="email" class="form-control" id="inputEmail'.$num.'" placeholder="exempel@domän.se" value="'.$email.$num.'">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="inputTelephone'.$num.'" class="control-label">Telefon</label>
+        <div class="">
+          <input type="tel" class="form-control" id="inputTelephone'.$num.'" placeholder="+46 ..." value="+46XXXXXXXXXXX'.$num.'">
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="jensen-account-info">
+        <h3>Användarkonto</h3>
+        <p>Användarnamn: <span class="user-name">-</span></p>
+        <p>Jensen mail: <span class="jensen-email">-</span></p>
+      </div>
+    </div>
+  </div>');
+}
+
+
+
+?><!DOCTYPE html>
 <html>
 <head>
   <title>Jensen offline</title>
@@ -57,6 +102,17 @@
 </div>
 
 <form class="form add-user-form" role="form">
+  
+
+<?php
+
+addUserToList('Ozell','Nicholson','MxzueK@iPawIS.edu',1);
+addUserToList('Ozell','Nicholson','MxzueK@iPawIS.edu',2);
+addUserToList('Ozell','Nicholson','MxzueK@iPawIS.edu',3);
+addUserToList('Ozell','Nicholson','MxzueK@iPawIS.edu',4);
+addUserToList('Ozell','Nicholson','MxzueK@iPawIS.edu',5);
+
+?>
   <div class="row add-user-row">
     <div class="col-sm-6">
       <h3>Användare</h3>
