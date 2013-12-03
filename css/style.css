@@ -2,12 +2,19 @@
  *	SITE-WIDE STYLES  
  */
 
-  /* Clearfix */
-.cf:after, .cf:after {
-  content: "";
-  display: table;
-  clear: both;
+header {
+	margin-bottom: 80px;
+  text-align: center;
 }
+
+.red-brand { /* Logo "offline" color */
+  color:#FF4040;
+}
+
+body {
+  background-color: #eee;
+}
+
 .glyphicon-inbox{
   color:#FF9640;
 }
@@ -16,13 +23,6 @@
 }
 .glyphicon-plus{
   color:#38DF64;
-}
-header {
-	margin-bottom: 80px;
-}
-
-.red-brand {
-  color:#FF4040;
 }
 
 footer {
@@ -38,10 +38,12 @@ footer p {
   text-align: center;
 }
 
-/*
-.user-table .table-striped tr td {
-  background-color: #FFF;
-}*/
+  /* Clearfix */
+.cf:after, .cf:after {
+  content: "";
+  display: table;
+  clear: both;
+}
 
 .pagination {
 	display: block;
@@ -49,21 +51,41 @@ footer p {
 	width:238px;
 }
 
-header {
-	text-align: center;
+/*
+ * SITE-WIDE MEDIA QUERIES
+ */
+
+@media screen and (max-width: 768px) {
+  .hide-mobile {
+    display: none;
+  }
 }
 
- /*
-  *	MANAGE USERS  
-  */
+/*
+ *  ADD USER PAGE
+ */
 
+
+.add-user-form .form-group {
+  margin-bottom: 5px;
+}
+
+.add-user-row {  
+  padding-bottom: 20px;
+  border-bottom: 1px solid #02215A;
+}
+
+.save-button-row {
+  margin-top: 20px;
+}
+
+
+/*
+ *	MANAGE USERS PAGE
+ */
 
 .table-controls {
 	margin-bottom:20px;
-}
-
-body {
-  background-color: #eee;
 }
 
 .add-entry-controls button {
@@ -84,15 +106,10 @@ body {
 	margin-bottom: 40px;
 }
 
-@media screen and (max-width: 768px) {
-	.hide-mobile {
-		display: none;
-	}
-}
-
 /*
- * Login page
+ * LOGIN PAGE
  */
+
 .form-signin {
   max-width: 330px;
   padding: 15px;
@@ -127,4 +144,3 @@ body {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
-
