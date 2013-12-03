@@ -84,40 +84,15 @@
           <input type="tel" class="form-control" id="inputTelephoneNUM" placeholder="+46 ...">
         </div>
       </div>
-    </div>
-    <div class="col-sm-6">
-      <div class="jensen-account-info">
-        <h3>Användarkonto</h3>
-        <p>Användarnamn: <span class="user-name">-</span></p>
-        <p>Jensen mail: <span class="jensen-email">-</span></p>
-      </div>
-    </div>
-  </div>
-  <div class="row add-user-row">
-    <div class="col-sm-6">
-      <h3>Användare</h3>
       <div class="form-group">
-        <label for="inputFnameNUM" class="control-label">Förnamn</label>
+        <label for="inputAccessNUM" class="control-label">Behörighet</label>
         <div class="">
-          <input type="text" class="form-control" id="inputFnameNUM" placeholder="Inklusive mellannamn">
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="inputEnameNUM" class="control-label">Efternamn</label>
-        <div class="">
-          <input type="text" class="form-control" id="inputEnameNUM" placeholder="">
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="inputEmailNUM" class="control-label">Privat&nbsp;email</label>
-        <div class="">
-          <input type="email" class="form-control" id="inputEmailNUM" placeholder="exempel@domän.se">
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="inputTelephoneNUM" class="control-label">Telefon</label>
-        <div class="">
-          <input type="tel" class="form-control" id="inputTelephoneNUM" placeholder="+46 ...">
+        <select id="inputAccessNUM" class="form-control">
+          <option>1</option>
+          <option>2</option>
+          <option>3</option>
+          <option>4</option>
+        </select>
         </div>
       </div>
     </div>
@@ -154,6 +129,64 @@
         <label for="inputTelephoneNUM" class="control-label">Telefon</label>
         <div class="">
           <input type="tel" class="form-control" id="inputTelephoneNUM" placeholder="+46 ...">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="inputAccessNUM" class="control-label">Behörighet</label>
+        <div class="">
+        <select id="inputAccessNUM" class="form-control">
+          <option>1</option>
+          <option>2</option>
+          <option>3</option>
+          <option>4</option>
+        </select>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="jensen-account-info">
+        <h3>Användarkonto</h3>
+        <p>Användarnamn: <span class="user-name">-</span></p>
+        <p>Jensen mail: <span class="jensen-email">-</span></p>
+      </div>
+    </div>
+  </div>
+  <div class="row add-user-row">
+    <div class="col-sm-6">
+      <h3>Användare</h3>
+      <div class="form-group">
+        <label for="inputFnameNUM" class="control-label">Förnamn</label>
+        <div class="">
+          <input type="text" class="form-control" id="inputFnameNUM" placeholder="Inklusive mellannamn">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="inputEnameNUM" class="control-label">Efternamn</label>
+        <div class="">
+          <input type="text" class="form-control" id="inputEnameNUM" placeholder="">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="inputEmailNUM" class="control-label">Privat&nbsp;email</label>
+        <div class="">
+          <input type="email" class="form-control" id="inputEmailNUM" placeholder="exempel@domän.se">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="inputTelephoneNUM" class="control-label">Telefon</label>
+        <div class="">
+          <input type="tel" class="form-control" id="inputTelephoneNUM" placeholder="+46 ...">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="inputAccessNUM" class="control-label">Behörighet</label>
+        <div class="">
+        <select id="inputAccessNUM" class="form-control">
+          <option>1</option>
+          <option>2</option>
+          <option>3</option>
+          <option>4</option>
+        </select>
         </div>
       </div>
     </div>
