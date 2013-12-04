@@ -2,13 +2,13 @@
 <html>
 <?php
 require('html_head.php');
-echoHeadWithTitle('Manage Users - Jensen Offline');
+echoHeadWithTitle('Book Computer - Jensen Offline');
 ?>
 <body>
 <?php require('pageheader.php'); ?>
 
 <div class="container">
-
+  <h1>Placeholder page</h1>
   <div class="row table-controls cf">
   
     <div class="col-md-6 add-entry-controls">
