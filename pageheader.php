@@ -25,8 +25,8 @@ switch ($file) {
 		//do nothing
 		break;
 }
-
-echo '<header>
+?>
+<header>
   <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
     <div class="container">
 			<!-- Mobile menu toggle -->
@@ -42,15 +42,19 @@ echo '<header>
 			<!-- Menu content -->
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
-          <li class="'.$indexActive.'"><a href="index.php">Start</a></li> <!-- What should be displayed on the startpage? -->
-          <li class="'.$manageUsersActive.'"><a href="manage_users.php">Hantera konton</a></li>
-          <li class="'.$bookComputerActive.'"><a href="book_computer.php">Boka dator</a></li>
-          <li class="'.$boolkRoomActive.'"><a href="book_room.php">Boka lokal</a></li>
+          <li class="<?php echo $indexActive; ?>"><a href="index.php">Start</a></li> <!-- What should be displayed on the startpage? -->
+          <?php #if (user_logged_in()) { ?>
+          <li class="<?php echo $manageUsersActive; ?>"><a href="manage_users.php">Hantera konton</a></li>
+          <li class="<?php echo $bookComputerActive; ?>"><a href="book_computer.php">Boka dator</a></li>
+          <li class="<?php echo $boolkRoomActive; ?>"><a href="book_room.php">Boka lokal</a></li>
+          <?php if (user_logged_in()) { ?>
+          <li><a href="#">Inloggad användare: <?php echo $_SESSION['user']['user_firstname'].' '.$_SESSION['user']['user_lastname']; ?></a></li>
+          <li><a href="?logout">Logga ut</a></li>
+          <?php } ?>
+          <?php #} ?>
         </ul>
       </div>
 
     </div>
   </nav>  
 </header>
-';
-?>

@@ -38,6 +38,10 @@ footer p {
   text-align: center;
 }
 
+.center-text {
+  text-align: center;
+}
+
   /* Clearfix */
 .cf:after, .cf:after {
   content: "";
