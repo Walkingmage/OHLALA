@@ -148,3 +148,11 @@ footer p {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
+#confirm-page{
+  margin: 0 auto;
+  /*border:1px solid white;*/
+}
+#confirm-page h2{
+  /*font-size:50px;*/
+  color: #00BF32;
+}
