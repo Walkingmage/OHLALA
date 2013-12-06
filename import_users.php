@@ -64,7 +64,6 @@ addUserToList('Ozell','Nicholson','MxzueK@iPawIS.edu',5);*/
       <div class="form-group">
         <label for="inputFile">File input</label>
         <input type="file" id="inputFile" name="inputFile">
-        <p class="help-block">Example block-level help text here.</p>
       </div>
       <?php /*<div class="form-group">
         <label for="inputSeparator" class="control-label">Separator</label>
