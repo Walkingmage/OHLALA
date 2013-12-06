@@ -107,8 +107,7 @@ function addUserToList($firstname,$lastname,$email,$tel,$num){
     <li><a href="#">LIA</a></li>
   </ul>
   <ul class="nav navbar-nav navbar-right">
-    <li><a href="#">Importera studenter</a></li>
-    <li><a href="#">Importera anställda</a></li>
+    <li><a href="import_users.php">Importera</a></li>
   </ul>
 </div>
 
