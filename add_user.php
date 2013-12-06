@@ -1,33 +1,44 @@
 <?php
-include("dbconnect.php");
+//include("dbconnect.php");
 
 
-function addUserToList($firstname,$lastname,$email,$num){
-  echo('  <div class="row add-user-row">
+function addUserToList($firstname,$lastname,$email,$tel,$num){
+  echo('<div class="row add-user-row">
     <div class="col-sm-6">
       <h3>Användare</h3>
       <div class="form-group">
         <label for="inputFname'.$num.'" class="control-label">Förnamn</label>
         <div class="">
-          <input type="text" class="form-control" id="inputFname'.$num.'" placeholder="Inklusive mellannamn" value="'.$firstname.$num.'">
+          <input type="text" class="form-control" id="inputFname'.$num.'" placeholder="Inklusive mellannamn" value="'.$firstname.'">
         </div>
       </div>
       <div class="form-group">
         <label for="inputEname'.$num.'" class="control-label">Efternamn</label>
         <div class="">
-          <input type="text" class="form-control" id="inputEname'.$num.'" placeholder="" value="'.$lastname.$num.'">
+          <input type="text" class="form-control" id="inputEname'.$num.'" placeholder="" value="'.$lastname.'">
         </div>
       </div>
       <div class="form-group">
         <label for="inputEmail'.$num.'" class="control-label">Privat&nbsp;email</label>
         <div class="">
-          <input type="email" class="form-control" id="inputEmail'.$num.'" placeholder="exempel@domän.se" value="'.$email.$num.'">
+          <input type="email" class="form-control" id="inputEmail'.$num.'" placeholder="exempel@domän.se" value="'.$email.'">
         </div>
       </div>
       <div class="form-group">
         <label for="inputTelephone'.$num.'" class="control-label">Telefon</label>
         <div class="">
-          <input type="tel" class="form-control" id="inputTelephone'.$num.'" placeholder="+46 ..." value="+46XXXXXXXXXXX'.$num.'">
+          <input type="tel" class="form-control" id="inputTelephone'.$num.'" placeholder="+46 ..." value="'.$tel.'-'.$num.'">
+      </div>
+      </div>
+      <div class="form-group">
+        <label for="inputAccess'.$num.'" class="control-label">Behörighet</label>
+        <div class="">
+        <select id="inputAccess'.$num.'" class="form-control">
+          <option>1</option>
+          <option>2</option>
+          <option>3</option>
+          <option>4</option>
+        </select>
         </div>
       </div>
     </div>
@@ -106,154 +117,58 @@ function addUserToList($firstname,$lastname,$email,$num){
 
 <?php
 
-addUserToList('Ozell','Nicholson','MxzueK@iPawIS.edu',1);
-addUserToList('Ozell','Nicholson','MxzueK@iPawIS.edu',2);
-addUserToList('Ozell','Nicholson','MxzueK@iPawIS.edu',3);
-addUserToList('Ozell','Nicholson','MxzueK@iPawIS.edu',4);
-addUserToList('Ozell','Nicholson','MxzueK@iPawIS.edu',5);
+$allowedExts = array("csv", "lol", "tst", "txt");
+$target_path = "./";
+//print_r($_FILES);
+if(isset($_FILES['inputFile'])){
+  $target_path = $target_path . basename( $_FILES['inputFile']['name']); 
+
+  $temp = explode(".", $_FILES["inputFile"]["name"]);
+  $extension = end($temp);
+  unset($temp);
+  if(!in_array($extension, $allowedExts)){die("Felaktig Fil!");}
+  $row = 0;
+  if (($handle = fopen($_FILES['inputFile']['tmp_name'], "r")) !== FALSE) {
+      while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
+          //$num = count($data);
+         // echo "<p> $num fields in line $row: <br /></p>\n";
+          /*for ($c=0; $c < $num; $c++) {
+              echo $data[$c] . "<br />\n";
+          }^*/
+
+        addUserToList($data[0],$data[1],$data[3],$data[4],$row);
+        //sleep(1);//uncomment to enable enterprise mode
+        $row++;
+      }
+      fclose($handle);
+  }
+
+
+
+}else{
+addUserToList('','','','',0);
+
+
+}
+
+
+
+/*
+addUserToList('Ozell','Nicholson','MxzueK@iPawIS.edu','4799322574',0);
+addUserToList('Ozell','Nicholson','MxzueK@iPawIS.edu','4799322574',1);
+addUserToList('Ozell','Nicholson','MxzueK@iPawIS.edu','4799322574',2);
+addUserToList('Ozell','Nicholson','MxzueK@iPawIS.edu','4799322574',3);
+addUserToList('Ozell','Nicholson','MxzueK@iPawIS.edu','4799322574',4);
+addUserToList('Ozell','Nicholson','MxzueK@iPawIS.edu','4799322574',5);
+*/
+
+
+
+
+
+
 
 ?>
-  <div class="row add-user-row">
-    <div class="col-sm-6">
-      <h3>Användare</h3>
-      <div class="form-group">
-        <label for="inputFnameNUM" class="control-label">Förnamn</label>
-        <div class="">
-          <input type="text" class="form-control" id="inputFnameNUM" placeholder="Inklusive mellannamn">
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="inputEnameNUM" class="control-label">Efternamn</label>
-        <div class="">
-          <input type="text" class="form-control" id="inputEnameNUM" placeholder="">
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="inputEmailNUM" class="control-label">Privat&nbsp;email</label>
-        <div class="">
-          <input type="email" class="form-control" id="inputEmailNUM" placeholder="exempel@domän.se">
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="inputTelephoneNUM" class="control-label">Telefon</label>
-        <div class="">
-          <input type="tel" class="form-control" id="inputTelephoneNUM" placeholder="+46 ...">
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="inputAccessNUM" class="control-label">Behörighet</label>
-        <div class="">
-        <select id="inputAccessNUM" class="form-control">
-          <option>1</option>
-          <option>2</option>
-          <option>3</option>
-          <option>4</option>
-        </select>
-        </div>
-      </div>
-    </div>
-    <div class="col-sm-6">
-      <div class="jensen-account-info">
-        <h3>Användarkonto</h3>
-        <p>Användarnamn: <span class="user-name">-</span></p>
-        <p>Jensen mail: <span class="jensen-email">-</span></p>
-      </div>
-    </div>
-  </div>
-  <div class="row add-user-row">
-    <div class="col-sm-6">
-      <h3>Användare</h3>
-      <div class="form-group">
-        <label for="inputFnameNUM" class="control-label">Förnamn</label>
-        <div class="">
-          <input type="text" class="form-control" id="inputFnameNUM" placeholder="Inklusive mellannamn">
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="inputEnameNUM" class="control-label">Efternamn</label>
-        <div class="">
-          <input type="text" class="form-control" id="inputEnameNUM" placeholder="">
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="inputEmailNUM" class="control-label">Privat&nbsp;email</label>
-        <div class="">
-          <input type="email" class="form-control" id="inputEmailNUM" placeholder="exempel@domän.se">
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="inputTelephoneNUM" class="control-label">Telefon</label>
-        <div class="">
-          <input type="tel" class="form-control" id="inputTelephoneNUM" placeholder="+46 ...">
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="inputAccessNUM" class="control-label">Behörighet</label>
-        <div class="">
-        <select id="inputAccessNUM" class="form-control">
-          <option>1</option>
-          <option>2</option>
-          <option>3</option>
-          <option>4</option>
-        </select>
-        </div>
-      </div>
-    </div>
-    <div class="col-sm-6">
-      <div class="jensen-account-info">
-        <h3>Användarkonto</h3>
-        <p>Användarnamn: <span class="user-name">-</span></p>
-        <p>Jensen mail: <span class="jensen-email">-</span></p>
-      </div>
-    </div>
-  </div>
-  <div class="row add-user-row">
-    <div class="col-sm-6">
-      <h3>Användare</h3>
-      <div class="form-group">
-        <label for="inputFnameNUM" class="control-label">Förnamn</label>
-        <div class="">
-          <input type="text" class="form-control" id="inputFnameNUM" placeholder="Inklusive mellannamn">
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="inputEnameNUM" class="control-label">Efternamn</label>
-        <div class="">
-          <input type="text" class="form-control" id="inputEnameNUM" placeholder="">
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="inputEmailNUM" class="control-label">Privat&nbsp;email</label>
-        <div class="">
-          <input type="email" class="form-control" id="inputEmailNUM" placeholder="exempel@domän.se">
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="inputTelephoneNUM" class="control-label">Telefon</label>
-        <div class="">
-          <input type="tel" class="form-control" id="inputTelephoneNUM" placeholder="+46 ...">
-        </div>
-      </div>
-      <div class="form-group">
-        <label for="inputAccessNUM" class="control-label">Behörighet</label>
-        <div class="">
-        <select id="inputAccessNUM" class="form-control">
-          <option>1</option>
-          <option>2</option>
-          <option>3</option>
-          <option>4</option>
-        </select>
-        </div>
-      </div>
-    </div>
-    <div class="col-sm-6">
-      <div class="jensen-account-info">
-        <h3>Användarkonto</h3>
-        <p>Användarnamn: <span class="user-name">-</span></p>
-        <p>Jensen mail: <span class="jensen-email">-</span></p>
-      </div>
-    </div>
-  </div>
   <div class="row save-button-row">
     <div class="form-group">
       <div class="col-sm-12">
