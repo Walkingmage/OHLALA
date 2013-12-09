@@ -91,7 +91,7 @@ while($row = mysqli_fetch_array($checkaccessresult)){ $checkaccess = $row['usert
 		echo "Lösenord:" . $password . "<br>";
 		echo "<br>Ett email med denna information har skickats till den angivna e-post adressen.<br>";
 		echo "<hr>";
-		require('mail_to_user.php');
+		require_once('mail_to_user.php');
  		mailToUser($firstname, $lastname, $privemail, $telephone, $access, $jensenemail, $username);
 }
 }
