@@ -69,7 +69,9 @@ footer p {
  *  ADD USER PAGE
  */
 
-
+.add-user-form {
+  clear: both;
+}
 .add-user-form .form-group {
   margin-bottom: 5px;
 }

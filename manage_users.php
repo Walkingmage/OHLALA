@@ -81,6 +81,7 @@ echoHeadWithTitle('Manage Users - Jensen Offline');
   <!-- Table -->
   <table class="table table-striped table-condensed user-table">
     <tr>
+      <th></th>
       <th>Namn</th>
       <th class="hide-mobile">Email</th>
       <th class="hide-mobile">Telefon</th>
@@ -89,37 +90,54 @@ echoHeadWithTitle('Manage Users - Jensen Offline');
       <th class="hide-mobile">Behörighet</th>
     </tr>
 
-   <?php
-   require 'dbconnect.php';
-$query = "SELECT * FROM `tbl_user`";
-$result = mysqli_query($mysqli, $query) or die ();
+    <?php
+if(isset($_GET["showArchived"])&&($_GET["showArchived"]==1)){
+  $showArchived=1;
+}else{
+  $showArchived=0;
+}
 
-    while($row = mysqli_fetch_array($result)){
-
-      $id = $row["user_id"];
-      $user_firstname= $row["user_firstname"];
-      $user_lastname = $row["user_lastname"];
-      $user_email = $row["user_email"];
-      $user_phonenumber = $row['user_phonenumber'];
-      $user_class = "-";
-      $user_program = "-";
-      $user_access = $row['usertype_id'];
-      ?>
-
-      <tr>
+$sql=("SELECT
+tbl_user.user_id,
+tbl_user.user_firstname,
+tbl_user.user_lastname,
+tbl_user.user_email,
+tbl_user.usertype_id,
+tbl_user.user_phonenumber
+FROM
+tbl_user
+WHERE
+tbl_user.user_archived = ?
+OR tbl_user.user_archived IS NULL;");
+    if($stmt = $mysqli->prepare($sql)){
+      $stmt->bind_param("s",$showArchived);
+      $stmt->execute();
+      $stmt->bind_result($id,$user_firstname,$user_lastname,$user_email,$user_access,$user_phonenumber);
+      while($data = $stmt->fetch()){
+        ?>
+    <tr>
+      <td>
+        <input type="checkbox" name="userCheckbox<?=$id?>" id="userCheckbox<?=$id?>">
+      </td>
         <td class="name"><a class="" href="edit_user.php?id=<?php echo"$id";?>"><?php echo $user_firstname . " " . $user_lastname; ?></a></td>
         <td class="email hide-mobile"><?php echo $user_email; ?></td>
         <td class="telephone hide-mobile"><?php echo $user_phonenumber; ?></td>
-        <td class="schoolClass hide-mobile"><?php echo $user_class; ?></td>
-        <td class="schoolClass hide-mobile"><?php echo $user_program; ?></td>
-        <td class="access hide-mobile"><?php echo $user_access; ?></td>
+        <td class="schoolClass hide-mobile"><?php echo "-" ?></td>
+        <td class="schoolClass hide-mobile"><?php echo "-" ?></td>
+        <td class="access hide-mobile"><?php echo $user_access ?></td>
 
       </tr>
-      <?php
+        <?php
+      }
+      $stmt->free_result();
+      $stmt->close();
+    }else{
+      echo $mysqli->error;
     }
-    mysqli_free_result($result);
-    ?>
 
+
+    
+  ?>
   </table>
 
   <ul class="pagination">
