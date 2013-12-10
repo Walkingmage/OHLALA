@@ -47,10 +47,10 @@ switch ($file) {
           <li class="<?php echo $manageUsersActive; ?>"><a href="manage_users.php">Hantera konton</a></li>
           <li class="<?php echo $bookComputerActive; ?>"><a href="book_computer.php">Boka dator</a></li>
           <li class="<?php echo $boolkRoomActive; ?>"><a href="book_room.php">Boka lokal</a></li>
-          <?php if (user_logged_in()) { ?>
-          <li><a href="#">Inloggad användare: <?php echo $_SESSION['user']['user_firstname'].' '.$_SESSION['user']['user_lastname']; ?></a></li>
+          <?php #if (user_logged_in()) { ?>
+          <li><a href="#">Inloggad användare: <?php #echo $_SESSION['user']['user_firstname'].' '.$_SESSION['user']['user_lastname']; ?></a></li>
           <li><a href="?logout">Logga ut</a></li>
-          <?php } ?>
+          <?php #} ?>
           <?php #} ?>
         </ul>
       </div>
