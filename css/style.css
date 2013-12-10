@@ -76,7 +76,9 @@ footer p {
  *  ADD USER PAGE
  */
 
-
+.add-user-form {
+  clear: both;
+}
 .add-user-form .form-group {
   margin-bottom: 5px;
 }
@@ -154,4 +156,12 @@ footer p {
   margin-bottom: 10px;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
+}
+#confirm-page{
+  margin: 0 auto;
+  /*border:1px solid white;*/
+}
+#confirm-page h2{
+  /*font-size:50px;*/
+  color: #00BF32;
 }

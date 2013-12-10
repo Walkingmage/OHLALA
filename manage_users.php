@@ -14,7 +14,7 @@ echoHeadWithTitle('Manage Users - Jensen Offline');
   
     <div class="col-md-6 add-entry-controls">
       <button type="button" class="btn btn-default">
-        <span class="glyphicon glyphicon-plus"></span>&nbsp;Lägg&nbsp;till
+        <span class="glyphicon glyphicon-plus"></span><a href="add_user.php">&nbsp;Lägg&nbsp;till</a>
       </button>
       <button type="button" class="btn btn-default">
         <span class="glyphicon glyphicon-minus"></span>&nbsp;Arkivera&nbsp;markerade
@@ -83,7 +83,6 @@ echoHeadWithTitle('Manage Users - Jensen Offline');
             </select>
           </div>
         </div>
-
       </form>
     </div>
   </div>
@@ -92,6 +91,7 @@ echoHeadWithTitle('Manage Users - Jensen Offline');
   <table class="table table-striped table-condensed user-table">
     <thead>
       <tr>
+        <th></th>
         <th>Namn</th>
         <th class="hide-mobile">Email</th>
         <th class="hide-mobile">Telefon</th>
@@ -100,89 +100,57 @@ echoHeadWithTitle('Manage Users - Jensen Offline');
         <th class="hide-mobile">Behörighet</th>
       </tr>
     </thead>
-    <tbody class="list">
+    <tbody>
+
     <?php
-      //Include phpfile with random entries
-      include('random_static_list.php');
-      //Generate random entries
-      // $firstNameArray = array('Adam', 'Bertil', 'Ceasar', 'David', 'Erik');
-      // $lastNameArray = array('Adamsson', 'Bertilsson', 'Ceasarsson', 'Davidsson', 'Eriksson');
-      // $programArray = array('Webbutveckling', 'Cobolprogrammerare', 'IT-projektledare');
-      // $accessArray = array('Elev', 'Lärare', 'Programadmin', 'Webbadmin');
-      // for ($i=0; $i < 52; $i++) { 
-      //   $randName = $firstNameArray[array_rand($firstNameArray)]." ".$lastNameArray[array_rand($lastNameArray)] ;
-      //   $randStr1 = substr(str_shuffle(str_repeat("0123456789abcdefghijklmnopqrstuvwxyz", 5)), 0, 5);
-      //   $randStr2 = substr(str_shuffle(str_repeat("0123456789abcdefghijklmnopqrstuvwxyz", 5)), 0, 5);
-      //   $randEmail = $randStr1.'@'.$randStr2.'.com';
-      //   $randTelephone = substr(str_shuffle(str_repeat("0123456789", 5)), 0, 7);
-      //   $randClass = substr(str_shuffle(str_repeat("123", 5)), 0, 1).substr(str_shuffle(str_repeat("ABCDE", 5)), 0, 1);
-      //   $randProgram = $programArray[array_rand($programArray)];
-      //   $randAccess = $accessArray[array_rand($accessArray)];
-      //   echo '
-      //   <tr>
-      //     <td class="name"><a class="" href="#">'.$randName.'</a></td>
-      //     <td class="email hide-mobile">'.$randEmail.'</td>
-      //     <td class="telephone hide-mobile">'.$randTelephone.'</td>
-      //     <td class="schoolClass hide-mobile">'.$randClass.'</td>
-      //     <td class="schoolProgram hide-mobile">'.$randProgram.'</td>
-      //     <td class="access hide-mobile">'.$randAccess.'</td>
-      //   </tr>
-      //   ';
-      // }
+    if(isset($_GET["showArchived"])&&($_GET["showArchived"]==1)){
+      $showArchived=1;
+    }else{
+      $showArchived=0;
+    }
+    
+    $sql=("SELECT
+    tbl_user.user_id,
+    tbl_user.user_firstname,
+    tbl_user.user_lastname,
+    tbl_user.user_email,
+    tbl_user.usertype_id,
+    tbl_user.user_phonenumber
+    FROM
+    tbl_user
+    WHERE
+    tbl_user.user_archived = ?
+    OR tbl_user.user_archived IS NULL;");
+    
+    if($stmt = $mysqli->prepare($sql)){
+      $stmt->bind_param("s",$showArchived);
+      $stmt->execute();
+      $stmt->bind_result($id,$user_firstname,$user_lastname,$user_email,$user_access,$user_phonenumber);
+      while($data = $stmt->fetch()){
     ?>
-    </tbody>    
+      <tr>
+        <td>
+          <input type="checkbox" name="userCheckbox<?=$id?>" id="userCheckbox<?=$id?>">
+        </td>
+        <td class="name"><a class="" href="edit_user.php?id=<?php echo"$id";?>"><?php echo $user_firstname . " " . $user_lastname; ?></a></td>
+        <td class="email hide-mobile"><?php echo $user_email; ?></td>
+        <td class="telephone hide-mobile"><?php echo $user_phonenumber; ?></td>
+        <td class="schoolClass hide-mobile"><?php echo "-" ?></td>
+        <td class="schoolClass hide-mobile"><?php echo "-" ?></td>
+        <td class="access hide-mobile"><?php echo $user_access ?></td>
+      </tr>
+    <?php
+      }
+      $stmt->free_result();
+      $stmt->close();
+    }else{
+      echo $mysqli->error;
+    }
+    ?>
+    </tbody>
   </table>
 
-<!--   <div id="a-test-list">
-    <input type="text" class="a-fuzzy-search" />
-    <ul class="list">
-      <li><p><span class="name">Guybrush Threepwood</span> <span class="email">a@test.com</span></p></li>
-      <li><p><span class="name">Elaine Marley</span> <span class="email">a@test.com</span></p></li>
-      <li><p><span class="name">LeChuck</span> <span class="email">a@test.com</span></p></li>
-      <li><p><span class="name">Stan</span> <span class="email">a@test.com</span></p></li>
-      <li><p><span class="name">Voodoo Lady</span> <span class="email">a@test.com</span></p></li>
-      <li><p><span class="name">Herman Toothrot</span> <span class="email">a@test.com</span></p></li>
-      <li><p><span class="name">Meathook</span> <span class="email">a@test.com</span></p></li>
-      <li><p><span class="name">Carla</span> <span class="email">a@test.com</span></p></li>
-      <li><p><span class="name">Otis</span> <span class="email">a@test.com</span></p></li>
-      <li><p><span class="name">Rapp Scallion</span> <span class="email">a@test.com</span></p></li>
-      <li><p><span class="name">Rum Rogers Sr.</span> <span class="email">a@test.com</span></p></li>
-      <li><p><span class="name">Men of Low Moral Fiber</span> <span class="email">a@test.com</span></p></li>
-      <li><p><span class="name">Murray</span> <span class="email">a@test.com</span></p></li>
-      <li><p><span class="name">Cannibals</span> <span class="email">a@test.com</span></p></li>
-    </ul>
-  </div> -->
-
-<!--   <div id="test-list">
-    <input type="text" class="fuzzy-search" />
-    <table class="list">
-      <tr><td class="name">Guybrush Threepwood</td></tr>
-      <tr><td class="name">Elaine Marley</td></tr>
-      <tr><td class="name">LeChuck</td></tr>
-      <tr><td class="name">Stan</td></tr>
-      <tr><td class="name">Voodoo Lady</td></tr>
-      <tr><td class="name">Herman Toothrot</td></tr>
-      <tr><td class="name">Meathook</td></tr>
-      <tr><td class="name">Carla</td></tr>
-      <tr><td class="name">Otis</td></tr>
-      <tr><td class="name">Rapp Scallion</td></tr>
-      <tr><td class="name">Rum Rogers Sr.</td></tr>
-      <tr><td class="name">Men of Low Moral Fiber</td></tr>
-      <tr><td class="name">Murray</td></tr>
-      <tr><td class="name">Cannibals</td></tr>
-    </table>
-  </div> -->
-
-<!--   <ul class="pagination">
-    <li><a href="#">&laquo;</a></li>
-    <li><a href="#">1</a></li>
-    <li><a href="#">2</a></li>
-    <li><a href="#">3</a></li>
-    <li><a href="#">4</a></li>
-    <li><a href="#">5</a></li>
-    <li><a href="#">&raquo;</a></li>
-  </ul> -->
-
+  <!-- Populated by list.js -->
   <ul class="pagination"></ul>
 
 </div>

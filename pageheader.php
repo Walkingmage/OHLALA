@@ -26,6 +26,7 @@ switch ($file) {
 		break;
 }
 ?>
+<script src="js/functions.js"></script>
 <header>
   <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
     <div class="container">
