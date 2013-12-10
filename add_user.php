@@ -140,7 +140,7 @@ addUserToList('Ozell','Nicholson','MxzueK@iPawIS.edu','4799322574',5);
     <div class="form-group">
       <div class="col-sm-12">
         <!-- <button type="submit" class="btn btn-default">Spara och generera Jensenkonton</button> -->
-        <input type="submit" id="save" value="SAVE" />
+        <input type="submit" class="btn btn-default" value="Spara och generera Jensenkonton" />
       </div>
     </div>
   </div>

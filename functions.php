@@ -1,5 +1,6 @@
 <?php
 include("dbconnect.php");
+$function = $_GET["function"];
 
 // function to check if user exists in the database, if so, login!
 function check_user_login($email, $password) {
@@ -43,4 +44,39 @@ function user_logged_in() {
 	}
 
 	return true;
+}
+
+function rand_string( $length ) {
+	$chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";	
+	$size = strlen( $chars );
+	for($i = 0; $i < $length; $i++ ) {
+	$str .= $chars[ rand( 0, $size - 1 ) ];}
+	return $str; 
+}
+
+if ($function == "edituser") {
+$id = $_GET["id"];
+$pdo = new PDO('mysql:host=wuk.web.bitcloud.se;dbname=wukwebbi_grupp1', 'wukwebbi_grupp1', 'ofumfg123');
+$sql = "UPDATE `tbl_user` SET  `user_firstname`=:user_firstname, `user_lastname`=:user_lastname, `user_email`=:user_email, `user_phonenumber`=:user_phonenumber, `usertype_id`=:user_access WHERE `user_id` = $id";
+
+$stmt = $pdo->prepare($sql);
+$stmt->execute(array(":user_firstname" => $_POST["user_firstname"], ":user_lastname" => $_POST["user_lastname"], ":user_email" => $_POST["user_email"], ":user_phonenumber" => $_POST['user_phonenumber'], ":user_access" => $_POST['user_access']));
+   
+$success = "Ändringar sparades";
+  
+header("location:edit_user.php?id=$id&success=$success");
+}
+
+if($function == "resetUserPassword"){
+$newPassword = rand_string( 7 );
+$id = $_GET["id"];
+$pdo = new PDO('mysql:host=wuk.web.bitcloud.se;dbname=wukwebbi_grupp1', 'wukwebbi_grupp1', 'ofumfg123');
+$sql = "UPDATE `tbl_user` SET  `user_password`=:user_password WHERE `user_id` = $id";
+
+$stmt = $pdo->prepare($sql);
+$stmt->execute(array(":user_password" => $newPassword));
+   
+$resetSuccess = "Lösenordet återställdes";
+  
+header("location:edit_user.php?id=$id&resetSuccess=$resetSuccess");
 }

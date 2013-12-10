@@ -14,7 +14,7 @@ echoHeadWithTitle('Manage Users - Jensen Offline');
   
     <div class="col-md-6 add-entry-controls">
       <button type="button" class="btn btn-default">
-        <span class="glyphicon glyphicon-plus"></span>&nbsp;Lägg&nbsp;till
+        <span class="glyphicon glyphicon-plus"></span><a href="add_user.php">&nbsp;Lägg&nbsp;till</a>
       </button>
       <button type="button" class="btn btn-default">
         <span class="glyphicon glyphicon-minus"></span>&nbsp;Arkivera&nbsp;markerade
@@ -74,7 +74,6 @@ echoHeadWithTitle('Manage Users - Jensen Offline');
             </select>
           </div>
         </div>
-
       </form>
     </div>
   </div>
@@ -89,45 +88,38 @@ echoHeadWithTitle('Manage Users - Jensen Offline');
       <th class="hide-mobile">Program </th>
       <th class="hide-mobile">Behörighet</th>
     </tr>
-    <tr>
-      <td><a href="http://google.com">Andreas Smedjebacka</a></td>
-      <td class="hide-mobile">d@f.com</td>
-      <td class="hide-mobile">45465165</td>
-      <td class="hide-mobile">1A</td>
-      <td class="hide-mobile">sdf</td>
-      <td class="hide-mobile">Student</td>
-    </tr>
-    <tr>
-      <td><a href="http://google.com">Andreas</a></td>
-      <td class="hide-mobile">d@f.com </td>
-      <td class="hide-mobile">45465165</td>
-      <td class="hide-mobile">sdf</td>
-      <td class="hide-mobile">sdf</td>
-      <td class="hide-mobile">afk</td>
-    </tr>
-    <tr>
-      <td><a href="http://google.com">Henrik </a></td>
-      <td class="hide-mobile">d@f.com </td>
-      <td class="hide-mobile">7314181</td>
-      <td class="hide-mobile">2B</td>
-      <td class="hide-mobile">Webbutveckling</td>
-      <td class="hide-mobile">Elev</td>
-    </tr>
-    <tr>
-      <td><a href="http://google.com">Robert Karlsson</a></td>
-      <td class="hide-mobile">d@f.com</td>
-      <td class="hide-mobile">678</td>
-      <td class="hide-mobile">Webb1, Webb2</td>
-      <td class="hide-mobile">Webbutveckling</td>
-      <td class="hide-mobile">Lärare</td></tr>
-    <tr>
-      <td><a href="http://google.com">Svenne</a></td>
-      <td class="hide-mobile">d@f.com</td>
-      <td class="hide-mobile">8151701</td>
-      <td class="hide-mobile">3F</td>
-      <td class="hide-mobile">Rymdforskare</td>
-      <td class="hide-mobile">Lärare</td>
-    </tr>
+
+   <?php
+   require 'dbconnect.php';
+$query = "SELECT * FROM `tbl_user`";
+$result = mysqli_query($mysqli, $query) or die ();
+
+    while($row = mysqli_fetch_array($result)){
+
+      $id = $row["user_id"];
+      $user_firstname= $row["user_firstname"];
+      $user_lastname = $row["user_lastname"];
+      $user_email = $row["user_email"];
+      $user_phonenumber = $row['user_phonenumber'];
+      $user_class = "-";
+      $user_program = "-";
+      $user_access = $row['usertype_id'];
+      ?>
+
+      <tr>
+        <td class="name"><a class="" href="edit_user.php?id=<?php echo"$id";?>"><?php echo $user_firstname . " " . $user_lastname; ?></a></td>
+        <td class="email hide-mobile"><?php echo $user_email; ?></td>
+        <td class="telephone hide-mobile"><?php echo $user_phonenumber; ?></td>
+        <td class="schoolClass hide-mobile"><?php echo $user_class; ?></td>
+        <td class="schoolClass hide-mobile"><?php echo $user_program; ?></td>
+        <td class="access hide-mobile"><?php echo $user_access; ?></td>
+
+      </tr>
+      <?php
+    }
+    mysqli_free_result($result);
+    ?>
+
   </table>
 
   <ul class="pagination">
