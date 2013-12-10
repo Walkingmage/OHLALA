@@ -100,9 +100,11 @@ echoHeadWithTitle('Manage Users - Jensen Offline');
         <th class="hide-mobile">Behörighet</th>
       </tr>
     </thead>
-    <tbody>
+    <tbody class="list">
 
     <?php
+    static test data:
+    require 'random_static_list.php';
     if(isset($_GET["showArchived"])&&($_GET["showArchived"]==1)){
       $showArchived=1;
     }else{
@@ -140,11 +142,11 @@ echoHeadWithTitle('Manage Users - Jensen Offline');
         <td class="access hide-mobile"><?php echo $user_access ?></td>
       </tr>
     <?php
-      }
-      $stmt->free_result();
-      $stmt->close();
+     }
+     $stmt->free_result();
+     $stmt->close();
     }else{
-      echo $mysqli->error;
+     echo $mysqli->error;
     }
     ?>
     </tbody>

@@ -1,5 +1,6 @@
 $(document).ready(function() {
 
+	//Initiate list.js List
 	var userList = new List('test-list', {
 		valueNames: ['name', 'email', 'telephone', 'schoolClass', 'schoolProgram', 'access'],
 		page: 40,
@@ -7,33 +8,26 @@ $(document).ready(function() {
 			// [ ListFuzzySearch() ],
 	});
 
+	//Wrapper for list.js filter function
 	function filterUserList() {
-
+		var classSelectorValue = $('.classSelector').val();
+		var accessSelectorValue = $('.accessSelector').val();
+		var programSelectorValue = $('.programSelector').val();
 		userList.filter(function(item){
-
 			if ( (programSelectorValue === "Alla..." || programSelectorValue === item.values().schoolProgram) && (classSelectorValue === "Alla..." || classSelectorValue === item.values().schoolClass) && (accessSelectorValue === "Alla..." || accessSelectorValue === item.values().access ) ) {
 				return true;
 			} else {
 				return false;
 			}
-
 		});
 	}
 
-	function getSelectorValues() {
-		classSelectorValue = $('.classSelector').val();
-		accessSelectorValue = $('.accessSelector').val();
-		programSelectorValue = $('.programSelector').val();
-	}
-
-	//Bind to selectors
+	//Bind filter function to selectors
 	$('.filterSelector').on('change', function(){
-		getSelectorValues();
 		filterUserList();
 	});
 
-	//Run on page load
-	getSelectorValues();
+	//On page load
 	filterUserList();
 
 });
