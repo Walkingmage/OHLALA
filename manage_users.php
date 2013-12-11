@@ -1,4 +1,6 @@
-<?php require_once("dbconnect.php"); ?>
+<?php 
+session_start();
+require_once("dbconnect.php"); ?>
 <?php //require('functions.php'); ?>
 <!DOCTYPE html>
 <html>

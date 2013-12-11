@@ -1,5 +1,5 @@
 ﻿<?php
-session_start();
+//session_start();
 define("INC", 1);
 //die("Används ej");
 //include("config.mysqli.php");
