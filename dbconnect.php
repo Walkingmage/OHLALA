@@ -1,5 +1,5 @@
 ﻿<?php
-session_start();
+//session_start();
 if(!defined("INC")){
 	define("INC", 1);
 }
