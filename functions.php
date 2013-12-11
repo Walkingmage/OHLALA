@@ -1,5 +1,6 @@
 <?php
-include_once("dbconnect.php");
+//include_once("dbconnect.php");
+include_once("pdoconnect.php");
 $function = $_GET["function"];
 
 // function to check if user exists in the database, if so, login!
@@ -56,7 +57,6 @@ function rand_string( $length ) {
 
 if ($function == "edituser") {
 $id = $_GET["id"];
-$pdo = new PDO('mysql:host=wuk.web.bitcloud.se;dbname=wukwebbi_grupp1', 'wukwebbi_grupp1', 'ofumfg123');
 $sql = "UPDATE `tbl_user` SET  `user_firstname`=:user_firstname, `user_lastname`=:user_lastname, `user_email`=:user_email, `user_phonenumber`=:user_phonenumber, `usertype_id`=:user_access WHERE `user_id` = $id";
 
 $stmt = $pdo->prepare($sql);
@@ -70,7 +70,6 @@ header("location:edit_user.php?id=$id&success=$success");
 if($function == "resetUserPassword"){
 $newPassword = rand_string( 7 );
 $id = $_GET["id"];
-$pdo = new PDO('mysql:host=wuk.web.bitcloud.se;dbname=wukwebbi_grupp1', 'wukwebbi_grupp1', 'ofumfg123');
 $sql = "UPDATE `tbl_user` SET  `user_password`=:user_password WHERE `user_id` = $id";
 
 $stmt = $pdo->prepare($sql);
