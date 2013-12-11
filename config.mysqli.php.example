@@ -1,0 +1,16 @@
+<?php
+if(!defined("INC")) die("direct access not permitted!");
+// if (count(get_included_files()) ==1) {
+	// header('HTTP/1.0 403 Forbidden');
+	// exit;
+// }
+$dbug=true;
+
+$dbhost = "localhost";
+$dbuser = "root";
+$dbpass = "password";
+$dbname = "database";
+$salt = "-";
+$peppar = "-";
+
+?>
