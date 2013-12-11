@@ -1,5 +1,5 @@
 <?php
-include("dbconnect.php");
+include_once("dbconnect.php");
 $function = $_GET["function"];
 
 // function to check if user exists in the database, if so, login!

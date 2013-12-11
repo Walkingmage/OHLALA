@@ -1,3 +1,4 @@
+<?php require_once("dbconnect.php"); ?>
 <?php //require('functions.php'); ?>
 <!DOCTYPE html>
 <html>
@@ -103,7 +104,7 @@ echoHeadWithTitle('Manage Users - Jensen Offline');
     <tbody class="list">
 
     <?php
-    static test data:
+    //static test data:
     require 'random_static_list.php';
     if(isset($_GET["showArchived"])&&($_GET["showArchived"]==1)){
       $showArchived=1;

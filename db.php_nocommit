@@ -1,0 +1,12 @@
+<?php
+set_include_path(get_include_path() . PATH_SEPARATOR . 'phpseclib');
+
+include('Net/SSH2.php');
+
+$ssh = new Net_SSH2('s1.bitcloud.se');
+if (!$ssh->login('wukwebbi', 'Wuk2013')) {
+    exit('Login Failed');
+}
+
+echo $ssh->exec('ls -la');
+?>
