@@ -122,8 +122,7 @@ echoHeadWithTitle('Manage Users - Jensen Offline');
     FROM
     tbl_user
     WHERE
-    tbl_user.user_archived = ?
-    OR tbl_user.user_archived IS NULL;");
+    tbl_user.user_archived = ?;");
     
     if($stmt = $mysqli->prepare($sql)){
       $stmt->bind_param("s",$showArchived);
