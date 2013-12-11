@@ -105,7 +105,7 @@ echoHeadWithTitle('Manage Users - Jensen Offline');
 
     <?php
     //static test data:
-    require 'random_static_list.php';
+    //require 'random_static_list.php';
     if(isset($_GET["showArchived"])&&($_GET["showArchived"]==1)){
       $showArchived=1;
     }else{
