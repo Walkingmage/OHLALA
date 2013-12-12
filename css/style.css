@@ -188,6 +188,9 @@ footer p {
   color:#CCC;
 }
 
+.book-form select {
+  max-width: 513px;
+}
 
 .datepicker{
 width: 250px;

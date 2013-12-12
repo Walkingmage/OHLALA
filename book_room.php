@@ -1,13 +1,16 @@
 <?php 
 session_start();
-require_once("dbconnect.php"); ?>
-<?php //require('functions.php'); ?>
+//require('functions.php');
+require_once("dbconnect.php");
+?>
 <!DOCTYPE html>
 <html>
 <?php
 require('html_head.php');
 echoHeadWithTitle('Book Room - Jensen Offline');
-?>
+  ?>
+  <link rel="stylesheet" type="text/css" href="css/datepicker.css">
+</head>
 <body>
 <?php require('pageheader.php'); ?>
 
@@ -42,7 +45,7 @@ echoHeadWithTitle('Book Room - Jensen Offline');
     <div class="col-md-3 aside-filter-controls">
       <div class="panel panel-default">
         <div class="panel-heading">
-          <h3 class="panel-title">Välj rum</h3>
+          <h3 class="panel-title">Visa tider för:</h3>
         </div>
 <!--    <div class="panel-body">
           Här kan man också lägga filterkontroller
@@ -57,21 +60,62 @@ echoHeadWithTitle('Book Room - Jensen Offline');
     </div>
   </div>
   <div class="row cf book-controls book-room">
-    <div class="col-md-12">
+    <div class="col-md-6">
       <div class="panel panel-default">
         <div class="panel-body">
-          <h2>Booking placeholder</h2>
+          <!-- Form & action/POST -->
+          <h3>Boka lokal</h3>
+          <form role="form" class="book-form" action="functions.php?function=bookRoom" method="POST">
+            <!-- Välj lokal -->
+            <div class="form-group">
+              <select id="classroom" name="classroom" class="form-control">
+                <option>Välj lokal..</option>
+                <?php 
+                  $query = "SELECT * FROM `tbl_classroom`";
+                  $result = mysqli_query($mysqli, $query) or die ();
+                  while($row = mysqli_fetch_array($result)){
+                  echo "<option>" .  $row['classroom_name'] . "</option>";
+                }?>
+              </select>
+            </div>
+            <!-- Välj start & slut datum -->
+            <div class="form-group">
+              <input class="datepicker" size="16" type="text" value="Startdatum.." data-date-format="mm/dd/yyyy" name ="startdate">
+               - 
+              <input class="datepicker" size="16" type="text" value="Slutdatum.." name="enddate">
+            </div>
+            <!-- Välj tid -->
+            <div class="form-group">
+              <select class="form-control filterSelector classSelector" name="bookingtime">
+                <option>Välj tid..</option>
+                <?php 
+                $query = "SELECT * FROM `tbl_bookingtime`";
+                $result = mysqli_query($mysqli, $query) or die ();
+                while($row = mysqli_fetch_array($result)){
+                  echo "<option>" .  substr($row['bookingtime_start'],0,5) . " - " . substr($row['bookingtime_end'],0,5) . "</option>";
+                }
+                ?>
+              </select>
+            </div>
+            <input type="submit" class="btn btn-default" value="Boka" />         
+          </form>
         </div>
       </div>
+    </div>
+    <div class="col-md-6">
+      <!-- Empty -->
     </div>
   </div>
 </div>
 
 <?php require('pagefooter.php'); ?>
 	
-  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-  <script src="https://code.jquery.com/jquery.js"></script>
-  <!-- Include all compiled plugins (below), or include individual files as needed -->
-  <script src="js/bootstrap.min.js"></script>
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://code.jquery.com/jquery.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="js/bootstrap.min.js"></script>
+<script src="js/bootstrap-datepicker.js"></script>
+<script src="js/datepicker_initiate.js"></script>
+
 </body>
 </html>
