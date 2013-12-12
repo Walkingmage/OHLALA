@@ -165,3 +165,27 @@ footer p {
   /*font-size:50px;*/
   color: #00BF32;
 }
+
+/*
+ * BOOKING PAGES
+ */
+
+.top-filters {
+  margin-bottom: 20px;
+}
+
+.seat-filter-control {
+  width: 60px;
+  margin-right: 10px;
+}
+
+.projector-select {
+  width: 200px;
+  margin-right: 10px;
+}
+
+.inactive-filter-list-item {
+  color:#CCC;
+}
+
+
