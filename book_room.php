@@ -100,8 +100,6 @@ echoHeadWithTitle('Book Room - Jensen Offline');
                 mysqli_free_result($result);
                 ?>
               </select>
-
-      </select>
             </div>
             <input type="submit" class="btn btn-default" value="Boka" />   
             <?php 
