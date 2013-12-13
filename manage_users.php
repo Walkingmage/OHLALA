@@ -64,10 +64,15 @@ if(isset($_GET["showArchived"])&&($_GET["showArchived"]==1)){
           <div class="col-md-4">
             <select class="form-control filterSelector accessSelector">
               <option>Alla...</option>
-              <option>Elev</option>
-              <option>Lärare</option>
-              <option>Programadmin</option>
-              <option>Webbadmin</option>
+              <?php 
+              $query = "SELECT * FROM `tbl_usertype`";
+              $result = mysqli_query($mysqli, $query) or die ();
+              while($row = mysqli_fetch_array($result)){
+                $usertype_id = $row["usertype_id"];
+                echo "<option value='$usertype_id'>".$row['usertype_name']."</option>";
+              }
+              mysqli_free_result($result);
+              ?>
             </select>
           </div>
         </div>
@@ -77,9 +82,14 @@ if(isset($_GET["showArchived"])&&($_GET["showArchived"]==1)){
           <div class="col-md-4">
             <select class="form-control filterSelector programSelector">
               <option>Alla...</option>
-              <option>Webbutveckling</option>
-              <option>Cobolprogrammerare</option>
-              <option>IT-projektledare</option>
+              <?php 
+              $query = "SELECT * FROM `tbl_program`";
+              $result = mysqli_query($mysqli, $query) or die ();
+              while($row = mysqli_fetch_array($result)){
+                echo "<option>".$row['program_name']."</option>";
+              }
+              mysqli_free_result($result);
+              ?>
             </select>
           </div>
         </div>
