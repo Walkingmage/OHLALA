@@ -1,5 +1,5 @@
 <?php
-//include_once("dbconnect.php");
+include_once("dbconnect.php");
 include_once("pdoconnect.php");
 $function = $_GET["function"];
 
@@ -78,4 +78,39 @@ $stmt->execute(array(":user_password" => $newPassword));
 $resetSuccess = "Lösenordet återställdes";
   
 header("location:edit_user.php?id=$id&resetSuccess=$resetSuccess");
+}
+
+if($function == "bookRoom"){
+	$classroom = $_POST['classroom'];
+	$startdate = $_POST['startdate'];
+	$enddate = $_POST['enddate'];
+	$bookingtime = $_POST['bookingtime'];
+	$user = $_GET['user'];
+	$bookingsuccess = "Bokningen lyckades!";
+
+	$bookingquery = "SELECT * 
+	FROM  `tbl_booking` WHERE  `classroom_id` = $classroom 
+	AND (`booking_startdate` <=  '$startdate' 
+	AND  `booking_enddate` >=  '$enddate'
+	AND bookingtime_id = $bookingtime)";
+
+    $bookingresult = mysqli_query($mysqli, $bookingquery);
+  	$bookingrows = mysqli_num_rows($bookingresult);
+
+	if($bookingrows > 0){
+	$bookingerror = "Bokningen misslyckades. Lokalen är redan bokad vid denna tid!";
+	header("location:book_room.php?bookingerror=$bookingerror");	
+	}
+	else{
+	$sql = "INSERT INTO `wukwebbi_grupp1`.`tbl_booking` (`booking_id`, `bookingtime_id`, `booking_startdate`, `booking_enddate`, `course_id`, `classroom_id`, `user_id`) 
+	VALUES (NULL, 	:bookingtime,	:startdate, 	:enddate, 	'0', 	:classroom, 	'0');";
+	$stmt = $pdo->prepare($sql);
+	$stmt->execute(array(
+		":classroom" => $classroom, 
+		":startdate" => $startdate, 
+		":enddate" => $enddate, 
+		":bookingtime" => $bookingtime));
+	header("location:book_room.php?bookingsuccess=$bookingsuccess");
+	}
+	mysqli_free_result($result);
 }

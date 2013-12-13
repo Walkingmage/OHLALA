@@ -74,30 +74,42 @@ echoHeadWithTitle('Book Room - Jensen Offline');
                   $query = "SELECT * FROM `tbl_classroom`";
                   $result = mysqli_query($mysqli, $query) or die ();
                   while($row = mysqli_fetch_array($result)){
-                  echo "<option>" .  $row['classroom_name'] . "</option>";
+                  $classroom_id = $row["classroom_id"];
+                  echo "<option value='$classroom_id'>" .  $row['classroom_name'] . "</option>";
                 }?>
               </select>
             </div>
             <!-- Välj start & slut datum -->
             <div class="form-group">
-              <input class="datepicker" size="16" type="text" value="Startdatum.." data-date-format="mm/dd/yyyy" name ="startdate">
+              <input class="datepicker" type="text" value="Startdatum.." name ="startdate">
                - 
-              <input class="datepicker" size="16" type="text" value="Slutdatum.." name="enddate">
+              <input class="datepicker" type="text" value="Slutdatum.." name="enddate">
             </div>
             <!-- Välj tid -->
             <div class="form-group">
+
               <select class="form-control filterSelector classSelector" name="bookingtime">
-                <option>Välj tid..</option>
+                <option value="">Välj tid..</option>
                 <?php 
                 $query = "SELECT * FROM `tbl_bookingtime`";
                 $result = mysqli_query($mysqli, $query) or die ();
                 while($row = mysqli_fetch_array($result)){
-                  echo "<option>" .  substr($row['bookingtime_start'],0,5) . " - " . substr($row['bookingtime_end'],0,5) . "</option>";
+                  $bookingtime_id = $row["bookingtime_id"];
+                  echo "<option value='$bookingtime_id'>" . substr($row['bookingtime_start'],0,5) . " - " . substr($row['bookingtime_end'],0,5) . "</option>";
                 }
+                mysqli_free_result($result);
                 ?>
               </select>
+
+      </select>
             </div>
-            <input type="submit" class="btn btn-default" value="Boka" />         
+            <input type="submit" class="btn btn-default" value="Boka" />   
+            <?php 
+            $bookingsuccess = $_GET['bookingsuccess'];
+            $bookingerror = $_GET['bookingerror'];
+            echo " <span style='color:#FF0000'> " .$bookingerror . "</span>";
+            echo " <span style='color:#00BF32'> " .$bookingsuccess . "</span>";
+            ?>      
           </form>
         </div>
       </div>
