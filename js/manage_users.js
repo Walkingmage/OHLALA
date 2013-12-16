@@ -22,12 +22,40 @@ $(document).ready(function() {
 		});
 	}
 
+	//Saves checkbox id to hidden input field
+	function setOrUnsetSelectedUsers() {
+		var userId = this.id;
+		userId = userId.slice( (userId.indexOf('[')+1) , userId.indexOf(']') );
+		var userIdStr = ' '+userId+',';
+		var setIds = $("#archiveForm input[name='selectedUsers']").val();
+		if (setIds.indexOf(userIdStr) < 0 ) {
+			setIds += userIdStr;
+			$("#archiveForm input[name='selectedUsers']").val(setIds);
+		} else {
+			setIds = setIds.replace(userIdStr, '');
+			$("#archiveForm input[name='selectedUsers']").val(setIds);
+		}
+	}
+
 	//Bind filter function to selectors
 	$('.filterSelector').on('change', function(){
 		filterUserList();
 	});
 
-	//On page load
+	//Bind checkbox click through list.js iteration.
+	var listArray = userList.items;
+	for (var i = 0; i < listArray.length; i++) {
+		var trElement = listArray[i].elm;
+		var checkbox = trElement.querySelector('input[type="checkbox"]');
+		checkbox.addEventListener('click', setOrUnsetSelectedUsers, true);
+	}
+
+	//Bind archive button to form around table
+	$( "#archiveButton" ).click(function( event ) {
+    $( "#archiveForm" ).submit();
+	});
+
+	//Filter on page load
 	filterUserList();
 
 });

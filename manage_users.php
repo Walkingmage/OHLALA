@@ -180,6 +180,7 @@ if(isset($_GET["showArchived"])&&($_GET["showArchived"]==1)){
       </tbody>
     </table>
     <input type="hidden" name="setArchived" value="<?=$setArchived?>">
+    <input type="hidden" name="selectedUsers" value="">
   </form>
   <!-- Populated by list.js -->
   <ul class="pagination"></ul>
@@ -194,7 +195,6 @@ if(isset($_GET["showArchived"])&&($_GET["showArchived"]==1)){
 <script type="text/javascript" src="js/list.js"></script>
 <script type="text/javascript" src="js/list.pagination.min.js"></script>
 <script type="text/javascript" src="js/list.fuzzysearch.min.js"></script>
-<script type="text/javascript" src="js/manage_users_list_search_sort.js"></script>
-<script type="text/javascript" src="js/archive.js"></script>
+<script type="text/javascript" src="js/manage_users.js"></script>
 </body>
 </html>
