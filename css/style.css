@@ -195,3 +195,221 @@ footer p {
 .datepicker{
 width: 250px;
 }
+
+/* Empty rooms TIMELINE */
+
+/* BOOKING FORM */
+
+#classroom, #timeperiod {
+  width: 200px;
+  margin-bottom: 10px;
+}
+
+#startdate, #enddate {
+  width: 91px;
+  margin: 0;
+  margin-bottom: 10px;
+}
+
+[type=submit] {
+  margin: 0;
+  margin-bottom: 10px;
+}
+
+#error {
+  color: red;
+}
+
+#success {
+  color: green;
+}
+
+
+
+/* COURSE INFO / DELETE FORM */
+
+#courseinfo {
+  margin-top: 30px;
+}
+
+#courseinfo h3:first-child {
+  margin-top: 0;
+}
+
+#courseinfo p {
+  margin-bottom: 20px;
+}
+
+#courseinfo .booking_classroom {
+  font-weight: bold;
+  margin-top: 20px;
+}
+
+#courseinfo .booking_date {
+  margin-left: 10px;
+  margin-top: 8px;
+  font-size: 11px;
+}
+
+#courseinfo .delete {
+  color: red;
+  margin-left: 20px;
+  cursor: pointer;
+}
+
+
+
+/* BOOKING CALENDAR (MISC) */
+
+#calendar {
+  
+}
+
+#dialog {
+  display: none;
+}
+
+#dialog [type=button] {
+  width: 71px;
+  height: 20px;
+  margin: 0;
+  padding: 0;
+  font-size: 11px;
+}
+
+#legend {
+  font-size: 11px;
+  margin-bottom: 30px;
+}
+
+#legend .booked_fm, #legend .booked_em {
+  display: inline-block;
+  height: 3px;
+  width: 14px;
+  margin-right: 5px;
+  margin-bottom: 2px;
+}
+
+#legend .booked_fm {
+  background: #EB6565;
+  margin-top: 5px;
+}
+
+#legend .booked_em {
+  background: #F79859;
+  margin-top: 15px;
+  margin-left: 15px;
+}
+
+#legend .booking_start, #legend .booking_end {
+  display: inline-block;
+  margin-right: 5px;
+  margin-left: 15px;
+  width: 10px;
+  height: 10px;
+  border-radius: 5px;
+}
+
+#legend .booking_start {
+  background: #B0DDF5;
+}
+
+#legend .booking_end {
+  background: #B7E8B3;
+}
+
+
+
+/* BOOKING CALENDAR */
+
+#calendar .month {
+  margin-bottom: 30px;
+}
+
+#calendar .dashes {
+  position: absolute;
+  margin-top: 21px;
+  border-top: 1px dashed #ccc;
+  border-bottom: 1px dashed #ccc;
+  height: 9px;
+  width: 100%;
+  z-index: -1;
+}
+
+#calendar .startdate {
+  float: left;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+#calendar .enddate {
+  float: right;
+  font-size: 11px;
+}
+
+#calendar .day {
+  width: 20px;
+  height: 25px;
+  float: left;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  margin-right: 2px;
+  margin-bottom: 2px;
+  font-size: 10px;
+  text-align: center;
+  cursor: pointer;
+}
+
+#calendar .day.full {
+  background: #F34444;
+}
+
+#calendar .day.empty {
+  background: #90FF90;
+}
+
+#calendar .day div {
+  position: absolute;
+  height: 3px;
+  width: 14px;
+  margin-right: 1px;
+  display: none;
+}
+
+#calendar .booked_fm div:nth-child(1) {
+  background: #EB6565;
+  margin-top: -20px;
+  display: block;
+}
+
+#calendar .booked_em div:nth-child(2) {
+  background: #F79859;
+  margin-top: -10px;
+  display: block;
+}
+
+#calendar .day span {
+  width: 14px;
+  height: 14px;
+  border-radius: 7px;
+}
+
+#calendar .selected span {
+  display: block;
+  font-weight: bold;
+}
+
+#calendar .booking_start span {
+  display: block;
+  background: #B0DDF5;
+}
+
+#calendar .booking_end span {
+  display: block;
+  background: #B7E8B3;
+}
+
+#calendar .load-months {
+  color: #000;
+  text-decoration: underline;
+}

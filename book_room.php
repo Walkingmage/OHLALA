@@ -17,28 +17,30 @@ echoHeadWithTitle('Book Room - Jensen Offline');
 <div class="container">
   <div class="row cf top-filters room-top-filters">
     <div class="col-md-12">
-      <form class="form-inline" role="form">
-        <div class="form-group">
-          <label for="input-seats">Minst antal platser</label>
-          <input type="text" class="form-control seat-filter-control" id="input-seats">
-        </div>
-        <div class="form-group">
-          <label for="inputProjector">Projektor</label>
-          <select class="form-control projector-select">
-            <option>Ja</option>
-            <option>Nej</option>
-            <option>Spelar ingen roll</option>
-          </select>
-        </div>
-        <button type="submit" class="btn btn-default top-filter-btn">En knapp, om det behövs</button>
-      </form>
+      
     </div>
   </div>
   <div class="row cf">
     <div class="col-md-9 main-booking-content room-timeline">
       <div class="panel panel-default">
         <div class="panel-body">
-          <h2>Timeline placeholder</h2>
+          <h2>Lokaler</h2>
+          <form class="form-inline" role="form">
+            <div class="form-group">
+              <label for="input-seats">Minst antal platser</label>
+              <input type="text" class="form-control seat-filter-control" id="input-seats">
+            </div>
+            <div class="form-group">
+              <label for="inputProjector">Projektor</label>
+              <select class="form-control projector-select">
+                <option>Ja</option>
+                <option>Nej</option>
+                <option>Spelar ingen roll</option>
+              </select>
+            </div>
+            <input type="submit" class="btn btn-default top-filter-btn" value="Sök"/>
+          </form>
+          <?php require_once('timeline/timeline.php'); ?> 
         </div>
       </div>
     </div>
@@ -122,6 +124,7 @@ echoHeadWithTitle('Book Room - Jensen Offline');
 	
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="https://code.jquery.com/jquery.js"></script>
+<script src="js/jquery-ui.custom.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="js/bootstrap.min.js"></script>
 <script src="js/bootstrap-datepicker.js"></script>
