@@ -68,8 +68,7 @@ if(isset($_GET["showArchived"])&&($_GET["showArchived"]==1)){
               $query = "SELECT * FROM `tbl_usertype`";
               $result = mysqli_query($mysqli, $query) or die ();
               while($row = mysqli_fetch_array($result)){
-                $usertype_id = $row["usertype_id"];
-                echo "<option value='$usertype_id'>".$row['usertype_name']."</option>";
+                echo "<option value='".utf8_encode($row['usertype_name'])."'>".utf8_encode($row['usertype_name'])."</option>";
               }
               mysqli_free_result($result);
               ?>
@@ -132,7 +131,7 @@ if(isset($_GET["showArchived"])&&($_GET["showArchived"]==1)){
           <th class="hide-mobile">Telefon</th>
           <th class="hide-mobile">Klass</th>
           <th class="hide-mobile">Program </th>
-          <th class="hide-mobile">Behörighet</th>
+          <th class="hide-mobile">Användartyp</th>
         </tr>
       </thead>
       <tbody class="list">
@@ -141,21 +140,19 @@ if(isset($_GET["showArchived"])&&($_GET["showArchived"]==1)){
       //static test data:
       //require 'random_static_list.php';
       $sql=("SELECT
-      tbl_user.user_id,
-      tbl_user.user_firstname,
-      tbl_user.user_lastname,
-      tbl_user.user_email,
-      tbl_user.usertype_id,
-      tbl_user.user_phonenumber
-      FROM
-      tbl_user
-      WHERE
-      tbl_user.user_archived = ?;");
+      tbl_user.user_id, 
+      tbl_user.user_firstname, 
+      tbl_user.user_lastname, 
+      tbl_user.user_email, 
+      tbl_user.user_phonenumber, 
+      tbl_usertype.usertype_name
+      FROM tbl_user LEFT JOIN tbl_usertype ON tbl_user.usertype_id = tbl_usertype.usertype_id
+      WHERE tbl_user.user_archived = ?;");
       
       if($stmt = $mysqli->prepare($sql)){
         $stmt->bind_param("s",$showArchived);
         $stmt->execute();
-        $stmt->bind_result($id,$user_firstname,$user_lastname,$user_email,$user_access,$user_phonenumber);
+        $stmt->bind_result($id,$user_firstname,$user_lastname,$user_email,$user_phonenumber,$user_type);
         while($data = $stmt->fetch()){
       ?>
         <tr>
@@ -166,8 +163,8 @@ if(isset($_GET["showArchived"])&&($_GET["showArchived"]==1)){
           <td class="email hide-mobile"><?php echo $user_email; ?></td>
           <td class="telephone hide-mobile"><?php echo $user_phonenumber; ?></td>
           <td class="schoolClass hide-mobile"><?php echo "-" ?></td>
-          <td class="schoolClass hide-mobile"><?php echo "-" ?></td>
-          <td class="access hide-mobile"><?php echo $user_access ?></td>
+          <td class="schoolProgram hide-mobile"><?php echo "-" ?></td>
+          <td class="userType hide-mobile"><?php echo utf8_encode($user_type) ?></td>
         </tr>
       <?php
        }
