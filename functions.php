@@ -85,7 +85,7 @@ if($function == "bookRoom"){
 	$startdate = $_POST['startdate'];
 	$enddate = $_POST['enddate'];
 	$bookingtime = $_POST['bookingtime'];
-	$user = $_GET['user'];
+	// $user = $_GET['user'];
 	$bookingsuccess = "Bokningen lyckades!";
 
 	$bookingquery = "SELECT * 
@@ -112,5 +112,5 @@ if($function == "bookRoom"){
 		":bookingtime" => $bookingtime));
 	header("location:book_room.php?bookingsuccess=$bookingsuccess");
 	}
-	mysqli_free_result($result);
+	mysqli_free_result($bookingresult);
 }
