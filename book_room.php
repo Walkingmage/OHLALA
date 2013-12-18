@@ -2,6 +2,7 @@
 session_start();
 //require('functions.php');
 require_once("dbconnect.php");
+require_once("functions.php");
 ?>
 <!DOCTYPE html>
 <html>
@@ -129,6 +130,7 @@ echoHeadWithTitle('Book Room - Jensen Offline');
 <script src="js/bootstrap.min.js"></script>
 <script src="js/bootstrap-datepicker.js"></script>
 <script src="js/datepicker_initiate.js"></script>
+<script src="js/show_room_booking.js"></script>
 
 </body>
 </html>

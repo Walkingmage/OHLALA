@@ -1,7 +1,8 @@
 <?php 
 session_start();
-require_once("dbconnect.php"); ?>
-<?php //require('functions.php'); ?>
+require_once("dbconnect.php");
+require('functions.php');  ?>
+<?php  ?>
 <!DOCTYPE html>
 <html>
 <?php

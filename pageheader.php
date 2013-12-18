@@ -1,4 +1,8 @@
 <?php
+session_start(); 
+if (!user_logged_in()) {
+   header('Location: index.php');
+  }
 // Get file name
 $path = pathinfo($_SERVER['PHP_SELF']);
 $file = $path['filename'];
@@ -44,15 +48,11 @@ switch ($file) {
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
           <li class="<?php echo $indexActive; ?>"><a href="index.php">Start</a></li> <!-- What should be displayed on the startpage? -->
-          <?php #if (user_logged_in()) { ?>
           <li class="<?php echo $manageUsersActive; ?>"><a href="manage_users.php">Hantera konton</a></li>
           <li class="<?php echo $bookComputerActive; ?>"><a href="book_computer.php">Boka dator</a></li>
           <li class="<?php echo $boolkRoomActive; ?>"><a href="book_room.php">Boka lokal</a></li>
-          <?php #if (user_logged_in()) { ?>
-<!--           <li><a href="#">Inloggad användare: <?php #echo $_SESSION['user']['user_firstname'].' '.$_SESSION['user']['user_lastname']; ?></a></li> -->
-          <li><a href="?logout">Logga ut</a></li>
-          <?php #} ?>
-          <?php #} ?>
+          <li><a href="#">Inloggad användare: <?php echo $_SESSION['user']['user_firstname'].' '.$_SESSION['user']['user_lastname']; ?></a></li>
+          <li><a href="?function=logout">Logga ut</a></li>
         </ul>
       </div>
 

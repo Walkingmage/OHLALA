@@ -2,6 +2,7 @@
 include_once("dbconnect.php");
 include_once("pdoconnect.php");
 $function = $_GET["function"];
+session_start(); 
 
 // function to check if user exists in the database, if so, login!
 function check_user_login($email, $password) {
@@ -23,7 +24,6 @@ function check_user_login($email, $password) {
 	$res = mysqli_fetch_assoc($query);
 
 	if ($num > 0) {
-
 		// set session user
 		$_SESSION['user'] = $res;
 		header('Location: manage_users.php');
@@ -32,18 +32,17 @@ function check_user_login($email, $password) {
 	}
 }
 
-if ( ! empty($_SESSION['user'])) {
-	if (isset($_GET['logout'])) {
-		unset($_SESSION['user']);
-		header('Location: index.php');
-	}
-}
+// if ( !empty($_SESSION['user'])) {
+// 	if (isset($_GET['logout'])) {
+// 		unset($_SESSION['user']);
+// 		header('Location: index.php');
+// 	}
+// }
 
 function user_logged_in() {
 	if (empty($_SESSION['user'])) {
 		return false;
 	}
-
 	return true;
 }
 
@@ -53,6 +52,11 @@ function rand_string( $length ) {
 	for($i = 0; $i < $length; $i++ ) {
 	$str .= $chars[ rand( 0, $size - 1 ) ];}
 	return $str; 
+}
+
+if($function == "logout"){
+session_destroy();
+header('Location: index.php');
 }
 
 if ($function == "edituser") {
