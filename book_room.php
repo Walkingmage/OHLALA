@@ -129,6 +129,7 @@ echoHeadWithTitle('Book Room - Jensen Offline');
 <script src="js/bootstrap.min.js"></script>
 <script src="js/bootstrap-datepicker.js"></script>
 <script src="js/datepicker_initiate.js"></script>
+<script src="js/show_room_booking.js"></script>
 
 </body>
 </html>
