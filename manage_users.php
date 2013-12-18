@@ -93,29 +93,6 @@ if(isset($_GET["showArchived"])&&($_GET["showArchived"]==1)){
           </div>
         </div>
 
-        <div class="form-group">
-          <label for="inputPassword3" class="col-md-10 control-label">Klass</label>
-          <div class="col-md-2">
-            <select class="form-control filterSelector classSelector">
-              <option>Alla...</option>
-              <option>1A</option>
-              <option>1B</option>
-              <option>1C</option>
-              <option>1D</option>
-              <option>1E</option>
-              <option>2A</option>
-              <option>2B</option>
-              <option>2C</option>
-              <option>2D</option>
-              <option>2E</option>
-              <option>3A</option>
-              <option>3B</option>
-              <option>3C</option>
-              <option>3D</option>
-              <option>3E</option>
-            </select>
-          </div>
-        </div>
       </form>
     </div>
   </div>
@@ -129,9 +106,8 @@ if(isset($_GET["showArchived"])&&($_GET["showArchived"]==1)){
           <th>Namn</th>
           <th class="hide-mobile">Email</th>
           <th class="hide-mobile">Telefon</th>
-          <th class="hide-mobile">Klass</th>
-          <th class="hide-mobile">Program </th>
           <th class="hide-mobile">Användartyp</th>
+          <th class="hide-mobile">Program </th>
         </tr>
       </thead>
       <tbody class="list">
@@ -139,32 +115,23 @@ if(isset($_GET["showArchived"])&&($_GET["showArchived"]==1)){
       <?php
       //static test data:
       //require 'random_static_list.php';
-      $sql=("SELECT
-      tbl_user.user_id, 
-      tbl_user.user_firstname, 
-      tbl_user.user_lastname, 
-      tbl_user.user_email, 
-      tbl_user.user_phonenumber, 
-      tbl_usertype.usertype_name
-      FROM tbl_user LEFT JOIN tbl_usertype ON tbl_user.usertype_id = tbl_usertype.usertype_id
-      WHERE tbl_user.user_archived = ?;");
+      $sql=("SELECT tbl_user.user_id, tbl_user.user_firstname, tbl_user.user_lastname, tbl_user.user_jensenemail, tbl_user.user_phonenumber, tbl_usertype.usertype_name, tbl_program.program_name FROM tbl_user LEFT JOIN tbl_usertype ON tbl_user.usertype_id = tbl_usertype.usertype_id LEFT JOIN tbl_program ON tbl_user.program_id = tbl_program.program_id WHERE tbl_user.user_archived = ?;");
       
       if($stmt = $mysqli->prepare($sql)){
         $stmt->bind_param("s",$showArchived);
         $stmt->execute();
-        $stmt->bind_result($id,$user_firstname,$user_lastname,$user_email,$user_phonenumber,$user_type);
+        $stmt->bind_result($id,$userFirstname,$userLastname,$userSchoolEmail,$userPhonenumber,$userType, $programName);
         while($data = $stmt->fetch()){
       ?>
         <tr>
           <td>
             <input type="checkbox" name="userCheckbox[<?=$id?>]" id="userCheckbox[<?=$id?>]" class="rowSelectedCheckbox">
           </td>
-          <td class="name"><a class="" href="edit_user.php?id=<?php echo"$id";?>"><?php echo $user_firstname . " " . $user_lastname; ?></a></td>
-          <td class="email hide-mobile"><?php echo $user_email; ?></td>
-          <td class="telephone hide-mobile"><?php echo $user_phonenumber; ?></td>
-          <td class="schoolClass hide-mobile"><?php echo "-" ?></td>
-          <td class="schoolProgram hide-mobile"><?php echo "-" ?></td>
-          <td class="userType hide-mobile"><?php echo utf8_encode($user_type) ?></td>
+          <td class="name"><a class="" href="edit_user.php?id=<?php echo"$id";?>"><?php echo $userFirstname . " " . $userLastname; ?></a></td>
+          <td class="email hide-mobile"><?php echo $userSchoolEmail; ?></td>
+          <td class="telephone hide-mobile"><?php echo $userPhonenumber; ?></td>
+          <td class="userType hide-mobile"><?php echo utf8_encode($userType) ?></td>
+          <td class="schoolProgram hide-mobile"><?php echo utf8_encode($programName) ?></td>
         </tr>
       <?php
        }

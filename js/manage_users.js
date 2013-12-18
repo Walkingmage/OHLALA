@@ -2,7 +2,7 @@ $(document).ready(function() {
 
 	//Initiate list.js List
 	var userList = new List('test-list', {
-		valueNames: ['name', 'email', 'telephone', 'schoolClass', 'schoolProgram', 'userType'],
+		valueNames: ['name', 'email', 'telephone', 'schoolProgram', 'userType'],
 		page: 40,
 		plugins: [ ListPagination({}), ListFuzzySearch() ]
 			// [ ListFuzzySearch() ],
@@ -10,12 +10,10 @@ $(document).ready(function() {
 
 	//Wrapper for list.js filter function
 	function filterUserList() {
-		var classSelectorValue = $('.classSelector').val();
 		var accessSelectorValue = $('.accessSelector').val();
 		var programSelectorValue = $('.programSelector').val();
-		console.dir({one: classSelectorValue, two: accessSelectorValue, three: programSelectorValue});
 		userList.filter(function(item){
-			if ( (programSelectorValue === "Alla..." || programSelectorValue === item.values().schoolProgram) && (classSelectorValue === "Alla..." || classSelectorValue === item.values().schoolClass) && (accessSelectorValue === "Alla..." || accessSelectorValue === item.values().userType ) ) {
+			if ( (programSelectorValue === "Alla..." || programSelectorValue === item.values().schoolProgram) && (accessSelectorValue === "Alla..." || accessSelectorValue === item.values().userType ) ) {
 				return true;
 			} else {
 				return false;
