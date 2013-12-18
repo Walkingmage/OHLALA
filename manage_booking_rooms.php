@@ -9,6 +9,13 @@ require_once("pdoconnect.php");
 <?php
 require('html_head.php');
 echoHeadWithTitle('Manage Users - Jensen Offline');
+$daynames['se']['1']="Måndag";
+$daynames['se']['2']="Tisdag";
+$daynames['se']['3']="Onsdag";
+$daynames['se']['4']="Torsdag";
+$daynames['se']['5']="Fredag";
+$daynames['se']['6']="Lördag";
+$daynames['se']['7']="Söndag";
 
 /*if(isset($_GET["showArchived"])&&($_GET["showArchived"]==1)){
   $showArchived=1;
@@ -24,6 +31,60 @@ echoHeadWithTitle('Manage Users - Jensen Offline');
 }*/
 
 ?>
+
+
+
+
+<body>
+<?php require('pageheader.php'); ?>
+<div id="test-list" class="container">
+
+  <div class="row table-controls cf">
+  
+    <div class="col-md-6 add-entry-controls">
+      <button type="button" class="btn btn-default" id="unbookButton">
+        <span class="glyphicon glyphicon-minus"></span>Avboka
+      </button>
+    </div>
+  
+    <div class="col-md-6 filter-controls">
+      <form class="form-horizontal" role="form">
+
+        <div class="form-group">
+          <label for="" class="col-md-4 control-label">Sök bland visade</label>
+          <div class="col-md-8">
+             <input type="text" class="form-control fuzzy-search" placeholder="Fritext">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="inputPassword3" class="col-md-10 control-label">Klass</label>
+          <div class="col-md-2">
+            <select class="form-control filterSelector classSelector">
+              <option>Alla...</option>
+              <option>1A</option>
+              <option>1B</option>
+              <option>1C</option>
+              <option>1D</option>
+              <option>1E</option>
+              <option>2A</option>
+              <option>2B</option>
+              <option>2C</option>
+              <option>2D</option>
+              <option>2E</option>
+              <option>3A</option>
+              <option>3B</option>
+              <option>3C</option>
+              <option>3D</option>
+              <option>3E</option>
+            </select>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <form id="unbookForm" action="unbook_rooms.php" method="POST">
     <table class="table table-striped table-condensed user-table">
       <thead>
         <tr>
@@ -98,7 +159,7 @@ while($r = $q->fetch()){
           <td class="dateRange"><a class="" href="edit_user.php?id=<?php echo"$id";?>"><?php echo $r->booking_startdate. " - " . $r->booking_enddate; ?></a></td>
           <td class="timeRange"><?php echo $r->bookingtime_start. " - " . $r->bookingtime_end; ?></td>
           <td class="room"><?php echo $r->classroom_name. " - " . $r->classroomtype_name; ?></td>
-          <td class="weekday hide-mobile"><?php echo "Tisdag(ar)"; ?></td>
+          <td class="weekday hide-mobile"><?php echo $daynames['se'][date('N', strtotime( $r->booking_startdate))]; ?></td>
           <td class="schoolClass hide-mobile"><?php echo "-" ?></td>
           <?php if(TRUE/*OM ADMIN*/){
             ?>
@@ -109,13 +170,30 @@ while($r = $q->fetch()){
           ?>
           <td class="access hide-mobile"><?php echo $r->user_firstname. " " . $r->user_lastname; ?></td>
         </tr>
-      <?php
-    }
-      ?>
+  <?php
+  }
+  ?>
       </tbody>
     </table>
 
+    <input type="hidden" name="selectedBookings" value="">
+  </form>
+<!-- Populated by list.js -->
+  <ul class="pagination"></ul>
 
+</div>
+
+<?php require('pagefooter.php'); ?>
+<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+<script src="https://code.jquery.com/jquery.js"></script>
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/list.js"></script>
+<script type="text/javascript" src="js/list.pagination.min.js"></script>
+<script type="text/javascript" src="js/list.fuzzysearch.min.js"></script>
+<script type="text/javascript" src="js/manage_booking_rooms.js"></script>
+</body>
+</html>
 
 
 <?php
