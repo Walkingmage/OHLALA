@@ -2,7 +2,8 @@
 
 $function = isset($_GET["function"]) ? $_GET['function'] : '';
 $course_id = isset($_GET["course"]) ? $_GET['course'] : '';
-$classroom_id = isset($_GET["classroom"]) ? $_GET['classroom'] : '';
+//$classroom_id = isset($_GET["classroom"]) ? $_GET['classroom'] : '';
+$classroom_id = 2;
 $months_to_show = isset($_GET["months"]) ? $_GET["months"] : 3;
 $error = null;
 $success = null;
@@ -25,7 +26,7 @@ $success = null;
       // hämta bokningar som:
       // - har samma klassrum som det valda klassrummet
       // - inte redan har utgått
-      $query = "SELECT * FROM tbl_booking WHERE classroom_id = $classroom_id AND booking_enddate > CURDATE()";
+      $query = "SELECT * FROM tbl_booking LEFT JOIN tbl_user ON tbl_booking.user_id = tbl_user.user_id WHERE classroom_id = $classroom_id AND booking_enddate > CURDATE()";
 
       // spara bokningsdata i array för senare användning
       $bookings = array();
@@ -37,6 +38,8 @@ $success = null;
           array_push($bookings, $row);
         }
       }
+
+      //var_dump($bookings);
 
       // startdatum för kalendern: första dagen i aktuell månad
       // Y-m = ex. 2013-12-01
@@ -90,6 +93,11 @@ $success = null;
 
           // klass för dagens div (booked_fm och/elelr booked_em)
           $class = "";
+          $bk_id = "";
+          $bk_printstart = "";
+          $bk_printend = "";
+          $bk_firstname = "";
+          $bk_lastname = "";
 
           // loop för alla bokningar av det aktuella klassrummet (se SQL query ovanför i koden)
           // avgör om den finns en eller flera överlappande bokning för respektive dag
@@ -97,22 +105,34 @@ $success = null;
             // gör om till time för att kunna jämföra datum
             $bk_startdate = strtotime($booking["booking_startdate"]);
             $bk_enddate = strtotime($booking["booking_enddate"]);
-            $bk_timeperiod = isset($booking["timeperiod_id"]) ? $booking['timeperiod_id'] : '';
+            $bk_timeperiod = isset($booking["bookingtime_id"]) ? $booking['bookingtime_id'] : '';
 
             // om det finns en överlappande bokning: markera som "bokad" med css-klass
             if ($day_totime >= $bk_startdate && $day_totime <= $bk_enddate) {
-              if ($bk_timeperiod == 1)
+              if ($bk_timeperiod == 1) {
+                $bk_id = $booking["booking_id"]." ";
+                $bk_printstart = date("Y-m-d", $bk_startdate)." ";
+                $bk_printend = date("Y-m-d", $bk_enddate)." ";
+                $bk_firstname = $booking["user_firstname"]." ";
+                $bk_lastname = $booking["user_lastname"];
                 $class .= " booked_fm";
-              else if ($bk_timeperiod == 2)
+              }
+              else if ($bk_timeperiod == 2) {
+                $bk_id = $booking["booking_id"]." ";
+                $bk_printstart = date("Y-m-d", $bk_startdate)." ";
+                $bk_printend = date("Y-m-d", $bk_enddate)." ";
+                $bk_firstname = $booking["user_firstname"]." ";
+                $bk_lastname = $booking["user_lastname"];
                 $class .= " booked_em";
+              }
             }
           }
 
           // skriv ut HTML-koden för respektive dag
           // de tomma divarna blir orange respektive röd om
           // de har css-klasserna booked_fm eller booked_em
-          echo "<div class='empty day$class' id='".$day->format("Y-m-d")."'>";
-          echo   "<span>".$day->format("j")."</span>";
+          echo "<div class='".$bk_id."empty day$class' id='".$day->format("Y-m-d")."'>";
+          echo   "<span class='".$bk_printstart.$bk_printend.$bk_firstname.$bk_lastname."'>".$day->format("j")."</span>";
           echo "</div>";
         }
 
