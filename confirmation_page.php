@@ -17,14 +17,6 @@ session_start();
 
 require 'dbconnect.php';
 
-$function = $_GET["function"];
-function rand_string( $length ) {
-	$chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";	
-	$size = strlen( $chars );
-	for($i = 0; $i < $length; $i++ ) {
-	$str .= $chars[ rand( 0, $size - 1 ) ];}
-	return $str; 
-	}
 
 if ($function == "adduser"){
 
@@ -48,7 +40,7 @@ if ($function == "adduser"){
 		$jensenemail = $username . "@" .  $row["usertype_name"]. ".jensenoffline.se";
 // ----------------------------------------------------------------
 try{
-$pdo = new PDO('mysql:host=wuk.web.bitcloud.se;dbname=wukwebbi_grupp1', 'wukwebbi_grupp1', 'ofumfg123');
+include_once("pdoconnect.php");
 $sql = "INSERT INTO tbl_user(
 		user_firstname,
 		user_lastname,
