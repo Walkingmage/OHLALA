@@ -16,6 +16,9 @@ echoHeadWithTitle('Book Room - Jensen Offline');
 <?php require('pageheader.php'); ?>
 
 <div class="container">
+        <button type="button" class="btn btn-default">
+        <span class="glyphicon glyphicon-inbox"></span><a href="manage_booking_rooms.php">&nbsp;Hantera&nbsp;bokade&nbsp;lokaler</a>
+      </button>
   <div class="row cf top-filters room-top-filters">
     <div class="col-md-12">
       
