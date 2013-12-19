@@ -37,7 +37,7 @@ switch ($file) {
 ?>
 <script src="js/functions.js"></script>
 <header>
-  <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+  <nav class="navbar navbar-default" role="navigation">
     <div class="container">
 			<!-- Mobile menu toggle -->
       <div class="navbar-header">
