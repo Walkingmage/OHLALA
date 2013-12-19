@@ -18,18 +18,6 @@ $daynames['se']['5']="Fredag";
 $daynames['se']['6']="Lördag";
 $daynames['se']['7']="Söndag";
 
-/*if(isset($_GET["showArchived"])&&($_GET["showArchived"]==1)){
-  $showArchived=1;
-  $setArchived=0;
-  $archiveButtonText="&nbsp;Avarkivera&nbsp;markerade";
-  $showArchivedButtonText="&nbsp;Visa&nbsp;oarkiverade";
-
-}else{
-  $showArchived=0;
-  $setArchived=1;
-  $archiveButtonText="&nbsp;Arkivera&nbsp;markerade";
-  $showArchivedButtonText="&nbsp;Visa&nbsp;arkiverade";
-}*/
 
 ?>
 
