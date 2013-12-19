@@ -1,7 +1,7 @@
 <?php
 include_once("dbconnect.php");
 include_once("pdoconnect.php");
-$function = $_GET["function"];
+isset($_GET["function"]) ? $function = $_GET["function"] : $function = "";
 if (session_status() == PHP_SESSION_NONE) {
   session_start();
 }  
