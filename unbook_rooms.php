@@ -10,7 +10,7 @@ function checkForUnbookPrem($checkPremSth,$userId){
 	 	$f = $checkPremSth->fetch();
 	  	RETURN $userId == $f['user_id'];
 	}
-if(!(intval($_SESSION['usertype_id'])>=$reqiredAdminLevel)){
+if(!(intval($_SESSION["user"]['usertype_id'])>=$reqiredAdminLevel)){
 //SETUP statement
 
 	$checkPremSth = $pdo->prepare("SELECT user_id FROM tbl_booking WHERE booking_id=:id");
@@ -35,13 +35,13 @@ $roomArray[(count($roomArray)-1)] = $lastElement;
 
 foreach ($roomArray as $value) {	
 	//echo ($value."<br>");
-	if((intval($_SESSION['usertype_id'])>=$reqiredAdminLevel)){
+	if((intval($_SESSION["user"]['usertype_id'])>=$reqiredAdminLevel)){
 		$sth->execute();
 	}else{
-		if (checkForUnbookPrem($checkPremSth,$_SESSION['user_id'])) {
+		if (checkForUnbookPrem($checkPremSth,$_SESSION["user"]['user_id'])) {
 			$sth->execute();
 		}else{
-			//echo ("UserID ".$_SESSION['user_id']." can't unbook booking ".$value."!<br>\n");//TODO debug only
+			//echo ("UserID ".$_SESSION["user"]['user_id']." can't unbook booking ".$value."!<br>\n");//TODO debug only
 
 
 		}
