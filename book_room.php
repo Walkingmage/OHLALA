@@ -1,7 +1,8 @@
-<?php 
-session_start();
+<?php
+//session_start();
 //require('functions.php');
-require_once("dbconnect.php");
+//require_once("dbconnect.php");
+require_once("functions.php");
 ?>
 <!DOCTYPE html>
 <html>
@@ -14,33 +15,28 @@ echoHeadWithTitle('Book Room - Jensen Offline');
 <body>
 <?php require('pageheader.php'); ?>
 
-<div class="container">
+<div class="container"><a href="manage_booking_rooms.php">
+        <button type="button" class="btn btn-default">
+        <span class="glyphicon glyphicon-inbox"></span>&nbsp;Hantera&nbsp;bokade&nbsp;lokaler
+      </button></a>
   <div class="row cf top-filters room-top-filters">
     <div class="col-md-12">
-      
+
     </div>
   </div>
   <div class="row cf">
     <div class="col-md-9 main-booking-content room-timeline">
       <div class="panel panel-default">
         <div class="panel-body">
-          <h2>Lokaler</h2>
-          <form class="form-inline" role="form">
-            <div class="form-group">
-              <label for="input-seats">Minst antal platser</label>
-              <input type="text" class="form-control seat-filter-control" id="input-seats">
-            </div>
-            <div class="form-group">
-              <label for="inputProjector">Projektor</label>
-              <select class="form-control projector-select">
-                <option>Ja</option>
-                <option>Nej</option>
-                <option>Spelar ingen roll</option>
-              </select>
-            </div>
-            <input type="submit" class="btn btn-default top-filter-btn" value="Sök"/>
-          </form>
-          <?php require_once('timeline/timeline.php'); ?> 
+          <h2>Schema</h2>
+          <?php
+            $qs = (format_query_string()) ? format_query_string() : '';
+            if ( ! empty($_GET['classroom_id'])) {
+          ?>
+          <?php require_once('timeline/timeline.php'); ?>
+          <?php } else { ?>
+            <p>Börja med att välja en sal till höger!</p>
+        <?php } ?>
         </div>
       </div>
     </div>
@@ -49,14 +45,51 @@ echoHeadWithTitle('Book Room - Jensen Offline');
         <div class="panel-heading">
           <h3 class="panel-title">Visa tider för:</h3>
         </div>
-<!--    <div class="panel-body">
-          Här kan man också lägga filterkontroller
-        </div> -->
+        <div class="panel-body">
+           <form class="form-inline" role="form" action="">
+            <div class="form-group">
+              <?php
+                $num_seats = isset($_GET['classroom_numberofseats']) ? $_GET['classroom_numberofseats'] : '';
+              ?>
+              <label for="input-seats">Minst antal platser</label>
+              <input type="text" value="<?php echo $num_seats; ?>" class="form-control seat-filter-control" id="input-seats" name="classroom_numberofseats">
+            </div>
+
+            <div class="form-group">
+              <label for="inputProjector">Utrustning</label>
+              <select class="form-control projector-select" name="classroom_equipment">
+                <?php
+                  $selected = (isset($_GET['classroom_equipment']) && $_GET['classroom_equipment'] == $room['classroom_equipment']) ? 'SELECTED' : '';
+                  $types = get_classroom_eq();
+                ?>
+                <?php foreach($types as $key => $val) { ?>
+                <option value="<?php echo $key; ?>" <?php echo $selected; ?>><?php echo $val; ?></option>
+                <?php } ?>
+              </select>
+            </div>
+            <input type="hidden" name="classroom_id" value="<?php echo isset($_GET['classroom_id']) ? $_GET['classroom_id'] : ''; ?>" />
+            <div class="form-group button">
+              <input type="submit" class="btn btn-default top-filter-btn" value="Sök"/>
+            </div>
+          </form>
+        </div>
         <ul class="list-group">
-          <li class="list-group-item">Sal 123</li>
-          <li class="list-group-item">Sal 444</li>
-          <!-- Utgråad för att visa att den inte matchar valen i .top-filters -->
-          <li class="list-group-item inactive-filter-list-item">Sal 555</li>
+          <?php
+            $filter = null;
+            if ( ! empty($_GET) && count($_GET) > 1) {
+              $filter = $_GET;
+            }
+            $rooms = get_all_rooms($filter);
+
+            foreach($rooms as $room) {
+            $selected = isset($_GET['classroom_id']) ? $_GET['classroom_id'] : '';
+          ?>
+          <?php if (isset($selected) && $selected == $room['classroom_id']) { ?>
+              <li class="list-group-item inactive-filter-list-item"><?php echo $room['classroom_name']; ?></li>
+          <?php } else { ?>
+              <li class="list-group-item <?php echo $selected; ?>"><a href="<?php echo ( ! isset($_GET['classroom_id'])) ? '?classroom_id='.$room['classroom_id'] : format_query_string(array('classroom_id' => $room['classroom_id'])); ?>"><?php echo $room['classroom_name']; ?></a></li>
+          <?php } ?>
+        <?php } ?>
         </ul>
       </div>
     </div>
@@ -71,28 +104,29 @@ echoHeadWithTitle('Book Room - Jensen Offline');
             <!-- Välj lokal -->
             <div class="form-group">
               <select id="classroom" name="classroom" class="form-control">
-                <option>Välj lokal..</option>
-                <?php 
+                <?php
                   $query = "SELECT * FROM `tbl_classroom`";
                   $result = mysqli_query($mysqli, $query) or die ();
                   while($row = mysqli_fetch_array($result)){
                   $classroom_id = $row["classroom_id"];
                   echo "<option value='$classroom_id'>" .  $row['classroom_name'] . "</option>";
-                }?>
+                }
+                mysqli_free_result($result);
+                ?>
               </select>
             </div>
             <!-- Välj start & slut datum -->
             <div class="form-group">
-              <input class="datepicker" type="text" value="Startdatum.." name ="startdate">
-               - 
-              <input class="datepicker" type="text" value="Slutdatum.." name="enddate">
+              <input class="datepicker" type="text" placeholder="Startdatum.." name ="startdate">
+               -
+              <input class="datepicker" type="text" placeholder="Slutdatum.." name="enddate">
             </div>
             <!-- Välj tid -->
             <div class="form-group">
 
               <select class="form-control filterSelector classSelector" name="bookingtime">
                 <option value="">Välj tid..</option>
-                <?php 
+                <?php
                 $query = "SELECT * FROM `tbl_bookingtime`";
                 $result = mysqli_query($mysqli, $query) or die ();
                 while($row = mysqli_fetch_array($result)){
@@ -103,13 +137,13 @@ echoHeadWithTitle('Book Room - Jensen Offline');
                 ?>
               </select>
             </div>
-            <input type="submit" class="btn btn-default" value="Boka" />   
-            <?php 
+            <input type="submit" class="btn btn-default" value="Boka" />
+            <?php
             $bookingsuccess = $_GET['bookingsuccess'];
             $bookingerror = $_GET['bookingerror'];
             echo " <span style='color:#FF0000'> " .$bookingerror . "</span>";
             echo " <span style='color:#00BF32'> " .$bookingsuccess . "</span>";
-            ?>      
+            ?>
           </form>
         </div>
       </div>
@@ -121,7 +155,7 @@ echoHeadWithTitle('Book Room - Jensen Offline');
 </div>
 
 <?php require('pagefooter.php'); ?>
-	
+
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="https://code.jquery.com/jquery.js"></script>
 <script src="js/jquery-ui.custom.min.js"></script>

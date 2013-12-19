@@ -1,7 +1,4 @@
-<?php 
-session_start();
-require_once("dbconnect.php"); ?>
-<?php //require('functions.php'); ?>
+<?php require_once('functions.php'); ?>
 <!DOCTYPE html>
 <html>
 <?php
@@ -22,21 +19,22 @@ if(isset($_GET["showArchived"])&&($_GET["showArchived"]==1)){
 }
 
 ?>
+</head>
 <body>
 <?php require('pageheader.php'); ?>
 <div id="test-list" class="container">
 
   <div class="row table-controls cf">
-  
+
     <div class="col-md-6 add-entry-controls">
       <?php
       if($showArchived==0){
-      ?>
+      ?><a href="add_user.php">
       <button type="button" class="btn btn-default">
-        <span class="glyphicon glyphicon-plus"></span><a href="add_user.php">&nbsp;Lägg&nbsp;till</a>
-      </button>
+        <span class="glyphicon glyphicon-plus"></span>&nbsp;Lägg&nbsp;till
+      </button></a>
       <?php
-       } 
+       }
        ?>
       <button type="button" class="btn btn-default" id="archiveButton">
         <span class="glyphicon glyphicon-minus"></span><?php echo ($archiveButtonText); ?>
@@ -47,7 +45,7 @@ if(isset($_GET["showArchived"])&&($_GET["showArchived"]==1)){
       </button>
       </a>
     </div>
-  
+
     <div class="col-md-6 filter-controls">
       <form class="form-horizontal" role="form">
 
@@ -64,7 +62,7 @@ if(isset($_GET["showArchived"])&&($_GET["showArchived"]==1)){
           <div class="col-md-4">
             <select class="form-control filterSelector accessSelector">
               <option>Alla...</option>
-              <?php 
+              <?php
               $query = "SELECT * FROM `tbl_usertype`";
               $result = mysqli_query($mysqli, $query) or die ();
               while($row = mysqli_fetch_array($result)){
@@ -81,7 +79,7 @@ if(isset($_GET["showArchived"])&&($_GET["showArchived"]==1)){
           <div class="col-md-4">
             <select class="form-control filterSelector programSelector">
               <option>Alla...</option>
-              <?php 
+              <?php
               $query = "SELECT * FROM `tbl_program`";
               $result = mysqli_query($mysqli, $query) or die ();
               while($row = mysqli_fetch_array($result)){
@@ -116,7 +114,7 @@ if(isset($_GET["showArchived"])&&($_GET["showArchived"]==1)){
       //static test data:
       //require 'random_static_list.php';
       $sql=("SELECT tbl_user.user_id, tbl_user.user_firstname, tbl_user.user_lastname, tbl_user.user_jensenemail, tbl_user.user_phonenumber, tbl_usertype.usertype_name, tbl_program.program_name FROM tbl_user LEFT JOIN tbl_usertype ON tbl_user.usertype_id = tbl_usertype.usertype_id LEFT JOIN tbl_program ON tbl_user.program_id = tbl_program.program_id WHERE tbl_user.user_archived = ?;");
-      
+
       if($stmt = $mysqli->prepare($sql)){
         $stmt->bind_param("s",$showArchived);
         $stmt->execute();

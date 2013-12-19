@@ -2,30 +2,103 @@
 
 $function = isset($_GET["function"]) ? $_GET['function'] : '';
 $course_id = isset($_GET["course"]) ? $_GET['course'] : '';
-$classroom_id = isset($_GET["classroom"]) ? $_GET['classroom'] : '';
+$classroom_id = isset($_GET["classroom_id"]) ? $_GET['classroom_id'] : '';
 $months_to_show = isset($_GET["months"]) ? $_GET["months"] : 3;
 $error = null;
 $success = null;
+
+if ( ! empty($classroom_id)) {
+  $bookings = get_room_by_id($classroom_id);
+}
+
 ?>
 
 <div class="right">
 
   <?php if (isset($months_to_show) && $months_to_show > 0) { ?>
-    
-    <div id="dialog">
-      <input type="button" onclick="setStartDate()" value="Startdatum" />
-      <input type="button" onclick="setEndDate()" value="Slutdatum" />
-    </div>
 
     <h3>Tider för klassrum</h3>
 
     <div id="calendar">
+    <?php
+      $months = 3;
+      $todays_date = time();
+      $year = date('Y', $todays_date);
+      $month = date('m', $todays_date);
+      $dates = array();
+      $html = null;
 
-      <?php
+      for ($current_month = 0; $current_month <= $months; $current_month++) {
+        $month_calc = strtotime('+'.$current_month.' MONTH', $todays_date);
+        $the_year = date('Y', $month_calc);
+        $the_month = date('M', $month_calc);
+        $the_monthnum = date('m', $month_calc);
+
+        $dates[] = array(
+          'year'  => $the_year,
+          'month' => $the_month,
+          'monthnum' => $the_monthnum
+        );
+      }
+
+      // loop out the calendar dates
+      foreach($dates as $date) {
+        $html .= '<div class="month-container">';
+        $html .= '<div class="month">'.$date['month'].' '.$date['year'].'</div>';
+        $days_in_month = cal_days_in_month(CAL_GREGORIAN,$date['monthnum'], $date['year']);
+        $html .= '<div class="days">';
+        // loop out the calendar days
+        for ($day = 1; $day <= $days_in_month; $day++) {
+          $startdate = null;
+          $enddate = null;
+          $firstname = null;
+          $lastname = null;
+          $the_day = $day;
+          $booked_class = ' empty';
+
+          if ($day < 10) {
+            $the_day = '0'.$day;
+          }
+
+          foreach($bookings as $booking) {
+            $current_loop_date = $date['year'].'-'.$date['monthnum'].'-'.$the_day;
+            $booking_startdate = $booking['booking_startdate'];
+            $booking_enddate = $booking['booking_enddate'];
+            $bookingtime_start = $booking['bookingtime_start'];
+            $bookingtime_end = $booking['bookingtime_end'];
+
+            // check if current calendar date has a booking
+            if ($current_loop_date >= $booking_startdate && $current_loop_date <= $booking_enddate) {
+              $startdate = $booking_startdate;
+              $enddate = $booking_enddate;
+              $firstname = $booking['user_firstname'];
+              $lastname = $booking['user_lastname'];
+
+              // check if booking is full
+              if ($bookingtime_start == '09:00:00' && $bookingtime_end == '16:00:00') {
+                $booked_class = ' full';
+
+              // check if booking is not full but has bookings
+              } elseif ($bookingtime_start >= '09:00:00' && $bookingtime_end <= '16:00:00') {
+                $booked_class = ' not-empty-not-full';
+              }
+              break;
+            }
+          }
+            $html .= '<div class="day'.$booked_class.'" id="'.$date['year'].'-'.$date['monthnum'].'-'.$the_day.'"><span class="'.$startdate.' '.$enddate.' '.$firstname.' '.$lastname.'">'.$day.'</span></div>';
+        }
+        $html .= '</div>';
+        $html .= '<div class="clearfix"></div>';
+        $html .= '</div>';
+      }
+
+      echo $html;
+    ?>
+      <?php /*
       // hämta bokningar som:
       // - har samma klassrum som det valda klassrummet
       // - inte redan har utgått
-      $query = "SELECT * FROM tbl_booking WHERE classroom_id = $classroom_id AND booking_enddate > CURDATE()";
+      $query = "SELECT * FROM tbl_booking LEFT JOIN tbl_user ON tbl_booking.user_id = tbl_user.user_id WHERE classroom_id = $classroom_id AND booking_enddate > CURDATE()";
 
       // spara bokningsdata i array för senare användning
       $bookings = array();
@@ -37,6 +110,8 @@ $success = null;
           array_push($bookings, $row);
         }
       }
+
+      //var_dump($bookings);
 
       // startdatum för kalendern: första dagen i aktuell månad
       // Y-m = ex. 2013-12-01
@@ -90,6 +165,11 @@ $success = null;
 
           // klass för dagens div (booked_fm och/elelr booked_em)
           $class = "";
+          $bk_id = "";
+          $bk_printstart = "";
+          $bk_printend = "";
+          $bk_firstname = "";
+          $bk_lastname = "";
 
           // loop för alla bokningar av det aktuella klassrummet (se SQL query ovanför i koden)
           // avgör om den finns en eller flera överlappande bokning för respektive dag
@@ -97,22 +177,34 @@ $success = null;
             // gör om till time för att kunna jämföra datum
             $bk_startdate = strtotime($booking["booking_startdate"]);
             $bk_enddate = strtotime($booking["booking_enddate"]);
-            $bk_timeperiod = isset($booking["timeperiod_id"]) ? $booking['timeperiod_id'] : '';
+            $bk_timeperiod = isset($booking["bookingtime_id"]) ? $booking['bookingtime_id'] : '';
 
             // om det finns en överlappande bokning: markera som "bokad" med css-klass
             if ($day_totime >= $bk_startdate && $day_totime <= $bk_enddate) {
-              if ($bk_timeperiod == 1)
+              if ($bk_timeperiod == 1) {
+                $bk_id = $booking["booking_id"]." ";
+                $bk_printstart = date("Y-m-d", $bk_startdate)." ";
+                $bk_printend = date("Y-m-d", $bk_enddate)." ";
+                $bk_firstname = $booking["user_firstname"]." ";
+                $bk_lastname = $booking["user_lastname"];
                 $class .= " booked_fm";
-              else if ($bk_timeperiod == 2)
+              }
+              else if ($bk_timeperiod == 2) {
+                $bk_id = $booking["booking_id"]." ";
+                $bk_printstart = date("Y-m-d", $bk_startdate)." ";
+                $bk_printend = date("Y-m-d", $bk_enddate)." ";
+                $bk_firstname = $booking["user_firstname"]." ";
+                $bk_lastname = $booking["user_lastname"];
                 $class .= " booked_em";
+              }
             }
           }
 
           // skriv ut HTML-koden för respektive dag
           // de tomma divarna blir orange respektive röd om
           // de har css-klasserna booked_fm eller booked_em
-          echo "<div class='empty day$class' id='".$day->format("Y-m-d")."'>";
-          echo   "<span>".$day->format("j")."</span>";
+          echo "<div class='".$bk_id."empty day$class' id='".$day->format("Y-m-d")."'>";
+          echo   "<span class='".$bk_printstart.$bk_printend.$bk_firstname.$bk_lastname."'>".$day->format("j")."</span>";
           echo "</div>";
         }
 
@@ -123,6 +215,7 @@ $success = null;
 
       // skriv ut länk för att visa fler månader i kalendern
       echo "<a class='load-months' href='?course=$course_id&classroom=$classroom_id&months=".($months_to_show+6)."'>Ladda in fler månader</a>";
+      */
       ?>
 
     </div>

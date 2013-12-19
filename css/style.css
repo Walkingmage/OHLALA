@@ -1,5 +1,5 @@
 /*
- *	SITE-WIDE STYLES  
+ *	SITE-WIDE STYLES
  */
 
 html, body {
@@ -15,6 +15,19 @@ header {
 
 .red-brand { /* Logo "offline" color */
   color:#FF4040;
+}
+
+.user-info {
+  float:right;
+}
+
+.user-info ul {
+  margin-bottom: 20px;
+}
+
+.user-info ul li {
+  list-style: none;
+  text-align: right;
 }
 
 body {
@@ -70,6 +83,19 @@ footer p {
   .hide-mobile {
     display: none;
   }
+  .user-info {
+    float: left;
+  }
+  .user-info ul {
+    padding-left: 0;
+    margin-left: 0;
+
+  }
+  .user-info ul li {
+    text-align: left;
+    padding-left: 0;
+    margin-left: 0;
+  }
 }
 
 /*
@@ -83,7 +109,7 @@ footer p {
   margin-bottom: 5px;
 }
 
-.add-user-row {  
+.add-user-row {
   padding-bottom: 20px;
   border-bottom: 1px solid #02215A;
 }
@@ -196,6 +222,15 @@ footer p {
 width: 250px;
 }
 
+.form-inline .form-control {
+  width: auto;
+  display: block;
+}
+
+.form-inline .form-group.button {
+  padding-top: 35px;
+}
+
 /* Empty rooms TIMELINE */
 
 /* BOOKING FORM */
@@ -262,7 +297,7 @@ width: 250px;
 /* BOOKING CALENDAR (MISC) */
 
 #calendar {
-  
+
 }
 
 #dialog {
@@ -322,24 +357,14 @@ width: 250px;
 
 /* BOOKING CALENDAR */
 
-#calendar .month {
+#calendar .month-container {
   margin-bottom: 30px;
 }
 
-#calendar .dashes {
-  position: absolute;
-  margin-top: 21px;
-  border-top: 1px dashed #ccc;
-  border-bottom: 1px dashed #ccc;
-  height: 9px;
-  width: 100%;
-  z-index: -1;
-}
-
-#calendar .startdate {
-  float: left;
+#calendar .month {
   font-size: 12px;
   font-weight: bold;
+  clear: both;
 }
 
 #calendar .enddate {
@@ -368,6 +393,14 @@ width: 250px;
   background: #90FF90;
 }
 
+#calendar .day.empty {
+  background: #90FF90;
+}
+
+#calendar .day.not-empty-not-full {
+  background: #EDFF90;
+}
+
 #calendar .day div {
   position: absolute;
   height: 3px;
@@ -386,6 +419,10 @@ width: 250px;
   background: #F79859;
   margin-top: -10px;
   display: block;
+}
+
+#calendar .booked_em, #calendar .booked_fm {
+  color:red; /* temp solution. delete this when other method works */
 }
 
 #calendar .day span {
