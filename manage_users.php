@@ -34,10 +34,10 @@ if(isset($_GET["showArchived"])&&($_GET["showArchived"]==1)){
     <div class="col-md-6 add-entry-controls">
       <?php
       if($showArchived==0){
-      ?>
+      ?><a href="add_user.php">
       <button type="button" class="btn btn-default">
-        <span class="glyphicon glyphicon-plus"></span><a href="add_user.php">&nbsp;Lägg&nbsp;till</a>
-      </button>
+        <span class="glyphicon glyphicon-plus"></span>&nbsp;Lägg&nbsp;till
+      </button></a>
       <?php
        } 
        ?>
