@@ -2,7 +2,7 @@ $(document).ready(function() {
 
 	//Initiate list.js List
 	var userList = new List('test-list', {
-		valueNames: ['dateRange', 'timeRange', 'room', 'weekday', 'schoolClass', 'userName'],
+		valueNames: ['dateRange', 'timeRange', 'room', 'weekday', 'schoolClass', 'access'],
 		page: 40,
 		plugins: [ ListPagination({}), ListFuzzySearch() ]
 			// [ ListFuzzySearch() ],

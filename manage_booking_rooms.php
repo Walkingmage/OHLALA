@@ -32,7 +32,7 @@ $daynames['se']['7']="Söndag";
   
     <div class="col-md-6 add-entry-controls">
       <button type="button" class="btn btn-default" id="unbookButton">
-        <span class="glyphicon glyphicon-minus"></span>Avboka
+        <span class="glyphicon glyphicon-minus"></span>&nbsp;Avboka
       </button>
     </div>
   
@@ -78,11 +78,11 @@ $daynames['se']['7']="Söndag";
       <thead>
         <tr>
           <th></th>
-          <th>DateRange</th>
-          <th>TimeRange</th>
+          <th>Datum</th>
+          <th>Tid</th>
           <th>Rum</th>
           <th class="hide-mobile">Veckodag</th>
-          <th class="hide-mobile">bokad av:</th>
+          <th class="hide-mobile">Bokad av</th>
         </tr>
       </thead>
       <tbody class="list">
