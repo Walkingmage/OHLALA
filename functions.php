@@ -2,7 +2,9 @@
 include_once("dbconnect.php");
 include_once("pdoconnect.php");
 $function = $_GET["function"];
-session_start(); 
+if (session_status() == PHP_SESSION_NONE) {
+  session_start();
+}  
 
 // function to check if user exists in the database, if so, login!
 function check_user_login($email, $password) {

@@ -1,8 +1,10 @@
 <?php
-session_start(); 
+if (session_status() == PHP_SESSION_NONE) {
+  session_start();
+} 
 if (!user_logged_in()) {
    header('Location: index.php');
-  }
+}
 // Get file name
 $path = pathinfo($_SERVER['PHP_SELF']);
 $file = $path['filename'];
