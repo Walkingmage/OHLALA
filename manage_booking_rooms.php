@@ -78,12 +78,11 @@ $daynames['se']['7']="Söndag";
       <thead>
         <tr>
           <th></th>
-          <th class="hide-mobile">DateRange</th>
-          <th class="hide-mobile">TimeRange</th>
+          <th>DateRange</th>
+          <th>TimeRange</th>
           <th>Rum</th>
-          <th>Veckodag</th>
-          <th class="hide-mobile">-</th>
-          <th class="hide-mobile">-</th>
+          <th class="hide-mobile">Veckodag</th>
+          <th class="hide-mobile">bokad av:</th>
         </tr>
       </thead>
       <tbody class="list">
@@ -146,8 +145,6 @@ while($r = $q->fetch()){
           <td class="timeRange"><?php echo $r->bookingtime_start. " - " . $r->bookingtime_end; ?></td>
           <td class="room"><?php echo $r->classroom_name. " - " . $r->classroomtype_name; ?></td>
           <td class="weekday hide-mobile"><?php echo $daynames['se'][date('N', strtotime( $r->booking_startdate))]; ?></td>
-          <td class="schoolClass hide-mobile"><?php echo "-" ?></td>
-          <td class="userName hide-mobile"><?php echo "-" ?></td>
           <td class="access hide-mobile"><?php echo $r->user_firstname. " " . $r->user_lastname; ?></td>
         </tr>
   <?php
