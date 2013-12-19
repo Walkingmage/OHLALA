@@ -104,6 +104,7 @@ echoHeadWithTitle('Book Room - Jensen Offline');
             <!-- Välj lokal -->
             <div class="form-group">
               <select id="classroom" name="classroom" class="form-control">
+                <option value="">Välj lokal..</option>
                 <?php
                   $query = "SELECT * FROM `tbl_classroom`";
                   $result = mysqli_query($mysqli, $query) or die ();
@@ -118,7 +119,6 @@ echoHeadWithTitle('Book Room - Jensen Offline');
             <!-- Välj start & slut datum -->
             <div class="form-group">
               <input class="datepicker" type="text" placeholder="Startdatum.." name ="startdate">
-               -
               <input class="datepicker" type="text" placeholder="Slutdatum.." name="enddate">
             </div>
             <!-- Välj tid -->

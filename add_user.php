@@ -3,6 +3,7 @@
 
 
 function addUserToList($firstname,$lastname,$email,$tel,$num){
+  global $premissionOptions;
   echo('<div class="row add-user-row">
     <div class="col-sm-6">
       <h3>Användare</h3>
@@ -34,10 +35,7 @@ function addUserToList($firstname,$lastname,$email,$tel,$num){
         <label for="inputAccess'.$num.'" class="control-label">Behörighet</label>
         <div class="">
         <select name="access['.$num.']" id="inputAccess'.$num.'" class="form-control">
-          <option>1</option>
-          <option>2</option>
-          <option>3</option>
-          <option>4</option>
+          '.$premissionOptions.'
         </select>
         </div>
       </div>
@@ -61,6 +59,20 @@ function addUserToList($firstname,$lastname,$email,$tel,$num){
 <?php
 require('html_head.php');
 echoHeadWithTitle('Manage Users - Jensen Offline');
+
+function getPremissionOptions($mysqli){
+  $premissionOptions="";
+  $query = "SELECT tbl_usertype.usertype_id, tbl_usertype.usertype_name, tbl_usertype.usertype_rights FROM tbl_usertype";
+  $result = mysqli_query($mysqli, $query) or die ();
+  while($row = mysqli_fetch_array($result)){
+    $premissionOptions.= ('<option value="'.$row["usertype_id"].'">'.utf8_encode($row["usertype_name"]).'</option>\n');
+  }
+  mysqli_free_result($result);
+  unset($query);
+  return $premissionOptions;
+}
+$premissionOptions=getPremissionOptions($mysqli);
+
 ?>
 <body>
 <?php require('pageheader.php'); ?>

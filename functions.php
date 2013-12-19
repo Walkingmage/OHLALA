@@ -212,6 +212,11 @@ header('Location: index.php');
 exit;
 }
 
+if($function == "logout"){
+session_destroy();
+header('Location: index.php');
+}
+
 if ($function == "edituser") {
 $id = $_GET["id"];
 $sql = "UPDATE `tbl_user` SET  `user_firstname`=:user_firstname, `user_lastname`=:user_lastname, `user_email`=:user_email, `user_phonenumber`=:user_phonenumber, `usertype_id`=:user_access WHERE `user_id` = $id";
@@ -251,9 +256,9 @@ if($function == "bookRoom"){
 	header("location:book_room.php?bookingerror=$bookingerror");
   	}
   	else{
-	$bookingquery = "SELECT *
-	FROM  `tbl_booking` WHERE  `classroom_id` = $classroom
-	AND (`booking_startdate` <=  '$startdate'
+	$bookingquery = "SELECT * 
+	FROM  `tbl_booking` WHERE  `classroom_id` = $classroom 
+	AND (`booking_startdate` <=  '$startdate' 
 	AND  `booking_enddate` >=  '$enddate'
 	AND bookingtime_id = $bookingtime)";
 
@@ -266,13 +271,13 @@ if($function == "bookRoom"){
 	header("location:book_room.php?bookingerror=$bookingerror");
 	}
 	else{
-	$sql = "INSERT INTO `wukwebbi_grupp1`.`tbl_booking` (`booking_id`, `bookingtime_id`, `booking_startdate`, `booking_enddate`, `course_id`, `classroom_id`, `user_id`)
+	$sql = "INSERT INTO `wukwebbi_grupp1`.`tbl_booking` (`booking_id`, `bookingtime_id`, `booking_startdate`, `booking_enddate`, `course_id`, `classroom_id`, `user_id`) 
 	VALUES (NULL, 	:bookingtime,	:startdate, 	:enddate, 	'0', 	:classroom, 	:userid);";
 	$stmt = $pdo->prepare($sql);
 	$stmt->execute(array(
-		":classroom" => $classroom,
-		":startdate" => $startdate,
-		":enddate" => $enddate,
+		":classroom" => $classroom, 
+		":startdate" => $startdate, 
+		":enddate" => $enddate, 
 		":userid" => $userid,
 		":bookingtime" => $bookingtime));
 	header("location:book_room.php?bookingsuccess=$bookingsuccess");

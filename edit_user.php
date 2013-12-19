@@ -22,10 +22,19 @@ echoHeadWithTitle('Manage Users - Jensen Offline');
 <?php
 require 'dbconnect.php';
 $urlid = $_GET['id'];
-$success = $_GET['success'];
-$resetSuccess = $_GET['resetSuccess'];
+if (isset($_GET['success'])) {
+  $success = $_GET['success'];
+} else {
+  $success = "";
+}
+if (isset($_GET['resetSuccess'])) {
+  $resetSuccess = $_GET['resetSuccess'];
+} else {
+  $resetSuccess = "";
+}
 $query = "SELECT * FROM `tbl_user` WHERE `user_id` = $urlid";
 $result = mysqli_query($mysqli, $query) or die ();
+$num = "";
 
     while($row = mysqli_fetch_array($result)){
       $user_firstname= $row["user_firstname"];
@@ -46,42 +55,51 @@ $result = mysqli_query($mysqli, $query) or die ();
 <form class="form add-user-form" name="form add-user-form" action="functions.php?function=edituser&id=<?php echo $urlid ?>" method="POST">
 
 <?php
- echo('<div class="row add-user-row">
+ echo '<div class="row add-user-row">
     <div class="col-sm-6">
       <h3>Användare</h3>
       <div class="form-group">
         <label for="inputFname'.$num.'" class="control-label">Förnamn</label>
         <div class="">
-          <input type="text" class="form-control" name="user_firstname" id="inputFname'.$num.'"  value="'.$user_firstname .'">
+          <input type="text" class="form-control" name="user_firstname" id="inputFname'.$num.'"  value="'.$user_firstname .'" />
         </div>
       </div>
       <div class="form-group">
         <label for="inputEname'.$num.'" class="control-label">Efternamn</label>
         <div class="">
-          <input type="text" class="form-control" name="user_lastname" id="inputEname'.$num.'" value="'.$user_lastname.'">
+          <input type="text" class="form-control" name="user_lastname" id="inputEname'.$num.'" value="'.$user_lastname.'" />
         </div>
       </div>
       <div class="form-group">
         <label for="inputEmail'.$num.'" class="control-label">Privat&nbsp;email</label>
         <div class="">
-          <input type="email" class="form-control" name="user_email" id="inputEmail'.$num.'" placeholder="exempel@domän.se" value="'.$user_email.'">
+          <input type="email" class="form-control" name="user_email" id="inputEmail'.$num.'" placeholder="exempel@domän.se" value="'.$user_email.'" />
         </div>
       </div>
       <div class="form-group">
         <label for="inputTelephone'.$num.'" class="control-label">Telefon</label>
         <div class=""> 
-          <input type="tel" class="form-control" name="user_phonenumber" id="inputTelephone'.$num.'" placeholder="+46 ..." value="'. $user_phonenumber.'">
+          <input type="tel" class="form-control" name="user_phonenumber" id="inputTelephone'.$num.'" placeholder="+46 ..." value="'. $user_phonenumber.'" />
       </div>
       </div>
       <div class="form-group">
         <label for="inputAccess'.$num.'" class="control-label">Behörighet</label>
         <div class="">
-        <select name="user_access" id="inputAccess'.$num.'" class="form-control">
-          <option selected="selected">'.$user_access.'</option>
-          <option>1</option>
-          <option>2</option>
-          <option>3</option>
-          <option>4</option>
+        <select name="user_access" id="inputAccess'.$num.'" class="form-control">';
+
+
+              $query = "SELECT tbl_usertype.usertype_id, tbl_usertype.usertype_name, tbl_usertype.usertype_rights FROM tbl_usertype";
+              $result = mysqli_query($mysqli, $query) or die ();
+              while($row = mysqli_fetch_array($result)){
+                if($user_access==$row["usertype_id"]){
+                  echo ('<option selected="selected" value="'.$row["usertype_id"].'">'.utf8_encode($row["usertype_name"]).'</option>');
+                }else{
+                echo ('<option value="'.$row["usertype_id"].'">'.utf8_encode($row["usertype_name"]).'</option>');
+              }
+              }
+              mysqli_free_result($result);
+
+              echo '
         </select>
         </div>
       </div>
@@ -91,12 +109,15 @@ $result = mysqli_query($mysqli, $query) or die ();
         <h3>Användarkonto</h3>
         <p>Användarnamn: <span class="user-name">'.$user_username.'</span></p>
         <p>Jensen mail:<span class="jensen-email">'.$user_jensenemail.'</span></p>
-        <p>Last logged in: '.$user_lastlogin.'</p>
-        <input type="button" class="btn btn-default" value="Återställ lösenord" onClick="userPasswordReset(' . $urlid . ')" ></input>
+        <p>Last logged in: '.$user_lastlogin.'</p>';
+        if (isset($_GET['resetSuccess'])) {
+          echo '<p>New password: '.$user_password.'</p>';
+        }
+        echo '<input type="button" class="btn btn-default" value="Återställ lösenord" onClick="userPasswordReset(' . $urlid . ')" />
         <br><br><span style="color:#00BF32">'.$resetSuccess.'</span>
       </div>
     </div>
-  </div>');
+  </div>';
 ?>
 
 
