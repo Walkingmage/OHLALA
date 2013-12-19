@@ -82,7 +82,9 @@ echoHeadWithTitle('Book Room - Jensen Offline');
                   while($row = mysqli_fetch_array($result)){
                   $classroom_id = $row["classroom_id"];
                   echo "<option value='$classroom_id'>" .  $row['classroom_name'] . "</option>";
-                }?>
+                }
+                mysqli_free_result($result);
+                ?>
               </select>
             </div>
             <!-- Välj start & slut datum -->

@@ -88,6 +88,7 @@ if($function == "bookRoom"){
 	$classroom = $_POST['classroom'];
 	$startdate = $_POST['startdate'];
 	$enddate = $_POST['enddate'];
+	$userid = $_SESSION['user']['user_id'];
 	$bookingtime = $_POST['bookingtime'];
 	$bookingsuccess = "Bokningen lyckades!";
 
@@ -112,12 +113,13 @@ if($function == "bookRoom"){
 	}
 	else{
 	$sql = "INSERT INTO `wukwebbi_grupp1`.`tbl_booking` (`booking_id`, `bookingtime_id`, `booking_startdate`, `booking_enddate`, `course_id`, `classroom_id`, `user_id`) 
-	VALUES (NULL, 	:bookingtime,	:startdate, 	:enddate, 	'0', 	:classroom, 	'0');";
+	VALUES (NULL, 	:bookingtime,	:startdate, 	:enddate, 	'0', 	:classroom, 	:userid);";
 	$stmt = $pdo->prepare($sql);
 	$stmt->execute(array(
 		":classroom" => $classroom, 
 		":startdate" => $startdate, 
 		":enddate" => $enddate, 
+		":userid" => $userid,
 		":bookingtime" => $bookingtime));
 	header("location:book_room.php?bookingsuccess=$bookingsuccess");
 	}
