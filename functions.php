@@ -1,11 +1,9 @@
-<?php
+<?php if (session_status() == PHP_SESSION_NONE) {
+  session_start();
+}
 include_once("dbconnect.php");
 include_once("pdoconnect.php");
 isset($_GET["function"]) ? $function = $_GET["function"] : $function = "";
-if (session_status() == PHP_SESSION_NONE) {
-  session_start();
-}  
-
 // function to check if user exists in the database, if so, login!
 function check_user_login($email, $password) {
 	global $mysqli;
@@ -82,7 +80,7 @@ $stmt = $pdo->prepare($sql);
 $stmt->execute(array(":user_password" => $newPassword));
    
 $resetSuccess = "Lösenordet återställdes";
-  
+
 header("location:edit_user.php?id=$id&resetSuccess=$resetSuccess");
 }
 
@@ -120,3 +118,4 @@ if($function == "bookRoom"){
 	}
 	mysqli_free_result($bookingresult);
 }
+?>
