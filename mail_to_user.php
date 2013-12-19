@@ -63,7 +63,6 @@ function mailToUser($firstname, $lastname, $privemail, $telephone, $access, $jen
 		<p>--------</p>
 		";
 
-		//åäö funkar inte, orkar inte fixa
 		$handle = fopen("emails.html", "a");
 		fwrite($handle, utf8_encode($emailContent));
 		fclose($handle);
