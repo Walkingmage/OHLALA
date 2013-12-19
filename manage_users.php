@@ -4,7 +4,6 @@ if (session_status() == PHP_SESSION_NONE) {
 }
 require_once("dbconnect.php");
 require('functions.php');  ?>
-<?php  ?>
 <!DOCTYPE html>
 <html>
 <?php
@@ -25,6 +24,7 @@ if(isset($_GET["showArchived"])&&($_GET["showArchived"]==1)){
 }
 
 ?>
+</head>
 <body>
 <?php require('pageheader.php'); ?>
 <div id="test-list" class="container">
