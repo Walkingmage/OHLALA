@@ -10,15 +10,6 @@ require_once("functions.php");
 <?php
 require('html_head.php');
 echoHeadWithTitle('Manage Users - Jensen Offline');
-$daynames['se']['1']="Måndag";
-$daynames['se']['2']="Tisdag";
-$daynames['se']['3']="Onsdag";
-$daynames['se']['4']="Torsdag";
-$daynames['se']['5']="Fredag";
-$daynames['se']['6']="Lördag";
-$daynames['se']['7']="Söndag";
-
-
 ?>
 
 
@@ -81,7 +72,6 @@ $daynames['se']['7']="Söndag";
           <th>Datum</th>
           <th>Tid</th>
           <th>Rum</th>
-          <th class="hide-mobile">Veckodag</th>
           <th class="hide-mobile">Bokad av</th>
         </tr>
       </thead>
@@ -144,7 +134,6 @@ while($r = $q->fetch()){
           <td class="dateRange"><?php echo $r->booking_startdate. " - " . $r->booking_enddate; ?></td>
           <td class="timeRange"><?php echo $r->bookingtime_start. " - " . $r->bookingtime_end; ?></td>
           <td class="room"><?php echo $r->classroom_name. " - " . $r->classroomtype_name; ?></td>
-          <td class="weekday hide-mobile"><?php echo $daynames['se'][date('N', strtotime( $r->booking_startdate))]; ?></td>
           <td class="access hide-mobile"><?php echo $r->user_firstname. " " . $r->user_lastname; ?></td>
         </tr>
   <?php
