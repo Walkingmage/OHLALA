@@ -85,12 +85,21 @@ $num = "";
       <div class="form-group">
         <label for="inputAccess'.$num.'" class="control-label">Behörighet</label>
         <div class="">
-        <select name="user_access" id="inputAccess'.$num.'" class="form-control">
-          <option selected="selected">'.$user_access.'</option>
-          <option>1</option>
-          <option>2</option>
-          <option>3</option>
-          <option>4</option>
+        <select name="user_access" id="inputAccess'.$num.'" class="form-control">';
+
+
+              $query = "SELECT tbl_usertype.usertype_id, tbl_usertype.usertype_name, tbl_usertype.usertype_rights FROM tbl_usertype";
+              $result = mysqli_query($mysqli, $query) or die ();
+              while($row = mysqli_fetch_array($result)){
+                if($user_access==$row["usertype_id"]){
+                  echo ('<option selected="selected" value="'.$row["usertype_id"].'">'.utf8_encode($row["usertype_name"]).'</option>');
+                }else{
+                echo ('<option value="'.$row["usertype_id"].'">'.utf8_encode($row["usertype_name"]).'</option>');
+              }
+              }
+              mysqli_free_result($result);
+
+              echo '
         </select>
         </div>
       </div>
