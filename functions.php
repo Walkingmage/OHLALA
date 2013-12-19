@@ -92,6 +92,13 @@ if($function == "bookRoom"){
 	$bookingtime = $_POST['bookingtime'];
 	$bookingsuccess = "Bokningen lyckades!";
 
+	
+  	if((strlen($classroom) < 1 ) OR (strlen($startdate) < 1) OR (strlen($enddate) < 1) OR (strlen($bookingtime) < 1))
+  	{
+	$bookingerror = "Du fyllde inte i alla fält. Försök igen!";
+	header("location:book_room.php?bookingerror=$bookingerror");
+  	}
+  	else{
 	$bookingquery = "SELECT * 
 	FROM  `tbl_booking` WHERE  `classroom_id` = $classroom 
 	AND (`booking_startdate` <=  '$startdate' 
@@ -101,12 +108,7 @@ if($function == "bookRoom"){
     $bookingresult = mysqli_query($mysqli, $bookingquery);
   	$bookingrows = mysqli_num_rows($bookingresult);
 
-  	if((strlen($classroom) < 1 ) OR (strlen($startdate) < 1) OR (strlen($enddate) < 1) OR (strlen($bookingtime) < 1))
-  	{
-	$bookingerror = "Du fyllde inte i alla fält. Försök igen!";
-	header("location:book_room.php?bookingerror=$bookingerror");
-  	}
-  	else{
+
 	if($bookingrows > 0){
 	$bookingerror = "Bokningen misslyckades. Lokalen är redan bokad vid denna tid!";
 	header("location:book_room.php?bookingerror=$bookingerror");	
