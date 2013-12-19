@@ -46,7 +46,7 @@ $daynames['se']['7']="Söndag";
           </div>
         </div>
 
-        <div class="form-group">
+<!--         <div class="form-group">
           <label for="inputPassword3" class="col-md-10 control-label">Klass</label>
           <div class="col-md-2">
             <select class="form-control filterSelector classSelector">
@@ -68,7 +68,7 @@ $daynames['se']['7']="Söndag";
               <option>3E</option>
             </select>
           </div>
-        </div>
+        </div> -->
       </form>
     </div>
   </div>

@@ -8,19 +8,19 @@ $(document).ready(function() {
 			// [ ListFuzzySearch() ],
 	});
 
-	//Wrapper for list.js filter function
-	function filterUserList() {
-		var classSelectorValue = $('.classSelector').val();
-		var accessSelectorValue = $('.accessSelector').val();
-		var programSelectorValue = $('.programSelector').val();
-		userList.filter(function(item){
-			if ( (programSelectorValue === "Alla..." || programSelectorValue === item.values().schoolProgram) && (classSelectorValue === "Alla..." || classSelectorValue === item.values().schoolClass) && (accessSelectorValue === "Alla..." || accessSelectorValue === item.values().access ) ) {
-				return true;
-			} else {
-				return false;
-			}
-		});
-	}
+	// //Wrapper for list.js filter function
+	// function filterUserList() {
+	// //	var classSelectorValue = $('.classSelector').val();
+	// //	var accessSelectorValue = $('.accessSelector').val();
+	// //	var programSelectorValue = $('.programSelector').val();
+	// //	userList.filter(function(item){
+	// //		if ( (programSelectorValue === "Alla..." || programSelectorValue === item.values().schoolProgram) && (classSelectorValue === "Alla..." || classSelectorValue === item.values().schoolClass) && (accessSelectorValue === "Alla..." || accessSelectorValue === item.values().access ) ) {
+	// //			return true;
+	// //		} else {
+	// //			return false;
+	// //		}
+	// //	});
+	// }
 
 	//Saves checkbox id to hidden input field
 	function setOrUnsetSelectedUsers() {
@@ -38,9 +38,9 @@ $(document).ready(function() {
 	}
 
 	//Bind filter function to selectors
-	$('.filterSelector').on('change', function(){
-		filterUserList();
-	});
+	// $('.filterSelector').on('change', function(){
+	// 	filterUserList();
+	// });
 
 	//Bind checkbox click through list.js iteration.
 	var listArray = userList.items;
@@ -56,6 +56,6 @@ $(document).ready(function() {
 	});
 
 	//Filter on page load
-	filterUserList();
+	//filterUserList();
 
 });
