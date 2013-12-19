@@ -122,5 +122,4 @@ if($function == "bookRoom"){
 	header("location:book_room.php?bookingsuccess=$bookingsuccess");
 	}
 	mysqli_free_result($bookingresult);
-}
-?>
+}}?>
