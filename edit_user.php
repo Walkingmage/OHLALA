@@ -55,7 +55,7 @@ $num = "";
 <form class="form add-user-form" name="form add-user-form" action="functions.php?function=edituser&id=<?php echo $urlid ?>" method="POST">
 
 <?php
- echo('<div class="row add-user-row">
+ echo '<div class="row add-user-row">
     <div class="col-sm-6">
       <h3>Användare</h3>
       <div class="form-group">
@@ -100,12 +100,15 @@ $num = "";
         <h3>Användarkonto</h3>
         <p>Användarnamn: <span class="user-name">'.$user_username.'</span></p>
         <p>Jensen mail:<span class="jensen-email">'.$user_jensenemail.'</span></p>
-        <p>Last logged in: '.$user_lastlogin.'</p>
-        <input type="button" class="btn btn-default" value="Återställ lösenord" onClick="userPasswordReset(' . $urlid . ')" />
+        <p>Last logged in: '.$user_lastlogin.'</p>';
+        if (isset($_GET['resetSuccess'])) {
+          echo '<p>New password: '.$user_password.'</p>';
+        }
+        echo '<input type="button" class="btn btn-default" value="Återställ lösenord" onClick="userPasswordReset(' . $urlid . ')" />
         <br><br><span style="color:#00BF32">'.$resetSuccess.'</span>
       </div>
     </div>
-  </div>');
+  </div>';
 ?>
 
 
