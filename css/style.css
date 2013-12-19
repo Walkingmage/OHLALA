@@ -17,6 +17,19 @@ header {
   color:#FF4040;
 }
 
+.user-info {
+  float:right;
+}
+
+.user-info ul {
+  margin-bottom: 20px;
+}
+
+.user-info ul li {
+  list-style: none;
+  text-align: right;
+}
+
 body {
   background-color: #eee;
 }
@@ -69,6 +82,19 @@ footer p {
 @media screen and (max-width: 768px) {
   .hide-mobile {
     display: none;
+  }
+  .user-info {
+    float: left;
+  }
+  .user-info ul {
+    padding-left: 0;
+    margin-left: 0;
+
+  }
+  .user-info ul li {
+    text-align: left;
+    padding-left: 0;
+    margin-left: 0;
   }
 }
 

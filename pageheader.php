@@ -11,6 +11,9 @@ $indexActive = "";
 $manageUsersActive = "";
 $boolkRoomActive = "";
 $bookComputerActive = "";
+isset($_SESSION['user']['user_firstname']) ? $firstName = $_SESSION['user']['user_firstname'] : $firstName = "";
+isset($_SESSION['user']['user_lastname']) ? $lastName = $_SESSION['user']['user_lastname'] : $lastName = "";
+
 
 switch ($file) {
 	case 'index':
@@ -51,11 +54,19 @@ switch ($file) {
           <li class="<?php echo $manageUsersActive; ?>"><a href="manage_users.php">Hantera konton</a></li>
           <li class="<?php echo $bookComputerActive; ?>"><a href="book_computer.php">Boka dator</a></li>
           <li class="<?php echo $boolkRoomActive; ?>"><a href="book_room.php">Boka lokal</a></li>
-          <li><a href="#">Inloggad användare: <?php echo $_SESSION['user']['user_firstname'].' '.$_SESSION['user']['user_lastname']; ?></a></li>
-          <li><a href="?function=logout">Logga ut</a></li>
+<!--           <li><a href="#">Användare: <?php echo $firstName.' '.$lastName; ?></a></li>
+          <li><a href="?function=logout">Logga ut</a></li> -->
         </ul>
       </div>
 
     </div>
-  </nav>  
+  </nav>
 </header>
+<div class="container cf">
+  <div class="user-info">
+    <ul>
+      <li>Välkommen <?php echo $firstName.' '.$lastName; ?></li>
+      <li><a href="?function=logout">Logga ut</a></li>
+    </ul>
+  </div>  
+</div>
