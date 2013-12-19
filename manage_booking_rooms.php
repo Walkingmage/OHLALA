@@ -126,12 +126,8 @@ LEFT JOIN tbl_bookingtime ON tbl_booking.bookingtime_id = tbl_bookingtime.bookin
 LEFT JOIN tbl_classroom ON tbl_classroom.classroom_id = tbl_booking.classroom_id
 LEFT JOIN tbl_classroomtype ON tbl_classroomtype.classroomtype_id = tbl_classroom.classroom_type
 LEFT JOIN tbl_course ON tbl_course.course_id = tbl_booking.course_id
-LEFT JOIN tbl_user ON tbl_user.user_id = tbl_booking.user_id
-#WHERE user_id = :user_id
-
-;";
+LEFT JOIN tbl_user ON tbl_user.user_id = tbl_booking.user_id;";
 $q = $pdo->prepare($sql);
-#$q->bindParam(':user_id', $_SESSION["user"]['user_id']);
 $q->execute();
 
 
