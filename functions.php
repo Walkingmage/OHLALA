@@ -271,7 +271,7 @@ if($function == "bookRoom"){
 	header("location:book_room.php?bookingerror=$bookingerror");
 	}
 	else{
-	$sql = "INSERT INTO `wukwebbi_grupp1`.`tbl_booking` (`booking_id`, `bookingtime_id`, `booking_startdate`, `booking_enddate`, `course_id`, `classroom_id`, `user_id`) 
+      $sql = "INSERT INTO "./*`wukwebbi_grupp1`*/".`tbl_booking` (`booking_id`, `bookingtime_id`, `booking_startdate`, `booking_enddate`, `course_id`, `classroom_id`, `user_id`) 
 	VALUES (NULL, 	:bookingtime,	:startdate, 	:enddate, 	'0', 	:classroom, 	:userid);";
 	$stmt = $pdo->prepare($sql);
 	$stmt->execute(array(
