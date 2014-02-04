@@ -83,7 +83,7 @@ switch ($file) {
     <?php if ( !user_logged_in()) { ?>
       <form class="form-signin" method="post" action="">
         <h2 class="form-signin-heading">Logga in här!</h2>
-        <input name="email" type="text" class="form-control" placeholder="E-postadress" required="" autofocus="">
+        <input name="email" type="text" class="form-control" placeholder="Användarnamn" required="" autofocus="">
         <input name="password" type="password" class="form-control" placeholder="Lösenord" required="">
         <label class="checkbox">
           <input type="checkbox" value="remember-me"> Kom ihåg mig!

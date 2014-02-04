@@ -16,7 +16,7 @@ function check_user_login($email, $password) {
 	}
 	mysqli_query($mysqli, "set names 'utf8'");
 	$sql = 'SELECT * FROM tbl_user
-			WHERE user_email = "'.$email.'"
+			WHERE user_username = "'.$email.'"
 			AND user_password = "'.$password.'"';
 	$query = mysqli_query($mysqli, $sql);
 
