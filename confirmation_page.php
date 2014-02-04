@@ -27,6 +27,12 @@ if ($function == "adduser"){
 		$telephone 	= $_POST['telephone'][$i];
 		$access		= $_POST['access'][$i];
 
+	for ($i = 0, $l = count($_POST['firstname']); $i < $l; $i++) {
+		$firstname 	= $mysqli->real_escape_string($_POST['firstname'][$i]);
+		$lastname 	= $mysqli->real_escape_string($_POST['lastname'][$i]);
+		$privemail 	= $mysqli->real_escape_string($_POST['privemail'][$i]);
+		$telephone 	= $mysqli->real_escape_string($_POST['telephone'][$i]);
+		$access		= $mysqli->real_escape_string($_POST['access'][$i]);
 		$usercounts = 0;
 		$checkuserresult = mysqli_query($mysqli, "SELECT * FROM `tbl_user` WHERE `user_firstname` = '$firstname' AND `user_lastname` = '$lastname'");
 		if($checkuserresult != false){
@@ -58,14 +64,15 @@ $sql = "INSERT INTO tbl_user(
 		:jensenemail,
 		:telephone,
 		:username,
-		'$password',
+		:password,
 		now(),
 		:access
 	)";
-  $stmt = $pdo->prepare($sql);
-  $stmt->execute(array(":firstname" => $firstname, ":lastname" => $lastname, ":privemail" => $privemail, ":jensenemail" => $jensenemail, ":username" => $username, ":access" => $access, ":telephone" => $telephone));
-  }
-  catch(PDOException $e) {
+	$stmt = $pdo->prepare($sql);
+	$stmt->execute(array(":firstname" => $firstname, ":lastname" => $lastname, ":privemail" => $privemail, ":jensenemail" => $jensenemail, ":username" => $username, ":access" => $access, ":telephone" => $telephone, ":password" => $password));
+  
+
+}catch(PDOException $e) {
     echo 'ERROR: '. $e->getMessage();
 }
 
