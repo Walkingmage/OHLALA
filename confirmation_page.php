@@ -1,4 +1,3 @@
-
 <?php require('functions.php'); ?>
 <!DOCTYPE html>
 <html>
@@ -44,39 +43,42 @@ if ($function == "adduser"){
 		$usertype = $row = mysqli_fetch_assoc($usertyperesult);
 		$jensenemail = $username . "@" .  $row["usertype_name"]. ".jensenoffline.se";
 // ----------------------------------------------------------------
-try{
-include_once("pdoconnect.php");
-$sql = "INSERT INTO tbl_user(
-		user_firstname,
-		user_lastname,
-		user_email,
-		user_jensenemail,
-		user_phonenumber,
-		user_username,
-		user_password,
-		user_lastlogin,
-		usertype_id
-	) VALUES (
-		:firstname,
-		:lastname,
-		:privemail,
-		:jensenemail,
-		:telephone,
-		:username,
-		:password,
-		now(),
-		:access
-	)";
-	$stmt = $pdo->prepare($sql);
-	$stmt->execute(array(":firstname" => $firstname, ":lastname" => $lastname, ":privemail" => $privemail, ":jensenemail" => $jensenemail, ":username" => $username, ":access" => $access, ":telephone" => $telephone, ":password" => $password));
-  
+		try{
+			include_once("pdoconnect.php");
+			$sql = "INSERT INTO tbl_user(
+				user_firstname,
+				user_lastname,
+				user_email,
+				user_jensenemail,
+				user_phonenumber,
+				user_username,
+				user_password,
+				user_lastlogin,
+				usertype_id
+			) VALUES (
+				:firstname,
+				:lastname,
+				:privemail,
+				:jensenemail,
+				:telephone,
+				:username,
+				:password,
+				now(),
+				:access
+			)";
+			$stmt = $pdo->prepare($sql);
+			$stmt->execute(array(":firstname" => $firstname, ":lastname" => $lastname, ":privemail" => $privemail, ":jensenemail" => $jensenemail, ":username" => $username, ":access" => $access, ":telephone" => $telephone, ":password" => $password));
+	  
 
-}catch(PDOException $e) {
-    echo 'ERROR: '. $e->getMessage();
-}
+		}catch(PDOException $e) {
+    		echo 'ERROR: '. $e->getMessage();
+		}
 
-$checkaccessresult = mysqli_query($mysqli, "SELECT * FROM `tbl_usertype` WHERE `usertype_id` = '$access'");
-while($row = mysqli_fetch_array($checkaccessresult)){ $checkaccess = $row['usertype_name'];}
+
+		$checkaccessresult = mysqli_query($mysqli, "SELECT * FROM `tbl_usertype` WHERE `usertype_id` = '$access'");
+		while($row = mysqli_fetch_array($checkaccessresult)){
+			$checkaccess = $row['usertype_name'];
+		}
 
 		echo "Förnamn: " . $firstname . "<br>";
 		echo "Efternamn: " . $lastname . "<br>";
@@ -91,7 +93,7 @@ while($row = mysqli_fetch_array($checkaccessresult)){ $checkaccess = $row['usert
 		echo "<hr>";
 		require_once('mail_to_user.php');
  		mailToUser($firstname, $lastname, $privemail, $telephone, $access, $jensenemail, $username);
-}
+	}
 }
 
 ?>

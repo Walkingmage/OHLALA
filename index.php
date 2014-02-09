@@ -1,5 +1,5 @@
 <?php require_once('functions.php'); ?>
-<?php
+<?php 
   if (isset($_POST['login'])) {
     $user_login = check_user_login($_POST['email'], $_POST['password']);
   }
@@ -28,21 +28,21 @@ isset($_SESSION['user']['user_lastname']) ? $lastName = $_SESSION['user']['user_
 
 
 switch ($file) {
-  case 'index':
-    $indexActive = "active";
-    break;
-  case 'manage_users':
-    $manageUsersActive = "active";
-    break;
-  case 'book_computer':
-    $bookComputerActive = "active";
-    break;
+	case 'index':
+		$indexActive = "active";
+		break;
+	case 'manage_users':
+		$manageUsersActive = "active";
+		break;
+	case 'book_computer':
+		$bookComputerActive = "active";
+		break;
   case 'book_room':
     $boolkRoomActive = "active";
     break;
-  default:
-    //do nothing
-    break;
+	default:
+		//do nothing
+		break;
 }
 ?>
 <header>
@@ -58,7 +58,7 @@ switch ($file) {
         </button>
         <a class="navbar-brand" href="index.php">Jensen <span class="red-brand">Offline</span></a>
       </div>
-      <!-- Menu content -->
+			<!-- Menu content -->
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
           <li class="<?php echo $indexActive; ?>"><a href="index.php">Start</a></li> <!-- What should be displayed on the startpage? -->

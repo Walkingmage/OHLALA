@@ -54,7 +54,8 @@ function rand_string( $length ) {
 	$chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 	$size = strlen( $chars );
 	for($i = 0; $i < $length; $i++ ) {
-	$str .= $chars[ rand( 0, $size - 1 ) ];}
+	$str .= $chars[ rand( 0, $size - 1 ) ];
+  }
 	return $str;
 }
 
@@ -210,9 +211,7 @@ function get_room_by_id($classroom_id) {
 }
 
 function requireUserLevel($requiredLevel){//Kontrollerar även om användaren är inloggad.
-  //echo($requiredLevel."-".gettype($requiredLevel));
   if ($requiredLevel==(-1)) {
-    //error_log("hi");
     return true;
   }
   global $_SESSION;
@@ -220,14 +219,9 @@ function requireUserLevel($requiredLevel){//Kontrollerar även om användaren ä
 }
 
 if($function == "logout"){
-session_destroy();
-header('Location: index.php');
-exit;
-}
-
-if($function == "logout"){
-session_destroy();
-header('Location: index.php');
+  session_destroy();
+  header('Location: index.php');
+  exit;
 }
 
 if ($function == "edituser") {
@@ -236,16 +230,16 @@ if ($function == "edituser") {
     header("location:edit_user.php?id=$id&success=$success");
     die();
   }
-$id = $_GET["id"];
+  $id = $_GET["id"];
   $sql = "UPDATE `tbl_user` SET  `user_firstname`=:user_firstname, `user_lastname`=:user_lastname, `user_email`=:user_email, `user_phonenumber`=:user_phonenumber, `usertype_id`=:user_access WHERE `user_id` = :id";
-
-$stmt = $pdo->prepare($sql);
+  
+  $stmt = $pdo->prepare($sql);
   $sth->bindParam(':id', $id);
-$stmt->execute(array(":user_firstname" => $_POST["user_firstname"], ":user_lastname" => $_POST["user_lastname"], ":user_email" => $_POST["user_email"], ":user_phonenumber" => $_POST['user_phonenumber'], ":user_access" => $_POST['user_access']));
+  $stmt->execute(array(":user_firstname" => $_POST["user_firstname"], ":user_lastname" => $_POST["user_lastname"], ":user_email" => $_POST["user_email"], ":user_phonenumber" => $_POST['user_phonenumber'], ":user_access" => $_POST['user_access']));
 
-$success = "Ändringar sparades";
+  $success = "Ändringar sparades";
 
-header("location:edit_user.php?id=$id&success=$success");
+  header("location:edit_user.php?id=$id&success=$success");
 }
 
 if($function == "resetUserPassword"){
@@ -254,17 +248,17 @@ if($function == "resetUserPassword"){
     header("location:edit_user.php?id=$id&resetSuccess=$resetSuccess");
     die();
   }
-$newPassword = rand_string( 7 );
-$id = $_GET["id"];
+  $newPassword = rand_string( 7 );
+  $id = $_GET["id"];
   $sql = "UPDATE `tbl_user` SET  `user_password`=:user_password WHERE `user_id` = :id";
 
-$stmt = $pdo->prepare($sql);
+  $stmt = $pdo->prepare($sql);
   $stmt->bindParam(':id', $id);
-$stmt->execute(array(":user_password" => $newPassword));
+  $stmt->execute(array(":user_password" => $newPassword));
 
-$resetSuccess = "Lösenordet återställdes";
+  $resetSuccess = "Lösenordet återställdes";
 
-header("location:edit_user.php?id=$id&resetSuccess=$resetSuccess");
+  header("location:edit_user.php?id=$id&resetSuccess=$resetSuccess");
 }
 
 if($function == "bookRoom"){
@@ -280,37 +274,37 @@ if($function == "bookRoom"){
 	$bookingtime = $mysqli->real_escape_string($_POST['bookingtime']);
 	$bookingsuccess = "Bokningen lyckades!";
 
-  	if((strlen($classroom) < 1 ) OR (strlen($startdate) < 1) OR (strlen($enddate) < 1) OR (strlen($bookingtime) < 1))
-  	{
-	$bookingerror = "Du fyllde inte i alla fält. Försök igen!";
-	header("location:book_room.php?bookingerror=$bookingerror");
-  	}
-  	else{
-	$bookingquery = "SELECT * 
-	FROM  `tbl_booking` WHERE  `classroom_id` = $classroom 
-	AND (`booking_startdate` <=  '$startdate' 
-	AND  `booking_enddate` >=  '$enddate'
-	AND bookingtime_id = $bookingtime)";
+	if((strlen($classroom) < 1 ) OR (strlen($startdate) < 1) OR (strlen($enddate) < 1) OR (strlen($bookingtime) < 1)){
+  	$bookingerror = "Du fyllde inte i alla fält. Försök igen!";
+  	header("location:book_room.php?bookingerror=$bookingerror");
+	}else{
+  	$bookingquery = "SELECT * 
+  	FROM  `tbl_booking` WHERE  `classroom_id` = $classroom 
+  	AND (`booking_startdate` <=  '$startdate' 
+  	AND  `booking_enddate` >=  '$enddate'
+  	AND bookingtime_id = $bookingtime)";
 
     $bookingresult = mysqli_query($mysqli, $bookingquery);
   	$bookingrows = mysqli_num_rows($bookingresult);
 
 
-	if($bookingrows > 0){
-	$bookingerror = "Bokningen misslyckades. Lokalen är redan bokad vid denna tid!";
-	header("location:book_room.php?bookingerror=$bookingerror");
-	}
-	else{
-      $sql = "INSERT INTO "./*`wukwebbi_grupp1`*/".`tbl_booking` (`booking_id`, `bookingtime_id`, `booking_startdate`, `booking_enddate`, `course_id`, `classroom_id`, `user_id`) 
-	VALUES (NULL, 	:bookingtime,	:startdate, 	:enddate, 	'0', 	:classroom, 	:userid);";
-	$stmt = $pdo->prepare($sql);
-	$stmt->execute(array(
-		":classroom" => $classroom, 
-		":startdate" => $startdate, 
-		":enddate" => $enddate, 
-		":userid" => $userid,
-		":bookingtime" => $bookingtime));
-	header("location:book_room.php?bookingsuccess=$bookingsuccess");
-	}
-	mysqli_free_result($bookingresult);
-}}?>
+  	if($bookingrows > 0){
+    	$bookingerror = "Bokningen misslyckades. Lokalen är redan bokad vid denna tid!";
+    	header("location:book_room.php?bookingerror=$bookingerror");
+  	}else{
+      $sql = "INSERT INTO `tbl_booking` (`booking_id`, `bookingtime_id`, `booking_startdate`, `booking_enddate`, `course_id`, `classroom_id`, `user_id`) 
+       VALUES (NULL, 	:bookingtime,	:startdate, 	:enddate, 	'0', 	:classroom, 	:userid);";
+      $stmt = $pdo->prepare($sql);
+    	$stmt->execute(array(
+    		":classroom" => $classroom, 
+    		":startdate" => $startdate, 
+    		":enddate" => $enddate, 
+    		":userid" => $userid,
+    		":bookingtime" => $bookingtime));
+
+      header("location:book_room.php?bookingsuccess=$bookingsuccess");
+    }
+    mysqli_free_result($bookingresult);
+  }
+}
+?>

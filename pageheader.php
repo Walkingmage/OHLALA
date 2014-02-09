@@ -30,9 +30,9 @@ switch ($file) {
 	case 'book_computer':
 		$bookComputerActive = "active";
 		break;
-	case 'book_room':
-		$boolkRoomActive = "active";
-		break;
+  case 'book_room':
+    $boolkRoomActive = "active";
+    break;
 	default:
 		//do nothing
 		break;
@@ -41,7 +41,7 @@ switch ($file) {
 <header>
   <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
     <div class="container">
-			<!-- Mobile menu toggle -->
+      <!-- Mobile menu toggle -->
       <div class="navbar-header">
         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
           <span class="sr-only">Toggle navigation</span>
@@ -68,11 +68,11 @@ switch ($file) {
 </header>
 <div class="container cf">
   <?php if (user_logged_in()) {?>
-  <div class="user-info">
-    <ul>
-      <li>Välkommen <?php echo $firstName.' '.$lastName; ?></li>
-      <li><a href="?function=logout">Logga ut</a></li>
-    </ul>
-  </div>
+    <div class="user-info">
+      <ul>
+        <li>Välkommen <?php echo $firstName.' '.$lastName; ?></li>
+        <li><a href="?function=logout">Logga ut</a></li>
+      </ul>
+    </div>
   <?php } ?>
 </div>
