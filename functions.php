@@ -228,6 +228,11 @@ header('Location: index.php');
 }
 
 if ($function == "edituser") {
+  if(!requireUserLevel(1)){
+    $success = "Ändringar sparades inte";
+    header("location:edit_user.php?id=$id&success=$success");
+    die();
+  }
 $id = $_GET["id"];
 $sql = "UPDATE `tbl_user` SET  `user_firstname`=:user_firstname, `user_lastname`=:user_lastname, `user_email`=:user_email, `user_phonenumber`=:user_phonenumber, `usertype_id`=:user_access WHERE `user_id` = $id";
 
@@ -240,6 +245,11 @@ header("location:edit_user.php?id=$id&success=$success");
 }
 
 if($function == "resetUserPassword"){
+  if(!requireUserLevel(1)){
+    $resetSuccess = "Lösenordet återställdes inte";
+    header("location:edit_user.php?id=$id&resetSuccess=$resetSuccess");
+    die();
+  }
 $newPassword = rand_string( 7 );
 $id = $_GET["id"];
 $sql = "UPDATE `tbl_user` SET  `user_password`=:user_password WHERE `user_id` = $id";
@@ -258,6 +268,11 @@ if($function == "bookRoom"){
 	$enddate = $_POST['enddate'];
 	$userid = $_SESSION['user']['user_id'];
 	$bookingtime = $_POST['bookingtime'];
+  if(!requireUserLevel(1)){
+    $bookingerror = "Du är inte inloggad eller saknar behörighet!";
+    header("location:book_room.php?bookingerror=$bookingerror");
+    die();
+  }
 	$bookingsuccess = "Bokningen lyckades!";
 
   	if((strlen($classroom) < 1 ) OR (strlen($startdate) < 1) OR (strlen($enddate) < 1) OR (strlen($bookingtime) < 1))
