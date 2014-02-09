@@ -23,6 +23,9 @@ $indexActive = "";
 $manageUsersActive = "";
 $boolkRoomActive = "";
 $bookComputerActive = "";
+isset($_SESSION['user']['user_firstname']) ? $firstName = $_SESSION['user']['user_firstname'] : $firstName = "";
+isset($_SESSION['user']['user_lastname']) ? $lastName = $_SESSION['user']['user_lastname'] : $lastName = "";
+
 
 switch ($file) {
   case 'index':
@@ -42,7 +45,6 @@ switch ($file) {
     break;
 }
 ?>
-<script src="js/functions.js"></script>
 <header>
   <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
     <div class="container">
@@ -54,23 +56,36 @@ switch ($file) {
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="#">Jensen <span class="red-brand">Offline</span></a>
+        <a class="navbar-brand" href="index.php">Jensen <span class="red-brand">Offline</span></a>
       </div>
       <!-- Menu content -->
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
           <li class="<?php echo $indexActive; ?>"><a href="index.php">Start</a></li> <!-- What should be displayed on the startpage? -->
-          <?php if (user_logged_in()) { ?>
-          <li class="<?php echo $manageUsersActive; ?>"><a href="manage_users.php">Hantera konton</a></li>
-          <li class="<?php echo $bookComputerActive; ?>"><a href="book_computer.php">Boka dator</a></li>
-          <li class="<?php echo $boolkRoomActive; ?>"><a href="book_room.php">Boka lokal</a></li>
-          <?php } ?>
+          <?php
+          if (requireUserLevel(3)) {echo('<li class="<?php echo $manageUsersActive; ?>"><a href="manage_users.php">Hantera konton</a></li>');}
+          if (requireUserLevel(5)||@$_SESSION['dev']) {echo(' <li class="<?php echo $bookComputerActive; ?>"><a href="book_computer.php">Boka dator</a></li>');}
+          if (requireUserLevel(1)) {echo('<li class="<?php echo $boolkRoomActive; ?>"><a href="book_room.php">Boka lokal</a></li>');}
+          ?>
         </ul>
       </div>
 
     </div>
   </nav>
 </header>
+<div class="container cf">
+  <?php if (user_logged_in()) {?>
+    <div class="user-info">
+      <ul>
+        <li>Välkommen <?php echo $firstName.' '.$lastName; ?></li>
+        <li><a href="?function=logout">Logga ut</a></li>
+      </ul>
+    </div>
+  <?php } ?>
+</div>
+<!-- /\ De här divarna bör kontrolleras /\ -->
+
+
 
 <!-- pageheader ends -->
 
