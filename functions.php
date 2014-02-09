@@ -206,6 +206,16 @@ function get_room_by_id($classroom_id) {
   return $classroom;
 }
 
+function requireUserLevel($requiredLevel){//Kontrollerar även om användaren är inloggad.
+  //echo($requiredLevel."-".gettype($requiredLevel));
+  if ($requiredLevel==(-1)) {
+    //error_log("hi");
+    return true;
+  }
+  global $_SESSION;
+  return isset($_SESSION["user"]['usertype_id'])&&(intval($_SESSION["user"]['usertype_id'])>=$requiredLevel);
+}
+
 if($function == "logout"){
 session_destroy();
 header('Location: index.php');
