@@ -20,12 +20,6 @@ require 'dbconnect.php';
 
 if ($function == "adduser"){
 
-	for ($i = 0, $l = count($_POST['firstname']); $i < $l; $i++) {
-		$firstname 	= $_POST['firstname'][$i];
-		$lastname 	= $_POST['lastname'][$i];
-		$privemail 	= $_POST['privemail'][$i];
-		$telephone 	= $_POST['telephone'][$i];
-		$access		= $_POST['access'][$i];
 
 	for ($i = 0, $l = count($_POST['firstname']); $i < $l; $i++) {
 		$firstname 	= $mysqli->real_escape_string($_POST['firstname'][$i]);
