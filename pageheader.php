@@ -33,6 +33,9 @@ switch ($file) {
   case 'book_room':
     $boolkRoomActive = "active";
     break;
+	case 'contact':
+		$contactActive = "active";
+		break;
 	default:
 		//do nothing
 		break;
@@ -59,6 +62,7 @@ switch ($file) {
           if (requireUserLevel(3)) {echo('<li class="<?php echo $manageUsersActive; ?>"><a href="manage_users.php">Hantera konton</a></li>');}
           if (requireUserLevel(5)||@$_SESSION['dev']) {echo(' <li class="<?php echo $bookComputerActive; ?>"><a href="book_computer.php">Boka dator</a></li>');}
           if (requireUserLevel(1)) {echo('<li class="<?php echo $boolkRoomActive; ?>"><a href="book_room.php">Boka lokal</a></li>');}
+          if (requireUserLevel(-1)) {echo('<li class="<?php echo $contactActive; ?>"><a href="contact.php">Kontakta Oss</a></li>');}
           ?>
         </ul>
       </div>
