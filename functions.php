@@ -4,6 +4,9 @@
 include_once("dbconnect.php");
 include_once("pdoconnect.php");
 isset($_GET["function"]) ? $function = $_GET["function"] : $function = "";
+
+require_once("premissions.php");
+
 // function to check if user exists in the database, if so, login!
 function check_user_login($email, $password) {
 	global $mysqli;
@@ -228,7 +231,7 @@ header('Location: index.php');
 }
 
 if ($function == "edituser") {
-  if(!requireUserLevel(1)){
+  if(!requireUserLevel(constLevelPremEditUserAll)){
     $success = "Ändringar sparades inte";
     header("location:edit_user.php?id=$id&success=$success");
     die();
@@ -245,7 +248,7 @@ header("location:edit_user.php?id=$id&success=$success");
 }
 
 if($function == "resetUserPassword"){
-  if(!requireUserLevel(1)){
+  if(!requireUserLevel(constLevelPremResetUserPassword)){
     $resetSuccess = "Lösenordet återställdes inte";
     header("location:edit_user.php?id=$id&resetSuccess=$resetSuccess");
     die();
@@ -268,7 +271,7 @@ if($function == "bookRoom"){
 	$enddate = $_POST['enddate'];
 	$userid = $_SESSION['user']['user_id'];
 	$bookingtime = $_POST['bookingtime'];
-  if(!requireUserLevel(1)){
+  if(!requireUserLevel(constLevelPremBookRoom)){
     $bookingerror = "Du är inte inloggad eller saknar behörighet!";
     header("location:book_room.php?bookingerror=$bookingerror");
     die();
