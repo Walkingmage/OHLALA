@@ -237,9 +237,10 @@ if ($function == "edituser") {
     die();
   }
 $id = $_GET["id"];
-$sql = "UPDATE `tbl_user` SET  `user_firstname`=:user_firstname, `user_lastname`=:user_lastname, `user_email`=:user_email, `user_phonenumber`=:user_phonenumber, `usertype_id`=:user_access WHERE `user_id` = $id";
+  $sql = "UPDATE `tbl_user` SET  `user_firstname`=:user_firstname, `user_lastname`=:user_lastname, `user_email`=:user_email, `user_phonenumber`=:user_phonenumber, `usertype_id`=:user_access WHERE `user_id` = :id";
 
 $stmt = $pdo->prepare($sql);
+  $sth->bindParam(':id', $id);
 $stmt->execute(array(":user_firstname" => $_POST["user_firstname"], ":user_lastname" => $_POST["user_lastname"], ":user_email" => $_POST["user_email"], ":user_phonenumber" => $_POST['user_phonenumber'], ":user_access" => $_POST['user_access']));
 
 $success = "Ändringar sparades";
@@ -255,9 +256,10 @@ if($function == "resetUserPassword"){
   }
 $newPassword = rand_string( 7 );
 $id = $_GET["id"];
-$sql = "UPDATE `tbl_user` SET  `user_password`=:user_password WHERE `user_id` = $id";
+  $sql = "UPDATE `tbl_user` SET  `user_password`=:user_password WHERE `user_id` = :id";
 
 $stmt = $pdo->prepare($sql);
+  $stmt->bindParam(':id', $id);
 $stmt->execute(array(":user_password" => $newPassword));
 
 $resetSuccess = "Lösenordet återställdes";
@@ -266,16 +268,16 @@ header("location:edit_user.php?id=$id&resetSuccess=$resetSuccess");
 }
 
 if($function == "bookRoom"){
-	$classroom = $_POST['classroom'];
-	$startdate = $_POST['startdate'];
-	$enddate = $_POST['enddate'];
-	$userid = $_SESSION['user']['user_id'];
-	$bookingtime = $_POST['bookingtime'];
   if(!requireUserLevel(constLevelPremBookRoom)){
     $bookingerror = "Du är inte inloggad eller saknar behörighet!";
     header("location:book_room.php?bookingerror=$bookingerror");
     die();
   }
+	$classroom = $mysqli->real_escape_string($_POST['classroom']);
+	$startdate = $mysqli->real_escape_string($_POST['startdate']);
+	$enddate = $mysqli->real_escape_string($_POST['enddate']);
+	$userid = $mysqli->real_escape_string($_SESSION['user']['user_id']);
+	$bookingtime = $mysqli->real_escape_string($_POST['bookingtime']);
 	$bookingsuccess = "Bokningen lyckades!";
 
   	if((strlen($classroom) < 1 ) OR (strlen($startdate) < 1) OR (strlen($enddate) < 1) OR (strlen($bookingtime) < 1))
