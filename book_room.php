@@ -13,7 +13,12 @@ echoHeadWithTitle('Book Room - Jensen Offline');
   <link rel="stylesheet" type="text/css" href="css/datepicker.css">
 </head>
 <body>
-<?php require('pageheader.php'); ?>
+<?php require('pageheader.php');
+if (!user_logged_in()) {
+   header('Location: index.php');
+   die();
+}
+?>
 
 <div class="container"><a href="manage_booking_rooms.php">
         <button type="button" class="btn btn-default">

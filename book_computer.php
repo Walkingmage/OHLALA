@@ -6,7 +6,12 @@ require('html_head.php');
 echoHeadWithTitle('Book Computer - Jensen Offline');
 ?>
 <body>
-<?php require('pageheader.php'); ?>
+<?php require('pageheader.php');
+if (!user_logged_in()) {
+   header('Location: index.php');
+   die();
+}
+?>
 
 <div class="container">
   <h1>Placeholder page</h1>

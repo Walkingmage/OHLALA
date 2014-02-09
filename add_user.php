@@ -52,8 +52,14 @@ function addUserToList($firstname,$lastname,$email,$tel,$num){
 
 
 
+/*?>
+<?php*/
+require('functions.php');
+if (!user_logged_in()) {
+   header('Location: index.php');
+   die();
+}
 ?>
-<?php require('functions.php'); ?>
 <!DOCTYPE html>
 <html>
 <?php

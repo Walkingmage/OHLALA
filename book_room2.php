@@ -6,8 +6,14 @@ require('functions.php');
 require('dbconnect.php');  
 require('html_head.php');
 echoHeadWithTitle('Manage Users - Jensen Offline');
+/*?>
+<?php */
+require('pageheader.php');
+if (!user_logged_in()) {
+   header('Location: index.php');
+   die();
+}
 ?>
-<?php require('pageheader.php'); ?>
 <link rel="stylesheet" type="text/css" href="css/style.css">
   <script src="https://code.jquery.com/jquery.js"></script>
   <script src="js/bootstrap.min.js"></script>

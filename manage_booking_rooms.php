@@ -16,7 +16,12 @@ echoHeadWithTitle('Manage Users - Jensen Offline');
 
 
 <body>
-<?php require('pageheader.php'); ?>
+<?php require('pageheader.php');
+if (!user_logged_in()) {
+   header('Location: index.php');
+   die();
+}
+?>
 <div id="test-list" class="container">
 
   <div class="row table-controls cf">

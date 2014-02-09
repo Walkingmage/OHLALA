@@ -6,7 +6,12 @@ require('html_head.php');
 echoHeadWithTitle('Manage Users - Jensen Offline');
 ?>
 <body>
-<?php require('pageheader.php'); ?>
+<?php require('pageheader.php');
+if (!user_logged_in()) {
+   header('Location: index.php');
+   die();
+}
+?>
 
 <div class="container">
 <div class="add-user-nav">
