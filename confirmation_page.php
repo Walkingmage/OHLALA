@@ -36,7 +36,7 @@ if ($function == "adduser"){
 		if($checkuserresult != false){
 		while($row = mysqli_fetch_assoc($checkuserresult)){$usercounts++;}}
 		
-		$username 	= "YH" . substr($firstname, 0, 3) . substr($lastname, 0, 3) . $usercounts;
+		$username 	= "YH" . substr($firstname, 0, 3) . substr($lastname, 0, 3) . str_pad($usercounts, 3, "0", STR_PAD_LEFT);
 		$password 	= rand_string( 7 );
 
 		$usertyperesult = mysqli_query($mysqli, "SELECT * FROM `tbl_usertype` WHERE `usertype_id` = '$access'");
