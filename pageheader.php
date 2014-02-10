@@ -52,7 +52,7 @@ switch ($file) {
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="index.php">Jensen <span class="red-brand">Offline</span></a>
+        <a class="navbar-brand" href="index.php">YH <span class="green-brand">On</span>line</a>
       </div>
 			<!-- Menu content -->
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">

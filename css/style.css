@@ -13,8 +13,8 @@ header {
   text-align: center;
 }
 
-.red-brand { /* Logo "offline" color */
-  color:#FF4040;
+.green-brand { /* Logo "online" color */
+  color:#4BDD4B;
 }
 
 .user-info {
