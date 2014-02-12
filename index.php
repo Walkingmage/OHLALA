@@ -21,7 +21,7 @@ echoHeadWithTitle('Book Computer - Jensen Offline');
 
 	<div class="container">
 		<header>
-		     <h1>Jensen Offline</h1>
+		     <h1>YH Online</h1>
 		</header>
     <?php if ( !user_logged_in()) { ?>
       <form class="form-signin" method="post" action="">
