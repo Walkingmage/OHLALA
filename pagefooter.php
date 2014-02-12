@@ -1,5 +1,5 @@
 <?php
 echo '<footer>
-  <p>support@jensenoffline.com</p>
+  <p>support@yhonline.com</p>
 </footer>
 ';?>
