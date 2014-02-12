@@ -63,7 +63,7 @@ switch ($file) {
           <li class="thin-text <?php echo $indexActive; ?>"><a href="index.php">Start</a></li> <!-- What should be displayed on the startpage? -->
           <?php
           if (requireUserLevel(3)) {echo('<li class="thin-text <?php echo $manageUsersActive; ?>"><a href="manage_users.php">Hantera konton</a></li>');}
-          if (requireUserLevel(3)||requireUserLevel(4)) {echo('<li class="thin-text <?php echo $manageCoursesActive; ?>"><a href="manage_courses.php">Hantera kurser</a></li>');}
+          if (requireUserLevel(3)) {echo('<li class="thin-text <?php echo $manageCoursesActive; ?>"><a href="manage_courses.php">Hantera kurser</a></li>');}
           if (requireUserLevel(5)||@$_SESSION['dev']) {echo(' <li class="thin-text <?php echo $bookComputerActive; ?>"><a href="book_computer.php">Boka dator</a></li>');}
           if (requireUserLevel(1)) {echo('<li class="thin-text <?php echo $boolkRoomActive; ?>"><a href="book_room.php">Boka lokal</a></li>');}
           if (requireUserLevel(-1)) {echo('<li class="thin-text <?php echo $contactActive; ?>"><a href="contact.php">Kontakta Oss</a></li>');}
