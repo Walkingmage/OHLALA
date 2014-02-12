@@ -12,22 +12,43 @@ $pdo = new PDO($dsn, $dbuser, $dbpass);
 //require_once("dBug.php");//https://github.com/KOLANICH/dBug
 //new dBug($_POST);
 
-$sth = $pdo->prepare("UPDATE tbl_user SET user_archived = :boolArchive WHERE user_id=:id");
+if ( isset($_POST['selectedUsers']) ) {
+	$redirect = "manage_users.php";
+	if ( empty($_POST['selectedUsers']) ) {
+		header("Location: $redirect");		
+	}
+	$selectedIDList = $_POST['selectedUsers'];
+	$table = "tbl_user";
+	$archivedColumn = "user_archived";
+	$cell = "user_id";
+}
+
+if ( isset($_POST['selectedCourses']) ) {
+	$redirect = "manage_courses.php";
+	if ( empty($_POST['selectedCourses']) ) {
+		header("Location: $redirect");		
+	}
+	$selectedIDList = $_POST['selectedCourses'];
+	$table = "tbl_course";
+	$archivedColumn = "course_archived";
+	$cell = "course_id";
+}
+
+$sth = $pdo->prepare("UPDATE $table SET $archivedColumn = :boolArchive WHERE $cell=:id");
 $sth->bindParam(':boolArchive',$_POST["setArchived"]);
 $sth->bindParam(':id', $value);
 
-$selectedUserList = $_POST['selectedUsers'];
-$userArray = explode(", ", $selectedUserList);
-$firstElement = $userArray[0];
+$idArray = explode(", ", $selectedIDList);
+$firstElement = $idArray[0];
 $firstElement = substr($firstElement, 1);
-$userArray[0] = $firstElement;
-$lastElement = $userArray[(count($userArray)-1)];
+$idArray[0] = $firstElement;
+$lastElement = $idArray[(count($idArray)-1)];
 $lastElement = substr($lastElement, 0, -1);
-$userArray[(count($userArray)-1)] = $lastElement;
+$idArray[(count($idArray)-1)] = $lastElement;
 
-foreach ($userArray as $value) {	
+foreach ($idArray as $value) {	
 	//echo ($value."<br>");
 	$sth->execute();
 }
-header('Location: manage_users.php');
+header("Location: $redirect");
 ?>
