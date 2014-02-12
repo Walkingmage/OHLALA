@@ -8,8 +8,11 @@ html, body {
   margin: 0;
 }
 
+html {
+  background-color: #8BA8DD;
+}
+
 header {
-	margin-bottom: 80px;
   text-align: center;
 }
 
@@ -32,6 +35,7 @@ header {
 
 body {
   background-color: #eee;
+  padding-top: 80px;
 }
 
 .glyphicon-inbox{
@@ -60,6 +64,11 @@ footer p {
 
 .center-text {
   text-align: center;
+}
+
+.thin-text {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
 }
 
   /* Clearfix */
@@ -120,7 +129,7 @@ footer p {
 
 
 /*
- *	MANAGE USERS PAGE
+ *	MANAGE USERS & MANAGE COURSES
  */
 
 .table-controls {
