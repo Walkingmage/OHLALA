@@ -9,7 +9,7 @@ html, body {
 }
 
 html {
-  background-color: #8BA8DD;
+  background-color: #F8F8F8;
 }
 
 header {
@@ -50,11 +50,11 @@ body {
 
 footer {
 	margin-top: 40px;
-	border-top: 1px solid #999;
+	border-top: 1px solid #E7E7E7;
 	padding-top: 20px;
 	background: #eee;
 	min-height: 80px;
-  background-color: #8BA8DD;
+  background-color: #F8F8F8;
   margin-bottom: 0;
 }
 
@@ -108,25 +108,54 @@ footer p {
 }
 
 /*
- *  ADD USER PAGE
+ *  ADD USER & EDIT COURSE
  */
 
-.add-user-form {
+.add-user-form, .edit-course-form {
   clear: both;
 }
-.add-user-form .form-group {
+.add-user-form .form-group, .edit-course-form .form-group {
   margin-bottom: 5px;
 }
 
-.add-user-row {
+.add-user-row, .edit-course-row {
   padding-bottom: 20px;
-  border-bottom: 1px solid #02215A;
+  border-bottom: 1px solid #999;
 }
 
 .save-button-row {
   margin-top: 20px;
 }
 
+.edit-course-form .datepicker {
+  width: 50%;
+  float: left;
+  padding-left: 12px;
+}
+
+.edit-course-form .datepicker:first-of-type {
+  margin-bottom: 5px;
+  margin-right: 5px;
+  width: calc(50% - 5px);
+}
+
+.edit-course-form .attendants-heading {
+  margin-bottom: 20px;
+}
+
+.float-label {
+  display: block;
+}
+
+.attendant-table .list td {
+  vertical-align: middle;
+}
+.attendant-table .list td.attendant-checkbox {
+  text-align: center;
+}
+.attendant-table .list select {
+  width: 80px;
+}
 
 /*
  *	MANAGE USERS & MANAGE COURSES
