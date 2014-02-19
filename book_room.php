@@ -57,7 +57,7 @@ if (!user_logged_in()) {
                 $num_seats = isset($_GET['classroom_numberofseats']) ? $_GET['classroom_numberofseats'] : '';
               ?>
               <label for="input-seats">Minst antal platser</label>
-              <input type="text" value="<?php echo $num_seats; ?>" class="form-control seat-filter-control" id="input-seats" name="classroom_numberofseats">
+              <input type="number" value="<?php echo $num_seats; ?>" class="form-control seat-filter-control" id="input-seats" name="classroom_numberofseats" min="0">
             </div>
 
             <div class="form-group">
