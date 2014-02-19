@@ -7,7 +7,7 @@ echoHeadWithTitle('Book Computer - Jensen Offline');
 ?>
 <body>
 <?php require('pageheader.php');
-if (!user_logged_in()) {
+if (!requireUserLevel(constLevelPremContact)) {
    header('Location: index.php');
    die();
 }

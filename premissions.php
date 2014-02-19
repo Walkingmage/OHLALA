@@ -1,5 +1,6 @@
 <?php
 define("constLevelPremBookRoom",1);
-define("constLevelPremEditUserAll",1);
-define("constLevelPremResetUserPassword",1);
+define("constLevelPremEditUserAll",3);
+define("constLevelPremResetUserPassword",3);
+define("constLevelPremContact",-1);
 ?>
