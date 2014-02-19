@@ -6,6 +6,7 @@ include_once("pdoconnect.php");
 isset($_GET["function"]) ? $function = $_GET["function"] : $function = "";
 
 require_once("premissions.php");
+require_once("dbug.php");
 
 // function to check if user exists in the database, if so, login!
 function check_user_login($email, $password) {
@@ -63,9 +64,24 @@ function get_all_rooms($filter = array()) {
   global $mysqli;
   $rooms = array();
   $where = null;
+  new dBug($filter);
 
-  $sql = 'SELECT classroom_id, classroom_name FROM tbl_classroom';
+  if(isset($filter['classroom_numberofseats'])&&ctype_digit($filter['classroom_numberofseats'])){
+    $condition_numberofseats=("classroom_numberofseats >= ".$mysqli->real_escape_string($filter['classroom_numberofseats'])."");
+  }else{
+    $condition_numberofseats=("TRUE");
+  }
 
+
+  if(isset($filter['classroom_equipment'])&&($filter['classroom_equipment']!="")){
+    $condition_equipment=("classroom_equipment LIKE '".$mysqli->real_escape_string($filter['classroom_equipment'])."'");
+  }else{
+    $condition_equipment=("TRUE");
+  }
+
+  $sql = 'SELECT classroom_id, classroom_name FROM tbl_classroom WHERE '.$condition_numberofseats." AND ".$condition_equipment.";";
+
+new dBug($sql);
   /*if ( ! empty($filter)) {
     $where .= ' WHERE ';
     if ( ! empty($filter['classroom_equipment'])) {
@@ -81,11 +97,19 @@ function get_all_rooms($filter = array()) {
             ON classroomtype.classroomtype_id = classroom.classroom_type
             "'.$where.'"';
   }*/
-  $query = mysqli_query($mysqli, $sql);
-  $rows = mysqli_num_rows($query);
-
+  try {
+    $query = mysqli_query($mysqli, $sql);
+    $rows = mysqli_num_rows($query);
+  } catch (Exception $e) {
+    error_log("caught exception(get_all_rooms()): ".$e->getMessage());
+    return $rooms;
+    //return array();
+  }
+  new dBug($rows == 0);
   if ($rows == 0) {
-    return false;
+    error_log("0 rows found!(get_all_rooms())");
+    return $rooms;
+    //return array();
   }
 
   while ($row = mysqli_fetch_assoc($query)) {

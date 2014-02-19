@@ -68,7 +68,7 @@ if (!user_logged_in()) {
                   $types = get_classroom_eq();
                 ?>
                 <?php foreach($types as $key => $val) { ?>
-                <option value="<?php echo $key; ?>"><?php echo $val; ?></option>
+                <option value="<?php echo $key; ?>"><?php echo(utf8_encode($val)); ?></option>
                 <?php } ?>
               </select>
             </div>
