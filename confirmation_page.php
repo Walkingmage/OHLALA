@@ -23,14 +23,14 @@ require 'dbconnect.php';
 
 
 if ($function == "adduser"){
-	//$mysqli->set_charset("utf8");
+
 
 	for ($i = 0, $l = count($_POST['firstname']); $i < $l; $i++) {
-		$firstname 	= utf8_decode($mysqli->real_escape_string($_POST['firstname'][$i]));
-		$lastname 	= utf8_decode($mysqli->real_escape_string($_POST['lastname'][$i]));
-		$privemail 	= utf8_decode($mysqli->real_escape_string($_POST['privemail'][$i]));
-		$telephone 	= utf8_decode($mysqli->real_escape_string($_POST['telephone'][$i]));
-		$access		= utf8_decode($mysqli->real_escape_string($_POST['access'][$i]));
+		$firstname 	= $mysqli->real_escape_string($_POST['firstname'][$i]);
+		$lastname 	= $mysqli->real_escape_string($_POST['lastname'][$i]);
+		$privemail 	= $mysqli->real_escape_string($_POST['privemail'][$i]);
+		$telephone 	= $mysqli->real_escape_string($_POST['telephone'][$i]);
+		$access		= $mysqli->real_escape_string($_POST['access'][$i]);
 		$usercounts = 0;
 		$checkuserresult = mysqli_query($mysqli, "SELECT * FROM `tbl_user` WHERE `user_firstname` = '$firstname' AND `user_lastname` = '$lastname'");
 		if($checkuserresult != false){
@@ -80,14 +80,14 @@ if ($function == "adduser"){
 			$checkaccess = $row['usertype_name'];
 		}
 
-		echo "Förnamn: " . utf8_encode($firstname) . "<br>";
-		echo "Efternamn: " . utf8_encode($lastname) . "<br>";
-		echo "Privat email: " . utf8_encode($privemail) . "<br>";
-		echo "Telefon: " . utf8_encode($telephone) . "<br>";
+		echo "Förnamn: " . $firstname . "<br>";
+		echo "Efternamn: " . $lastname . "<br>";
+		echo "Privat email: " . $privemail . "<br>";
+		echo "Telefon: " . $telephone . "<br>";
 		echo "Behörighet: " . $access . " (" . $checkaccess . ")<br><br>";
 
-		echo "Jensen-mail: " . utf8_encode($jensenemail) . "<br>";
-		echo "Användarnamn: " . utf8_encode($username) . "<br>";
+		echo "Jensen-mail: " . $jensenemail . "<br>";
+		echo "Användarnamn: " . $username . "<br>";
 		echo "Lösenord:" . $password . "<br>";
 		echo "<br>Ett email med denna information har skickats till den angivna e-post adressen.<br>";
 		echo "<hr>";
@@ -95,13 +95,7 @@ if ($function == "adduser"){
  		mailToUser($firstname, $lastname, $privemail, $telephone, $access, $jensenemail, $username);
 	}
 }
-function removeDots($text){
-	//fungerar endast vid utf8
-	$ts = array("/[À-Å]/","/Ä/","/Æ/","/Ç/","/[È-Ë]/","/[Ì-Ï]/","/Ð/","/Ñ/","/[Ò-ÖØ]/","/×/","/[Ù-Ü]/","/[Ý-ß]/","/[à-å]/","/æ/","/ç/","/[è-ë]/","/[ì-ï]/","/ð/","/ñ/","/[ò-öø]/","/÷/","/[ù-ü]/","/[ý-ÿ]/");
-	$tn = array("A","A","AE","C","E","I","D","N","O","X","U","Y","a","ae","c","e","i","d","n","o","x","u","y");
-	$title = preg_replace($ts, $tn, $text);
-	return $title;
-}
+
 ?>
 </div></div>
 <?php require('pagefooter.php'); ?>
