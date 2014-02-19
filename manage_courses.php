@@ -34,7 +34,7 @@ if (!user_logged_in()) {
     <div class="col-md-6 add-entry-controls">
       <?php
       if($showArchived==0){
-      ?><a href="add_user.php">
+      ?><a href="edit_course.php">
       <button type="button" class="btn btn-default">
         <span class="glyphicon glyphicon-plus"></span>&nbsp;Lägg&nbsp;till
       </button></a>
@@ -129,7 +129,7 @@ if (!user_logged_in()) {
           <td>
             <input type="checkbox" name="courseCheckbox[<?=$id?>]" id="userCheckbox[<?=$id?>]" class="rowSelectedCheckbox">
           </td>
-          <td class="courseName"><a class="" href="edit_user.php?id=<?php echo"$id";?>"><?php echo utf8_encode($courseName); ?></a></td>
+          <td class="courseName"><a class="" href="edit_course.php?id=<?php echo"$id";?>"><?php echo utf8_encode($courseName); ?></a></td>
           <td class="courseStart hide-mobile"><?php echo $courseStart; ?></td>
           <td class="courseEnd hide-mobile"><?php echo $courseEnd; ?></td>
           <td class="schoolProgram hide-mobile"><?php if ($programName != null) {echo utf8_encode($programName);} else { echo "Fristående kurs"; } ?></td>

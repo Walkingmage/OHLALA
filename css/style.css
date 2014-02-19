@@ -157,6 +157,10 @@ footer p {
   width: 80px;
 }
 
+.removed-attendants {
+  display: none;
+}
+
 /*
  *	MANAGE USERS & MANAGE COURSES
  */
