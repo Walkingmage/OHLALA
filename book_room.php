@@ -63,12 +63,12 @@ if (!user_logged_in()) {
             <div class="form-group">
               <label for="inputProjector">Utrustning</label>
               <select class="form-control projector-select" name="classroom_equipment">
+                <option value="" SELECTED>Inget</option>
                 <?php
-                  $selected = (isset($_GET['classroom_equipment']) && $_GET['classroom_equipment'] == $room['classroom_equipment']) ? 'SELECTED' : '';
                   $types = get_classroom_eq();
                 ?>
                 <?php foreach($types as $key => $val) { ?>
-                <option value="<?php echo $key; ?>" <?php echo $selected; ?>><?php echo $val; ?></option>
+                <option value="<?php echo $key; ?>"><?php echo $val; ?></option>
                 <?php } ?>
               </select>
             </div>
