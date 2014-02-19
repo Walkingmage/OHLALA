@@ -85,12 +85,6 @@ $premissionOptions=getPremissionOptions($mysqli);
 
 <div class="container">
 <div class="add-user-nav">
-  <ul class="nav nav-tabs navbar-left">
-    <li class="active"><a href="#">Kontouppgifter</a></li>
-    <li><a href="#">Program</a></li>
-    <li><a href="#">Kurser & betyg</a></li>
-    <li><a href="#">LIA</a></li>
-  </ul>
   <ul class="nav navbar-nav navbar-right">
     <li><a href="import_users.php">Importera</a></li>
   </ul>
