@@ -255,11 +255,17 @@ if ($function == "edituser") {
     die();
   }
   $id = $_GET["id"];
-  $sql = "UPDATE `tbl_user` SET  `user_firstname`=:user_firstname, `user_lastname`=:user_lastname, `user_email`=:user_email, `user_phonenumber`=:user_phonenumber, `usertype_id`=:user_access WHERE `user_id` = :id";
+  $sql = "UPDATE `tbl_user` SET  `user_firstname`=:user_firstname, `user_lastname`=:user_lastname, `user_email`=:user_email, `user_phonenumber`=:user_phonenumber, `usertype_id`=:user_access, `program_id`=:program_id WHERE `user_id` = :id";
   
   $stmt = $pdo->prepare($sql);
-  $sth->bindParam(':id', $id);
-  $stmt->execute(array(":user_firstname" => $_POST["user_firstname"], ":user_lastname" => $_POST["user_lastname"], ":user_email" => $_POST["user_email"], ":user_phonenumber" => $_POST['user_phonenumber'], ":user_access" => $_POST['user_access']));
+  $stmt->bindParam(':id', $id);
+  $stmt->bindParam(":user_firstname", $_POST["user_firstname"]);
+  $stmt->bindParam(":user_lastname", $_POST["user_lastname"]);
+  $stmt->bindParam(":user_email", $_POST["user_email"]);
+  $stmt->bindParam(":user_phonenumber", $_POST['user_phonenumber']);
+  $stmt->bindParam(":user_access", $_POST['user_access']);
+  $stmt->bindParam(":program_id", $_POST['program']);
+  $stmt->execute();
 
   $success = "Ändringar sparades";
 

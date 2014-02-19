@@ -14,19 +14,10 @@ if (!user_logged_in()) {
 ?>
 
 <div class="container">
-<div class="add-user-nav">
-  <ul class="nav nav-tabs navbar-left">
-    <li class="active"><a href="#">Kontouppgifter</a></li>
-    <li><a href="#">Program</a></li>
-    <li><a href="#">Kurser & betyg</a></li>
-    <li><a href="#">LIA</a></li>
-  </ul>
-</div>
-
 
 <?php
 require 'dbconnect.php';
-$urlid = $_GET['id'];
+$urlid = mysqli_real_escape_string($mysqli, $_GET['id']);
 if (isset($_GET['success'])) {
   $success = $_GET['success'];
 } else {
@@ -41,19 +32,19 @@ $query = "SELECT * FROM `tbl_user` WHERE `user_id` = $urlid";
 $result = mysqli_query($mysqli, $query) or die ();
 $num = "";
 
-    while($row = mysqli_fetch_array($result)){
-      $user_firstname= $row["user_firstname"];
-      $user_lastname = $row["user_lastname"];
-      $user_email = $row["user_email"];
-      $user_phonenumber = $row['user_phonenumber'];
-      $user_class = "-";
-      $user_program = "-";
-      $user_access = $row['usertype_id'];
-      $user_jensenemail = $row['user_jensenemail'];
-      $user_username =  $row['user_username'];
-      $user_password =  $row['user_password'];
-      $user_lastlogin = $row['user_lastlogin'];
-    }
+while($row = mysqli_fetch_array($result)){
+  $user_firstname= $row["user_firstname"];
+  $user_lastname = $row["user_lastname"];
+  $user_email = $row["user_email"];
+  $user_phonenumber = $row['user_phonenumber'];
+  $user_class = "-";
+  $user_program = $row['program_id'];
+  $user_access = $row['usertype_id'];
+  $user_jensenemail = $row['user_jensenemail'];
+  $user_username =  $row['user_username'];
+  $user_password =  $row['user_password'];
+  $user_lastlogin = $row['user_lastlogin'];
+}
 
 // mysql_free_result($result);
 ?>
@@ -91,19 +82,34 @@ $num = "";
         <label for="inputAccess'.$num.'" class="control-label">Behörighet</label>
         <div class="">
         <select name="user_access" id="inputAccess'.$num.'" class="form-control">';
-
-
               $query = "SELECT tbl_usertype.usertype_id, tbl_usertype.usertype_name, tbl_usertype.usertype_rights FROM tbl_usertype";
               $result = mysqli_query($mysqli, $query) or die ();
               while($row = mysqli_fetch_array($result)){
                 if($user_access==$row["usertype_id"]){
                   echo ('<option selected="selected" value="'.$row["usertype_id"].'">'.utf8_encode($row["usertype_name"]).'</option>');
                 }else{
-                echo ('<option value="'.$row["usertype_id"].'">'.utf8_encode($row["usertype_name"]).'</option>');
-              }
+                  echo ('<option value="'.$row["usertype_id"].'">'.utf8_encode($row["usertype_name"]).'</option>');
+                }
               }
               mysqli_free_result($result);
-
+              echo '
+        </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="program'.$num.'" class="control-label">Program</label>
+        <div class="">
+        <select name="program" id="program'.$num.'" class="form-control">';
+              $query = "SELECT tbl_program.program_id, tbl_program.program_name FROM tbl_program";
+              $result = mysqli_query($mysqli, $query) or die ();
+              while ($row = mysqli_fetch_array($result)) {
+                if ($user_program == $row["program_id"]) {
+                  echo ('<option selected="selected" value="'.$row["program_id"].'">'.utf8_encode($row["program_name"]).'</option>');
+                } else {
+                  echo ('<option value="'.$row["program_id"].'">'.utf8_encode($row["program_name"]).'</option>');
+                }
+              }
+              mysqli_free_result($result);
               echo '
         </select>
         </div>
@@ -124,7 +130,38 @@ $num = "";
     </div>
   </div>';
 ?>
-
+  <?php if ($user_access == 1) { ?>
+  <div class="row add-user-row">
+    <div class="col-sm-12">
+      <h3 class="attendants-heading">Studieresultat</h3>
+      <table class="table table-striped table-condensed user-courses">
+        <thead>
+          <tr>
+            <th>Kurs</th>
+            <th>Betyg</th>
+            <th>Period</th>
+          </tr>
+        </thead>
+        <tbody>
+          <?php
+          $courseQuery = "SELECT tbl_grade.grade_grade, tbl_course.course_name, tbl_course.course_startdate, tbl_course.course_enddate FROM tbl_grade LEFT JOIN tbl_course ON tbl_grade.course_id = tbl_course.course_id WHERE tbl_grade.user_id = ?";
+          $sth = $mysqli->prepare($courseQuery);
+          $sth->bind_param('s', $urlid);
+          $sth->execute();
+          $sth->bind_result($grade,$course_name,$course_startdate,$course_enddate);
+          while ($data = $sth->fetch()) {
+            echo "<tr>
+                <td>$course_name</td>
+                <td>$grade</td>
+                <td>$course_startdate - $course_enddate</td>
+            </tr>";
+          }
+          ?>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <?php } ?>
 
   <div class="row save-button-row">
     <div class="form-group">
