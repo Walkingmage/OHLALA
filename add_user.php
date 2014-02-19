@@ -28,7 +28,7 @@ function addUserToList($firstname,$lastname,$email,$tel,$num){
       <div class="form-group">
         <label for="inputTelephone'.$num.'" class="control-label">Telefon</label>
         <div class="">
-          <input type="tel" class="form-control" name="telephone['.$num.']" id="inputTelephone'.$num.'" placeholder="+46 ..." value="'.$tel.'-'.$num.'">
+          <input type="tel" class="form-control" name="telephone['.$num.']" id="inputTelephone'.$num.'" placeholder="+46 ..." value="'.$tel/*.'-'.$num*/.'">
       </div>
       </div>
       <div class="form-group">
