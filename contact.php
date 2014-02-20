@@ -13,11 +13,18 @@ if (!requireUserLevel(constLevelPremContact)) {
 }
 ?>
 
-<div class="container">
-  <h1>Placeholder page</h1>
-  <div class="row table-controls cf">
-  
-  </div>
+<div class="container contact-page-container">
+  <h1>Kontaktuppgifter</h1>
+  <p>Administration: 08-645 00 00</p>
+  <p>Sjukanmälan: 08-645 45 45</p>
+  <p>IT-support: 08-645 99 99</p>
+  <hr>
+  <h3>Besöksadress</h3>
+  <p>Gatan 88</p>
+  <p>Stockholm</p>
+  <h3>Postadress</h3>
+  <p>Box 8490</p>
+  <p>120 20 Stockholm</p>
 </div>
 
 <?php require('pagefooter.php'); ?>

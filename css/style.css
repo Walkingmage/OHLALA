@@ -12,10 +12,6 @@ html {
   background-color: #F8F8F8;
 }
 
-header {
-  text-align: center;
-}
-
 .green-brand { /* Logo "online" color */
   color:#4BDD4B;
 }
@@ -105,6 +101,29 @@ footer p {
     padding-left: 0;
     margin-left: 0;
   }
+}
+
+/*
+ * START PAGE
+ */
+
+.start-page-header {
+  text-align: center;
+}
+.start-page-container {
+  min-height: 60vh;
+}
+
+/*
+ * CONTACT PAGE
+ */
+
+.contact-page-container {
+  min-height: 60vh;
+}
+
+.contact-page-container h1 {
+  margin-bottom: 40px;
 }
 
 /*

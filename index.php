@@ -17,12 +17,10 @@ echoHeadWithTitle('Book Computer - Jensen Offline');
 <?php require('pageheader.php'); ?>
 <!-- pageheader ends -->
 
-<section class="wrapper">
-
-	<div class="container">
-		<header>
-		     <h1>YH Online</h1>
-		</header>
+	<div class="container start-page-container">
+		<div class="start-page-header">
+		  <h1>YH Online</h1>  
+    </div>
     <?php if ( !user_logged_in()) { ?>
       <form class="form-signin" method="post" action="">
         <h2 class="form-signin-heading">Logga in här!</h2>
