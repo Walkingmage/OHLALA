@@ -33,6 +33,9 @@ switch ($file) {
 	case 'book_computer':
 		$bookComputerActive = "active";
 		break;
+  case 'manage_programs':
+    $manageProgramsActive = "active";
+    break;
   case 'book_room':
     $boolkRoomActive = "active";
     break;
@@ -64,6 +67,7 @@ switch ($file) {
           <?php
           if (requireUserLevel(3)) {echo('<li class="thin-text '.$manageUsersActive.'"><a href="manage_users.php">Hantera konton</a></li>');}
           if (requireUserLevel(3)) {echo('<li class="thin-text '.$manageCoursesActive.'"><a href="manage_courses.php">Hantera kurser</a></li>');}
+          if (requireUserLevel(3)) {echo('<li class="thin-text '.$manageProgramsActive.'"><a href="manage_programs.php">Hantera program</a></li>');}
           if (requireUserLevel(5)||@$_SESSION['dev']) {echo(' <li class="thin-text <?php echo $bookComputerActive; ?>"><a href="book_computer.php">Boka dator</a></li>');}
           if (requireUserLevel(1)) {echo('<li class="thin-text '.$boolkRoomActive.'"><a href="book_room.php">Boka lokal</a></li>');}
           if (requireUserLevel(-1)) {echo('<li class="thin-text '.$contactActive.'"><a href="contact.php">Kontakta oss</a></li>');}

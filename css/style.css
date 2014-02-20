@@ -127,6 +127,14 @@ footer p {
 }
 
 /*
+ *  ADD PROGRAM
+ */
+
+.add-program-container {
+  min-height: 60vh;
+}
+
+/*
  *  ADD USER & EDIT COURSE
  */
 
