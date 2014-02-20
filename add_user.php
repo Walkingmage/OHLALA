@@ -71,7 +71,7 @@ function getPremissionOptions($mysqli){
   $query = "SELECT tbl_usertype.usertype_id, tbl_usertype.usertype_name, tbl_usertype.usertype_rights FROM tbl_usertype";
   $result = mysqli_query($mysqli, $query) or die ();
   while($row = mysqli_fetch_array($result)){
-    $premissionOptions.= ('<option value="'.$row["usertype_id"].'">'.utf8_encode($row["usertype_name"]).'</option>\n');
+    $premissionOptions.= ('<option value="'.$row["usertype_id"].'">'.$row["usertype_name"].'</option>\n');
   }
   mysqli_free_result($result);
   unset($query);

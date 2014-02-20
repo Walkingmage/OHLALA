@@ -91,7 +91,6 @@ if (!user_logged_in()) {
               }
               mysqli_free_result($result);
               ?>
-              <option>Fristående kurs</option>
             </select>
           </div>
         </div>
@@ -129,10 +128,10 @@ if (!user_logged_in()) {
           <td>
             <input type="checkbox" name="courseCheckbox[<?=$id?>]" id="userCheckbox[<?=$id?>]" class="rowSelectedCheckbox">
           </td>
-          <td class="courseName"><a class="" href="edit_course.php?id=<?php echo"$id";?>"><?php echo utf8_encode($courseName); ?></a></td>
+          <td class="courseName"><a class="" href="edit_course.php?id=<?php echo"$id";?>"><?php echo $courseName; ?></a></td>
           <td class="courseStart hide-mobile"><?php echo $courseStart; ?></td>
           <td class="courseEnd hide-mobile"><?php echo $courseEnd; ?></td>
-          <td class="schoolProgram hide-mobile"><?php if ($programName != null) {echo utf8_encode($programName);} else { echo "Fristående kurs"; } ?></td>
+          <td class="schoolProgram hide-mobile"><?php echo $programName; ?></td>
         </tr>
       <?php
        }

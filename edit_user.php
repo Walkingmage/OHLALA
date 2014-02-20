@@ -86,9 +86,9 @@ while($row = mysqli_fetch_array($result)){
               $result = mysqli_query($mysqli, $query) or die ();
               while($row = mysqli_fetch_array($result)){
                 if($user_access==$row["usertype_id"]){
-                  echo ('<option selected="selected" value="'.$row["usertype_id"].'">'.utf8_encode($row["usertype_name"]).'</option>');
+                  echo ('<option selected="selected" value="'.$row["usertype_id"].'">'.$row["usertype_name"].'</option>');
                 }else{
-                  echo ('<option value="'.$row["usertype_id"].'">'.utf8_encode($row["usertype_name"]).'</option>');
+                  echo ('<option value="'.$row["usertype_id"].'">'.$row["usertype_name"].'</option>');
                 }
               }
               mysqli_free_result($result);
@@ -104,9 +104,9 @@ while($row = mysqli_fetch_array($result)){
               $result = mysqli_query($mysqli, $query) or die ();
               while ($row = mysqli_fetch_array($result)) {
                 if ($user_program == $row["program_id"]) {
-                  echo ('<option selected="selected" value="'.$row["program_id"].'">'.utf8_encode($row["program_name"]).'</option>');
+                  echo ('<option selected="selected" value="'.$row["program_id"].'">'.$row["program_name"].'</option>');
                 } else {
-                  echo ('<option value="'.$row["program_id"].'">'.utf8_encode($row["program_name"]).'</option>');
+                  echo ('<option value="'.$row["program_id"].'">'.$row["program_name"].'</option>');
                 }
               }
               mysqli_free_result($result);

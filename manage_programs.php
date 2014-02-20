@@ -59,7 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['programName']) && !em
 
   <?php if (!empty($statusText)) {
     echo "<p>$statusText</p>";
-  }?>  
+  }?>
 
   <div class="row table-controls cf">
 
@@ -86,7 +86,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['programName']) && !em
         while($data = $stmt->fetch()){
       ?>
       <tr>
-        <td class="schoolProgram hide-mobile"><?php echo utf8_encode($programName); ?></td>
+        <td class="schoolProgram hide-mobile"><?php echo $programName; ?></td>
       </tr>
       <?php
        }

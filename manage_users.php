@@ -70,7 +70,7 @@ if (!user_logged_in()) {
               $query = "SELECT * FROM `tbl_usertype`";
               $result = mysqli_query($mysqli, $query) or die ();
               while($row = mysqli_fetch_array($result)){
-                echo "<option value='".utf8_encode($row['usertype_name'])."'>".utf8_encode($row['usertype_name'])."</option>";
+                echo "<option value='".$row['usertype_name']."'>".$row['usertype_name']."</option>";
               }
               mysqli_free_result($result);
               ?>
@@ -132,8 +132,8 @@ if (!user_logged_in()) {
           <td class="name"><a class="" href="edit_user.php?id=<?php echo"$id";?>"><?php echo $userFirstname . " " . $userLastname; ?></a></td>
           <td class="email hide-mobile"><?php echo $userSchoolEmail; ?></td>
           <td class="telephone hide-mobile"><?php echo $userPhonenumber; ?></td>
-          <td class="userType hide-mobile"><?php echo utf8_encode($userType) ?></td>
-          <td class="schoolProgram hide-mobile"><?php echo utf8_encode($programName) ?></td>
+          <td class="userType hide-mobile"><?php echo $userType ?></td>
+          <td class="schoolProgram hide-mobile"><?php echo $programName ?></td>
         </tr>
       <?php
        }

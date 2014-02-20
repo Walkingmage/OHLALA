@@ -259,7 +259,7 @@ if (!user_logged_in()) {
         </div>
 
         <div class="form-group">
-          <label for="course_program_id" class="control-label">Program</label>
+          <label for="course_program_id" class="control-label">Program / Fristående kurs</label>
           <select name="course_program_id" class="form-control">
             <?php
             $query = "SELECT program_id, program_name FROM tbl_program";
