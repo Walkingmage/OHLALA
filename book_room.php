@@ -86,15 +86,18 @@ if (!user_logged_in()) {
             }
             $rooms = get_all_rooms($filter);
 
-            foreach($rooms as $room) {
-            $selected = isset($_GET['classroom_id']) ? $_GET['classroom_id'] : '';
-          ?>
-          <?php if (isset($selected) && $selected == $room['classroom_id']) { ?>
-              <li class="list-group-item inactive-filter-list-item"><?php echo $room['classroom_name']; ?></li>
-          <?php } else { ?>
-              <li class="list-group-item <?php echo $selected; ?>"><a href="<?php echo ( ! isset($_GET['classroom_id'])) ? '?classroom_id='.$room['classroom_id'] : format_query_string(array('classroom_id' => $room['classroom_id'])); ?>"><?php echo $room['classroom_name']; ?></a></li>
+            if (empty($rooms)) {
+              echo("En lokal som motsvarar det angiva vilkoren finns ej");
+            }else{
+              foreach($rooms as $room) {
+              $selected = isset($_GET['classroom_id']) ? $_GET['classroom_id'] : '';//kunde göras utanför loopen
+              if (isset($selected) && $selected == $room['classroom_id']) { ?>
+                <li class="list-group-item inactive-filter-list-item"><?php echo $room['classroom_name']; ?></li>
+              <?php } else { ?>
+                <li class="list-group-item <?php echo $selected; ?>"><a href="<?php echo ( ! isset($_GET['classroom_id'])) ? '?classroom_id='.$room['classroom_id'] : format_query_string(array('classroom_id' => $room['classroom_id'])); ?>"><?php echo $room['classroom_name']; ?></a></li>
+              <?php } ?>
+            <?php } ?>
           <?php } ?>
-        <?php } ?>
         </ul>
       </div>
     </div>
