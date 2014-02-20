@@ -20,7 +20,8 @@ function check_user_login($email, $password) {
 	mysqli_query($mysqli, "set names 'utf8'");
 	$sql = 'SELECT * FROM tbl_user
 			WHERE user_username = "'.$email.'"
-			AND user_password = "'.$password.'"';
+			AND user_password = "'.$password.'"
+      AND user_archived = 0;';
 	$query = mysqli_query($mysqli, $sql);
 
 	$num = mysqli_num_rows($query);
