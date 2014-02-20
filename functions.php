@@ -64,7 +64,20 @@ function get_all_rooms($filter = array()) {
   $rooms = array();
   $where = null;
 
-  $sql = 'SELECT classroom_id, classroom_name FROM tbl_classroom';
+  if(isset($filter['classroom_numberofseats'])&&ctype_digit($filter['classroom_numberofseats'])){
+    $condition_numberofseats=("classroom_numberofseats >= ".$mysqli->real_escape_string($filter['classroom_numberofseats'])."");
+  }else{
+    $condition_numberofseats=("TRUE");
+  }
+
+
+  if(isset($filter['classroom_equipment'])&&($filter['classroom_equipment']!="")){
+    $condition_equipment=("classroom_equipment LIKE '".$mysqli->real_escape_string($filter['classroom_equipment'])."'");
+  }else{
+    $condition_equipment=("TRUE");
+  }
+
+  $sql = 'SELECT classroom_id, classroom_name FROM tbl_classroom WHERE '.$condition_numberofseats." AND ".$condition_equipment.";";
 
   /*if ( ! empty($filter)) {
     $where .= ' WHERE ';
@@ -81,11 +94,16 @@ function get_all_rooms($filter = array()) {
             ON classroomtype.classroomtype_id = classroom.classroom_type
             "'.$where.'"';
   }*/
-  $query = mysqli_query($mysqli, $sql);
-  $rows = mysqli_num_rows($query);
-
+  try {
+    $query = mysqli_query($mysqli, $sql);
+    $rows = mysqli_num_rows($query);
+  } catch (Exception $e) {
+    error_log("caught exception(get_all_rooms()): ".$e->getMessage());
+    return $rooms;
+  } 
   if ($rows == 0) {
-    return false;
+    error_log("0 rows found!(get_all_rooms())");
+    return $rooms;
   }
 
   while ($row = mysqli_fetch_assoc($query)) {
