@@ -235,7 +235,7 @@ if (!user_logged_in()) {
   
   ?>
   <form class="form edit-course-form" name="form edit-course-form" action="edit_course.php" method="POST">
-    <input type="hidden" name="id" value="<?php if (isset($urlid)) { echo $urlid; } elseif (isset($id)) { echo $id; } ?>" />
+    <input type="hidden" name="id" value="<?php if (!$loadEmptyForm) { if (isset($urlid)) { echo $urlid; } elseif (isset($id)) { echo $id; } } ?>" />
 
     <?php
       echo '<p>'.$statusText.'</p>';
