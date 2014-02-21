@@ -133,17 +133,23 @@ function get_classroom_eq() {
       $classroom_types[] = $eq;
     }
   }
+}
 
-  foreach($classroom_types as $k) {
-    foreach($k as $key => $val) {
-      if ( ! empty($val)) {
-        $key = strtolower(trim($val));
-        $types[$key] = $val;
-      }
-    }
+function get_courses() {
+  global $mysqli;
+  $courses = array();
+
+  $sql = 'SELECT tbl_course.course_id, tbl_course.course_name FROM tbl_course WHERE tbl_course.course_archived = 0';
+  $query = mysqli_query($mysqli, $sql);
+
+  $num = mysqli_num_rows($query);
+  if ($num == 0) {
+    return $courses;
   }
-
-  return $types;
+  while($row = mysqli_fetch_assoc($query)) {
+    $courses[]=$row;
+  }
+  return $courses;
 }
 
 /*
@@ -294,7 +300,8 @@ if($function == "bookRoom"){
   }
 	$classroom = $mysqli->real_escape_string($_POST['classroom']);
 	$startdate = $mysqli->real_escape_string($_POST['startdate']);
-	$enddate = $mysqli->real_escape_string($_POST['enddate']);
+  $enddate = $mysqli->real_escape_string($_POST['enddate']);
+	$course_id = $mysqli->real_escape_string($_POST['course_id']);
 	$userid = $mysqli->real_escape_string($_SESSION['user']['user_id']);
 	$bookingtime = $mysqli->real_escape_string($_POST['bookingtime']);
 	$bookingsuccess = "Bokningen lyckades!";
@@ -318,14 +325,15 @@ if($function == "bookRoom"){
     	header("location:book_room.php?bookingerror=$bookingerror");
   	}else{
       $sql = "INSERT INTO `tbl_booking` (`booking_id`, `bookingtime_id`, `booking_startdate`, `booking_enddate`, `course_id`, `classroom_id`, `user_id`) 
-       VALUES (NULL, 	:bookingtime,	:startdate, 	:enddate, 	'0', 	:classroom, 	:userid);";
+       VALUES (NULL, 	:bookingtime,	:startdate, 	:enddate, 	:course_id, 	:classroom, 	:userid);";
       $stmt = $pdo->prepare($sql);
     	$stmt->execute(array(
     		":classroom" => $classroom, 
     		":startdate" => $startdate, 
     		":enddate" => $enddate, 
     		":userid" => $userid,
-    		":bookingtime" => $bookingtime));
+        ":bookingtime" => $bookingtime,
+    		":course_id" => $course_id));
 
       header("location:book_room.php?bookingsuccess=$bookingsuccess");
     }

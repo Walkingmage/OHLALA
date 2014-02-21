@@ -123,6 +123,16 @@ if (!user_logged_in()) {
                 mysqli_free_result($result);
                 ?>
               </select>
+              <!-- Välj kurs -->
+              <select id="course_id" name="course_id"  class="form-control">
+                <option value="" SELECTED>Välj kurs..</option>
+                <?php
+                  $courses = get_courses();
+                ?>
+                <?php foreach($courses as $val) { ?>
+                <option value="<?php echo $val["course_id"]; ?>"><?php echo(($val["course_name"])); ?></option>
+                <?php } ?>
+              </select>
             </div>
             <!-- Välj start & slut datum -->
             <div class="form-group">
