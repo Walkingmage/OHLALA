@@ -1,4 +1,4 @@
-<?php require_once('../functions.php');//pdo/db connect included in functions
+<?php require_once('../pdoconnect.php');
 $fp = fopen('users.txt', 'a');
 $sql=("SELECT tbl_user.user_id, tbl_user.user_firstname, tbl_user.user_lastname, tbl_user.user_jensenemail, tbl_user.user_phonenumber, tbl_user.usertype_id, tbl_user.program_id FROM tbl_user WHERE tbl_user.user_archived = 1 AND tbl_user.usertype_id <3 ;");
 $q = $pdo->prepare($sql);

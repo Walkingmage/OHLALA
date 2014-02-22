@@ -1,4 +1,4 @@
-<?php require_once('../functions.php');//pdo/db connect included in functions
+<?php require_once('../pdoconnect.php');
 $fp = fopen('grades.txt', 'w');
 $sql=("SELECT tbl_grade.grade_id, tbl_grade.grade_grade, tbl_grade.grade_comment, tbl_grade.user_id, tbl_grade.course_id FROM tbl_grade");
 $q = $pdo->prepare($sql);

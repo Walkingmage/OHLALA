@@ -1,4 +1,4 @@
-<?php require_once('../functions.php');//pdo/db connect included in functions
+<?php require_once('../pdoconnect.php');
 $fp = fopen('usertypes.txt', 'w');
 $sql=("SELECT tbl_usertype.usertype_id, tbl_usertype.usertype_name, tbl_usertype.usertype_rights FROM tbl_usertype");
 $q = $pdo->prepare($sql);

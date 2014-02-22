@@ -1,5 +1,5 @@
 <?php
-require_once('../functions.php');//pdo/db connect included in functions
+//require_once('../pdoconnect.php');
 $gen_all=true;
 require_once('list_users.php');//bortkommenterad pga teckenkodningsfel
 require_once('list_usertypes.php');

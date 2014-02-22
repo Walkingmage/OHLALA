@@ -1,4 +1,4 @@
-<?php require_once('../functions.php');//pdo/db connect included in functions
+<?php require_once('../pdoconnect.php');
 $fp = fopen('courses.txt', 'w');
 $sql=("SELECT tbl_course.course_id, tbl_course.course_name, tbl_course.course_startdate, tbl_course.course_enddate, tbl_course.program_id FROM tbl_course");
 $q = $pdo->prepare($sql);
