@@ -44,7 +44,7 @@ if (!user_logged_in()) {
                   $query = "SELECT * FROM `tbl_usertype`";
                   $result = mysqli_query($mysqli, $query) or die ();
                   while($row = mysqli_fetch_array($result)){
-                    echo "<option value='".utf8_encode($row['usertype_name'])."'>".utf8_encode($row['usertype_name'])."</option>";
+                    echo "<option value='".$row['usertype_name']."'>".$row['usertype_name']."</option>";
                   }
                   mysqli_free_result($result);
                   ?>
@@ -94,8 +94,8 @@ if (!user_logged_in()) {
                   <input type="checkbox" name="userCheckbox[<?=$id?>]" id="userCheckbox[<?=$id?>]" class="rowSelectedCheckbox">
                 </td>
                 <td class="name"><?php echo $userFirstname . " " . $userLastname; ?></td>
-                <td class="userType hide-mobile"><?php echo utf8_encode($userType) ?></td>
-                <td class="schoolProgram hide-mobile"><?php echo utf8_encode($programName) ?></td>
+                <td class="userType hide-mobile"><?php echo $userType ?></td>
+                <td class="schoolProgram hide-mobile"><?php echo $programName ?></td>
               </tr>
             <?php
              }
@@ -240,7 +240,6 @@ if (!user_logged_in()) {
     <?php
       echo '<p>'.$statusText.'</p>';
     ?>
-    <!-- require 'add_course_form.php'; -->
     <div class="row edit-course-row">
       <div class="col-sm-6">
         <h3>Kurs</h3>
@@ -267,12 +266,12 @@ if (!user_logged_in()) {
             while ($row = mysqli_fetch_array($result)) {
               if (isset($course_program_id)) {
                 if ($course_program_id == $row["program_id"]) {
-                  echo '<option selected="selected" value="'.$row["program_id"].'">'.utf8_encode($row["program_name"]).'</option>';
+                  echo '<option selected="selected" value="'.$row["program_id"].'">'.$row["program_name"].'</option>';
                 } else {
-                  echo '<option value="'.$row["program_id"].'">'.utf8_encode($row["program_name"]).'</option>';
+                  echo '<option value="'.$row["program_id"].'">'.$row["program_name"].'</option>';
                 }
               } else {
-                echo '<option value="'.$row["program_id"].'">'.utf8_encode($row["program_name"]).'</option>';
+                echo '<option value="'.$row["program_id"].'">'.$row["program_name"].'</option>';
               }
             }
             mysqli_free_result($result);
@@ -346,7 +345,7 @@ if (!user_logged_in()) {
                   <input type="checkbox" name="attendantCheckbox_'.$attendantId.'" id="attendantCheckbox_'.$attendantId.'" class="rowSelectedCheckbox attendantCheckbox">
                 </td>
                 <td class=""><input type="hidden" name="userId_'.$userId.'" value="'.$userId.'"><a class="name" href="edit_user.php?id='.$userId.'">'.$userFirstname.' '.$userLastname.'</a></td>
-                <td class="userType hide-mobile">'.utf8_encode($userTypeName).'</td>
+                <td class="userType hide-mobile">'.$userTypeName.'</td>
                 <td class="grade hide-mobile">
                   <input type="hidden" name="gradeId_'.$gradeId.'" value="'.$gradeId.'" />
                   <input type="hidden" name="gradeStatus_'.$gradeId.'" value="" class="grade-status"/>
