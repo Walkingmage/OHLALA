@@ -130,15 +130,20 @@ while($row = mysqli_fetch_array($result)){
     </div>
   </div>';
 ?>
-  <?php if ($user_access == 1) { ?>
+  <?php if ($user_access === "1" || $user_access === "2") { ?>
   <div class="row add-user-row">
     <div class="col-sm-12">
-      <h3 class="attendants-heading">Studieresultat</h3>
+      <?php if ($user_access === "1") {
+        echo '<h3 class="attendants-heading">Studieresultat</h3>';
+      } elseif ($user_access === "2") {
+        echo '<h3 class="attendants-heading">Kurser</h3>';
+      }
+      ?>
       <table class="table table-striped table-condensed user-courses">
         <thead>
           <tr>
             <th>Kurs</th>
-            <th>Betyg</th>
+            <?php if ($user_access === "1") { echo "<th>Betyg</th>"; } ?>
             <th>Period</th>
           </tr>
         </thead>
@@ -150,11 +155,18 @@ while($row = mysqli_fetch_array($result)){
           $sth->execute();
           $sth->bind_result($grade,$course_name,$course_startdate,$course_enddate);
           while ($data = $sth->fetch()) {
-            echo "<tr>
-                <td>$course_name</td>
-                <td>$grade</td>
-                <td>$course_startdate - $course_enddate</td>
-            </tr>";
+            if ($user_access === "1") {
+              echo "<tr>
+                  <td>$course_name</td>
+                  <td>$grade</td>
+                  <td>$course_startdate - $course_enddate</td>
+              </tr>";
+            } elseif ($user_access === "2") {
+              echo "<tr>
+                  <td>$course_name</td>
+                  <td>$course_startdate - $course_enddate</td>
+              </tr>";
+            }
           }
           ?>
         </tbody>
