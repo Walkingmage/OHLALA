@@ -1,51 +1,18 @@
 <?php
-//körs alltid i functions.php \/
-/*if (session_status() == PHP_SESSION_NONE) {
-  session_start();
-} */
-
-/*if (!user_logged_in()) {
-   header('Location: index.php');
-   die();
-}*/
-// Get file name
-$path = pathinfo($_SERVER['PHP_SELF']);
-$file = $path['filename'];
-
-$indexActive = "";
-$manageUsersActive = "";
-$boolkRoomActive = "";
-$bookComputerActive = "";
-isset($_SESSION['user']['user_firstname']) ? $firstName = $_SESSION['user']['user_firstname'] : $firstName = "";
-isset($_SESSION['user']['user_lastname']) ? $lastName = $_SESSION['user']['user_lastname'] : $lastName = "";
-
-
-switch ($file) {
-	case 'index':
-		$indexActive = "active";
-		break;
-	case 'manage_users':
-		$manageUsersActive = "active";
-		break;
-  case 'manage_courses':
-    $manageCoursesActive = "active";
-    break;
-	case 'book_computer':
-		$bookComputerActive = "active";
-		break;
-  case 'manage_programs':
-    $manageProgramsActive = "active";
-    break;
-  case 'book_room':
-    $boolkRoomActive = "active";
-    break;
-	case 'contact':
-		$contactActive = "active";
-		break;
-	default:
-		//do nothing
-		break;
+function addMenuItem($level,$filename,$text/*,$dev==FALSE*/){
+  if (requireUserLevel($level)) {
+    $path = pathinfo($_SERVER['PHP_SELF']);
+    if (substr($filename, 0, -4)==$path['filename']) {
+      $active = "active ";
+    }else{
+      $active = "";
+    }
+    echo('<li class="thin-text '.$active.'"><a href="'.$filename.'">'.$text.'</a></li>');
+    echo("\r\n");
+  }
+  return TRUE;
 }
+
 ?>
 <header>
   <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -65,12 +32,12 @@ switch ($file) {
         <ul class="nav navbar-nav">
           <li class="thin-text <?php echo $indexActive; ?>"><a href="index.php">Start</a></li> <!-- What should be displayed on the startpage? -->
           <?php
-          if (requireUserLevel(3)) {echo('<li class="thin-text '.$manageUsersActive.'"><a href="manage_users.php">Hantera konton</a></li>');}
-          if (requireUserLevel(3)) {echo('<li class="thin-text '.$manageCoursesActive.'"><a href="manage_courses.php">Hantera kurser</a></li>');}
-          if (requireUserLevel(3)) {echo('<li class="thin-text '.$manageProgramsActive.'"><a href="manage_programs.php">Hantera program</a></li>');}
-          if (requireUserLevel(5)||@$_SESSION['dev']) {echo(' <li class="thin-text <?php echo $bookComputerActive; ?>"><a href="book_computer.php">Boka dator</a></li>');}
-          if (requireUserLevel(1)) {echo('<li class="thin-text '.$boolkRoomActive.'"><a href="book_room.php">Boka lokal</a></li>');}
-          if (requireUserLevel(-1)) {echo('<li class="thin-text '.$contactActive.'"><a href="contact.php">Kontakta oss</a></li>');}
+          addMenuItem(3,"manage_users.php","Hantera konton");
+          addMenuItem(3,"manage_courses.php","Hantera kurser");
+          addMenuItem(3,"manage_programs.php","Hantera program");
+          addMenuItem(3,"book_computer.php","Boka dator");
+          addMenuItem(1,"book_room.php","Boka lokal");
+          addMenuItem(-1,"contact.php","Kontakta oss");
           ?>
         </ul>
       </div>
@@ -79,10 +46,13 @@ switch ($file) {
   </nav>
 </header>
 <div class="container cf">
-  <?php if (user_logged_in()) {?>
+  <?php if (user_logged_in()) {
+  @$firstName = $_SESSION['user']['user_firstname'];
+  @$lastName = $_SESSION['user']['user_lastname'];
+  ?>
     <div class="user-info">
       <ul>
-        <li>Välkommen <?php echo $firstName.' '.$lastName; ?></li>
+        <li>Välkommen <?php echo @$firstName.' '.@$lastName; ?></li>
         <li><a href="?function=logout">Logga ut</a></li>
       </ul>
     </div>
