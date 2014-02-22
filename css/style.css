@@ -214,6 +214,11 @@ footer p {
 	margin-bottom: 40px;
 }
 
+.user-table th:first-of-type {
+  width: 30px;
+}
+
+
 /*
  * LOGIN PAGE
  */
