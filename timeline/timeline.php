@@ -53,6 +53,7 @@ if ( ! empty($classroom_id)) {
           $enddate = null;
           $firstname = null;
           $lastname = null;
+          $course_name = null;
           $the_day = $day;
           $booked_class = ' empty';
 
@@ -73,6 +74,7 @@ if ( ! empty($classroom_id)) {
               $enddate = $booking_enddate;
               $firstname = $booking['user_firstname'];
               $lastname = $booking['user_lastname'];
+              !empty($booking['course_name']) ? $course_name = '#'.$booking['course_name'] : $course_name = null;
 
               // check if booking is full
               if ($bookingtime_start == '09:00:00' && $bookingtime_end == '16:00:00') {
@@ -85,7 +87,7 @@ if ( ! empty($classroom_id)) {
               break;
             }
           }
-            $html .= '<div class="day'.$booked_class.'" id="'.$date['year'].'-'.$date['monthnum'].'-'.$the_day.'"><span class="'.$startdate.' '.$enddate.' '.$firstname.' '.$lastname.'">'.$day.'</span></div>';
+          $html .= '<div class="day'.$booked_class.'" id="'.$date['year'].'-'.$date['monthnum'].'-'.$the_day.'"><span class="'.$startdate.' '.$enddate.' '.$firstname.' '.$lastname.' '.$course_name.'">'.$day.'</span></div>';
         }
         $html .= '</div>';
         $html .= '<div class="clearfix"></div>';

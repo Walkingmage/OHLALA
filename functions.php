@@ -209,10 +209,12 @@ function get_room_by_id($classroom_id) {
           classroom.classroom_name,
           booking.booking_startdate,
           booking.booking_enddate,
+          booking.course_id,
           user.user_firstname,
           user.user_lastname,
           bookingtime.bookingtime_start,
-          bookingtime.bookingtime_end
+          bookingtime.bookingtime_end,
+          course.course_name
           FROM tbl_classroom AS classroom
           LEFT JOIN tbl_booking AS booking
           ON classroom.classroom_id = booking.classroom_id
@@ -220,6 +222,8 @@ function get_room_by_id($classroom_id) {
           ON user.user_id = booking.user_id
           LEFT JOIN tbl_bookingtime AS bookingtime
           ON bookingtime.bookingtime_id = booking.bookingtime_id
+          LEFT JOIN tbl_course AS course
+          ON booking.course_id = course.course_id
           WHERE classroom.classroom_id = "'.$classroom_id.'"';
   $query = mysqli_query($mysqli, $sql);
   $num = mysqli_num_rows($query);
