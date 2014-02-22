@@ -157,8 +157,8 @@ if (!user_logged_in()) {
             </div>
             <input type="submit" class="btn btn-default" value="Boka" />
             <?php
-            $bookingsuccess = $_GET['bookingsuccess'];
-            $bookingerror = $_GET['bookingerror'];
+            $bookingsuccess = (isset($_GET['bookingsuccess'])) ? $_GET['bookingsuccess'] : "" ;
+            $bookingerror = (isset($_GET['bookingerror'])) ? $_GET['bookingerror'] : "" ;
             echo " <span style='color:#FF0000'> " .$bookingerror . "</span>";
             echo " <span style='color:#00BF32'> " .$bookingsuccess . "</span>";
             ?>
