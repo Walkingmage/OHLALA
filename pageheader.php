@@ -35,7 +35,7 @@ function addMenuItem($level,$filename,$text/*,$dev==FALSE*/){
           addMenuItem(3,"manage_users.php","Hantera konton");
           addMenuItem(3,"manage_courses.php","Hantera kurser");
           addMenuItem(3,"manage_programs.php","Hantera program");
-          addMenuItem(3,"book_computer.php","Boka dator");
+          addMenuItem(5,"book_computer.php","Boka dator");
           addMenuItem(1,"book_room.php","Boka lokal");
           addMenuItem(-1,"contact.php","Kontakta oss");
           ?>
